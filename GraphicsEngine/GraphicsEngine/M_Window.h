@@ -1,0 +1,92 @@
+#ifndef __M_WINDOW_H__
+#define __M_WINDOW_H__
+
+#include "Module.h"
+
+struct SDL_Window;
+
+typedef enum
+{
+	WC_NONE = 0,
+	WC_FULLSCREEN = 1 << 0,
+	WC_RESIZABLE = 1 << 1,
+	WC_BORDERLESS = 1 << 2,
+	WC_FULLSCREEN_DESKTOP = 1 << 3
+
+} WindowConfig;
+
+class M_Window : public Module
+{
+public:
+	M_Window();
+	virtual ~M_Window();
+
+	bool Init() override;
+	bool CleanUp() override;
+
+	void OnResize(uint w, uint h) override;
+
+	// ================================
+
+	SDL_Window* GetWindow()const { return window; }
+
+	// ================================
+
+	int GetWinWidth()const { return width; }
+	int GetWinHeight()const { return height; }
+	void GetWinSize(int& width, int& height)const { width = this->width, height = this->height; }
+	uint GetWinScale()const { return scale; }
+
+	void SetWinWidth(int w);
+	void SetWinHeight(int h);
+	void SetWinSize(int w, int h);
+	void SetWinScale(int s);
+
+	// ================================
+
+	float GetWinBrightness()const;
+
+	bool SetWinBrightness(float bright);
+
+	// ================================
+
+	void GetWinRange(int& minW, int& minH, int& maxW, int& maxH)const;
+	int GetWinRefresh()const;
+
+	// ================================
+
+	const char* GetWinTitle()const;
+
+	void SetWinTitle(const char* title);
+
+	// ================================
+
+	bool IsFullscreen()const;
+	bool IsResizable()const;
+	bool IsBorderless()const;
+	bool IsFullscreenDesktop()const;
+
+	void SetFullscreen(bool set);
+	void SetResizable(bool set);
+	void SetBorderless(bool set);
+	void SetFullscreenDesktop(bool set);
+
+	// ================================
+
+	void HideWindow();
+	void MaximizeWindow();
+	void MinimizaWindow();
+	void RestoreWindow();
+	void ShowWindow();
+	void RaiseWindow();
+
+	// ================================
+
+private:
+	uint width, height, scale;
+	SDL_Window* window = nullptr;
+
+	WORD windowConfig = 0;
+};
+
+#endif // !__M_WINDOW_H__

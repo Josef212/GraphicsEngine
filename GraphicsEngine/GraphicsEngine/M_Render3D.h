@@ -27,9 +27,9 @@ private:
 
 public:
 	bool showGrid = true;
+	SDL_GLContext context;
 
 private:
-	SDL_GLContext context;
 	bool vsync;
 };
 

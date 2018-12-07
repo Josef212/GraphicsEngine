@@ -4,7 +4,7 @@
 
 #include "App.h"
 #include "M_Window.h"
-//#include "M_Editor.h" //TODO: When editor
+#include "M_Editor.h"
 
 
 M_Input::M_Input() : Module("M_Input", true)
@@ -94,7 +94,7 @@ UpdateReturn M_Input::PreUpdate(float dt)
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
-		//app->editor->PassInput(&e); //TODO: When editor
+		app->editor->PassInput(&e);
 
 		switch (e.type)
 		{

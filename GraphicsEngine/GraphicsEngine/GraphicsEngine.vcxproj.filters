@@ -23,6 +23,15 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{9453e33a-3be3-4891-a541-8df7f996fdd7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{c5646e5f-4db2-46aa-b652-26c7ea10615e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{3d69d706-0c1b-46ea-9500-46ea96a29792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\ImGui">
+      <UniqueIdentifier>{cb68836f-d7ef-4f55-960d-b3ddb84dc5cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +66,33 @@
     </ClCompile>
     <ClCompile Include="R_Geometry.cpp">
       <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="R_Shader.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="R_Material.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Editor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui_demo.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui_draw.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui_impl_opengl3.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui_impl_sdl.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\ImGui\imgui_widgets.cpp">
+      <Filter>ThirdParty\ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,6 +134,42 @@
     </ClInclude>
     <ClInclude Include="R_Geometry.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryDefs.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Shader.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Material.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imconfig.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imgui.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imgui_impl_opengl3.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imgui_impl_sdl.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imgui_internal.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imstb_rectpack.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imstb_textedit.h">
+      <Filter>ThirdParty\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\ImGui\imstb_truetype.h">
+      <Filter>ThirdParty\ImGui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

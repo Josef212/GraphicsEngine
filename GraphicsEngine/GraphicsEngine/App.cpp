@@ -3,6 +3,7 @@
 #include "M_FileSystem.h"
 #include "M_Window.h"
 #include "M_Input.h"
+#include "M_Editor.h"
 
 
 #include "M_Render3D.h"
@@ -18,6 +19,7 @@ App::App()
 	fs = new M_FileSystem();
 	window = new M_Window();
 	input = new M_Input();
+	editor = new M_Editor();
 
 	testScene = new TestScene(); // TMP
 
@@ -27,6 +29,7 @@ App::App()
 	modules.push_back(fs);
 	modules.push_back(window);
 	modules.push_back(input);
+	modules.push_back(editor);
 
 	modules.push_back(testScene); // TMP
 

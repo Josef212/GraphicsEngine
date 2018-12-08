@@ -17,9 +17,6 @@
     <Filter Include="Tools\Time">
       <UniqueIdentifier>{8e51e88b-e134-49aa-a4e1-34cf64f3499b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Z_TMP">
-      <UniqueIdentifier>{82a806d4-e1eb-4ae8-b2e5-9faa0fd60ea5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{9453e33a-3be3-4891-a541-8df7f996fdd7}</UniqueIdentifier>
     </Filter>
@@ -63,9 +60,6 @@
     </ClCompile>
     <ClCompile Include="M_Render3D.cpp">
       <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Z_TMP</Filter>
     </ClCompile>
     <ClCompile Include="R_Geometry.cpp">
       <Filter>Resources</Filter>
@@ -118,10 +112,12 @@
     <ClCompile Include="R_Scene.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
+    <ClCompile Include="M_SceneManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
     <ClCompile Include="ModelLoader.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="M_SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -153,9 +149,6 @@
     </ClInclude>
     <ClInclude Include="M_Render3D.h">
       <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Z_TMP</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Resources</Filter>
@@ -220,9 +213,11 @@
     <ClInclude Include="R_Scene.h">
       <Filter>Resources</Filter>
     </ClInclude>
+    <ClInclude Include="M_SceneManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
     <ClInclude Include="ModelLoader.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="M_SceneManager.h" />
   </ItemGroup>
 </Project>

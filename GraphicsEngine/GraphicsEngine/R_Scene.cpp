@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "ModelLoader.h"
+
 #include <GL/glew.h>
 
 #include "Defs.h"
@@ -9,8 +11,6 @@
 #include "R_Shader.h"
 #include "R_Material.h"
 #include "R_Model.h"
-
-#include "ModelLoader.h"
 
 #include "App.h"
 #include "M_ResourceManager.h"

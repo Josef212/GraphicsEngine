@@ -144,7 +144,6 @@
     <ClCompile Include="R_Scene.cpp" />
     <ClCompile Include="R_Shader.cpp" />
     <ClCompile Include="R_Texture.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_demo.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_draw.cpp" />
@@ -178,7 +177,6 @@
     <ClInclude Include="R_Scene.h" />
     <ClInclude Include="R_Shader.h" />
     <ClInclude Include="R_Texture.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui_impl_opengl3.h" />

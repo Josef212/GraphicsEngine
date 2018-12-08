@@ -8,15 +8,19 @@
 
 M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
 {
+	LOG_CREATION(moduleName.c_str());
 }
 
 
 M_SceneManager::~M_SceneManager()
 {
+	LOG_DESTRUCTION(moduleName.c_str());
 }
 
 bool M_SceneManager::Start()
 {
+	LOG_START(moduleName.c_str());
+
 	return true;
 }
 
@@ -27,6 +31,8 @@ UpdateReturn M_SceneManager::Update(float dt)
 
 bool M_SceneManager::CleanUp()
 {
+	LOG_CLEANUP(moduleName.c_str());
+
 	return true;
 }
 

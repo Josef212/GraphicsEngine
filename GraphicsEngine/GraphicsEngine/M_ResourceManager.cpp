@@ -17,6 +17,8 @@ M_ResourceManager::M_ResourceManager() : Module("M_ResourceManager", true)
 
 M_ResourceManager::~M_ResourceManager()
 {
+	LOG_DESTRUCTION(moduleName.c_str());
+
 	for(auto it : resources)
 	{
 		it->Free();

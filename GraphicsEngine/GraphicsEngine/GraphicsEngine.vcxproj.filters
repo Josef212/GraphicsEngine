@@ -94,6 +94,7 @@
     <ClCompile Include="ThirdParty\ImGui\imgui_widgets.cpp">
       <Filter>ThirdParty\ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="R_Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -171,5 +172,6 @@
     <ClInclude Include="ThirdParty\ImGui\imstb_truetype.h">
       <Filter>ThirdParty\ImGui</Filter>
     </ClInclude>
+    <ClInclude Include="R_Texture.h" />
   </ItemGroup>
 </Project>

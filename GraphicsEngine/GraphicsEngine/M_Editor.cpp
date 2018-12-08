@@ -11,6 +11,7 @@
 
 M_Editor::M_Editor() : Module("M_Editor", true)
 {
+	LOG_CREATION(moduleName.c_str());
 
 	configuration = M_INIT | M_START | M_PRE_UPDATE | M_UPDATE | M_CLEAN_UP;
 }
@@ -18,10 +19,13 @@ M_Editor::M_Editor() : Module("M_Editor", true)
 
 M_Editor::~M_Editor()
 {
+	LOG_DESTRUCTION(moduleName.c_str());
 }
 
 bool M_Editor::Init()
 {
+	LOG_INIT(moduleName.c_str());
+
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
@@ -36,6 +40,8 @@ bool M_Editor::Init()
 
 bool M_Editor::Start()
 {
+	LOG_START(moduleName.c_str());
+
 	return true;
 }
 
@@ -52,16 +58,26 @@ UpdateReturn M_Editor::Update(float dt)
 {
 	ImGui::BeginMainMenuBar();
 	{
-		
+		if(ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Demo", nullptr, showImGuiDemo)) showImGuiDemo = !showImGuiDemo;
+			if (ImGui::MenuItem("Quit")) app->Close();
+
+			ImGui::EndMenu();
+		}
 
 		ImGui::EndMainMenuBar();
 	}
+
+	if (showImGuiDemo) ImGui::ShowDemoWindow(&showImGuiDemo);
 
 	return UpdateReturn::UPDT_CONTINUE;
 }
 
 bool M_Editor::CleanUp()
 {
+	LOG_CLEANUP(moduleName.c_str());
+
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();
 	ImGui::DestroyContext();

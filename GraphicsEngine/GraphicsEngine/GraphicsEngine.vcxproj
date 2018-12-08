@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>ThirdParty\PhysFS\include;ThirdParty\GLM;ThirdParty\Glew\include;ThirdParty\SDL2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>ThirdParty\PhysFS\libx86;ThirdParty\SDL2\lib\x86;ThirdParty\Glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <IncludePath>ThirdParty\assimp\include;ThirdParty\SOIL;ThirdParty\PhysFS\include;ThirdParty\GLM;ThirdParty\Glew\include;ThirdParty\SDL2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>ThirdParty\assimp\libx86;ThirdParty\SOIL\lib;ThirdParty\PhysFS\libx86;ThirdParty\SDL2\lib\x86;ThirdParty\Glew\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,7 +81,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;glew32.lib;glew32s.lib;physfs.lib;assimp.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -135,6 +135,7 @@
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
     <ClCompile Include="R_Shader.cpp" />
+    <ClCompile Include="R_Texture.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui.cpp" />
     <ClCompile Include="ThirdParty\ImGui\imgui_demo.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="R_Geometry.h" />
     <ClInclude Include="R_Material.h" />
     <ClInclude Include="R_Shader.h" />
+    <ClInclude Include="R_Texture.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="ThirdParty\ImGui\imconfig.h" />
     <ClInclude Include="ThirdParty\ImGui\imgui.h" />

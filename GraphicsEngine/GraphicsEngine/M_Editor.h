@@ -25,6 +25,7 @@ public:
 
 private:
 	bool isUsingMouse = false, isUsingKeyboard = false;
+	bool showImGuiDemo = false;
 
 };
 

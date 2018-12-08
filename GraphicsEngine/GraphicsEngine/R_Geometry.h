@@ -6,6 +6,7 @@
 
 class R_Geometry : public Resource
 {
+	friend class ModelLoader;
 public:
 	R_Geometry(const char* name);
 	R_Geometry(const char* name, unsigned int numVertices, unsigned int numIndices, int* indices, float* vertices, float* normals = nullptr, float* texCoords = nullptr, float* colors = nullptr);

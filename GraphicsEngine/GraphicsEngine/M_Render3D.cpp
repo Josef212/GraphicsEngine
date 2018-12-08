@@ -4,8 +4,9 @@
 #include "M_Window.h"
 #include "M_Editor.h"
 
-
 #include "OpenGL.h"
+
+#include "R_Scene.h"
 
 
 M_Render3D::M_Render3D() : Module("M_Module3D", true)
@@ -94,7 +95,8 @@ UpdateReturn M_Render3D::Update(float dt)
 
 UpdateReturn M_Render3D::PostUpdate(float dt)
 {
-
+	// TODO: Render scene
+	//if (activeScene) activeRenderer->RenderScene(activeScene);
 
 	// TODO: Grid
 
@@ -129,4 +131,11 @@ void M_Render3D::SetVSync(bool set)
 		if (SDL_GL_SetSwapInterval(vsync ? 1 : 0) < 0)
 			LOG(LOG_WARN, "Unable to set VSync. SDL_Error: %s", SDL_GetError());
 	}
+}
+
+void M_Render3D::SetActiveScene(R_Scene* sc)
+{
+	if (activeScene) activeScene->Free();
+	activeScene = sc;
+	if (activeScene) activeScene->Load();
 }

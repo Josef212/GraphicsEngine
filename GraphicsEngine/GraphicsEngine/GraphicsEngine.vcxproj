@@ -123,17 +123,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="M_Editor.cpp" />
     <ClCompile Include="M_FileSystem.cpp" />
     <ClCompile Include="M_Input.cpp" />
     <ClCompile Include="M_Render3D.cpp" />
+    <ClCompile Include="M_ResourceManager.cpp" />
+    <ClCompile Include="M_SceneManager.cpp" />
     <ClCompile Include="M_Window.cpp" />
+    <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
+    <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
+    <ClCompile Include="R_Model.cpp" />
+    <ClCompile Include="R_Scene.cpp" />
     <ClCompile Include="R_Shader.cpp" />
     <ClCompile Include="R_Texture.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -146,20 +154,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="GeometryDefs.h" />
+    <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="M_Editor.h" />
     <ClInclude Include="M_FileSystem.h" />
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Render3D.h" />
+    <ClInclude Include="M_ResourceManager.h" />
+    <ClInclude Include="M_SceneManager.h" />
     <ClInclude Include="M_Window.h" />
     <ClInclude Include="OpenGL.h" />
+    <ClInclude Include="OrthographicCamera.h" />
     <ClInclude Include="PerfTimer.h" />
+    <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="R_Geometry.h" />
     <ClInclude Include="R_Material.h" />
+    <ClInclude Include="R_Model.h" />
+    <ClInclude Include="R_Scene.h" />
     <ClInclude Include="R_Shader.h" />
     <ClInclude Include="R_Texture.h" />
     <ClInclude Include="TestScene.h" />

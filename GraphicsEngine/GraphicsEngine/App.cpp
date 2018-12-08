@@ -4,6 +4,8 @@
 #include "M_Window.h"
 #include "M_Input.h"
 #include "M_Editor.h"
+#include "M_ResourceManager.h"
+#include "M_SceneManager.h"
 
 
 #include "M_Render3D.h"
@@ -20,8 +22,8 @@ App::App()
 	window = new M_Window();
 	input = new M_Input();
 	editor = new M_Editor();
-
-	testScene = new TestScene(); // TMP
+	resourceManager = new M_ResourceManager();
+	sceneManager = new M_SceneManager();
 
 	render = new M_Render3D();
 
@@ -30,8 +32,8 @@ App::App()
 	modules.push_back(window);
 	modules.push_back(input);
 	modules.push_back(editor);
-
-	modules.push_back(testScene); // TMP
+	modules.push_back(resourceManager);
+	modules.push_back(sceneManager);
 
 	modules.push_back(render);
 }

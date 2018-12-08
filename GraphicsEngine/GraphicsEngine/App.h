@@ -7,13 +7,13 @@
 
 #include <vector>
 
-//TMP
-#include "TestScene.h"
 
 class M_FileSystem;
 class M_Window;
 class M_Input;
 class M_Editor;
+class M_ResourceManager;
+class M_SceneManager;
 
 class M_Render3D;
 
@@ -42,14 +42,15 @@ private:
 	void FinishUpdate();
 
 public:
-	M_FileSystem* fs	= nullptr;
-	M_Window* window	= nullptr;
-	M_Input* input		= nullptr;
-	M_Editor* editor	= nullptr;
+	M_FileSystem* fs					= nullptr;
+	M_Window* window					= nullptr;
+	M_Input* input						= nullptr;
+	M_Editor* editor					= nullptr;
+	M_ResourceManager* resourceManager	= nullptr;
+	M_SceneManager* sceneManager		= nullptr;
 
-	TestScene* testScene = nullptr;
 
-	M_Render3D* render	= nullptr;
+	M_Render3D* render					= nullptr;
 
 	bool drawDebug = false;
 

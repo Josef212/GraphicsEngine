@@ -18,9 +18,9 @@ public:
 	void InitRender()const;
 	void EndRender()const;
 
-	virtual void SendInfo(/*Scene* scene*/)const = 0;
-	virtual void OnLoad() = 0;
-	virtual void OnFree() = 0;
+	virtual void SendInfo(/*Scene* scene*/)const {}
+	virtual void OnLoad() {}
+	virtual void OnFree() {}
 
 	void SetShader(R_Shader* sh) { shader = sh; }
 	R_Shader* GetShader()const { return shader; }

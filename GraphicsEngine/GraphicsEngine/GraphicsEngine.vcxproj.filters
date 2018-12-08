@@ -32,6 +32,9 @@
     <Filter Include="ThirdParty\ImGui">
       <UniqueIdentifier>{cb68836f-d7ef-4f55-960d-b3ddb84dc5cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Cameras">
+      <UniqueIdentifier>{74ff04ae-fe04-40cd-bb6d-65965c91ca19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -94,7 +97,31 @@
     <ClCompile Include="ThirdParty\ImGui\imgui_widgets.cpp">
       <Filter>ThirdParty\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="R_Texture.cpp" />
+    <ClCompile Include="R_Texture.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="M_ResourceManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="R_Model.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Tools\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="OrthographicCamera.cpp">
+      <Filter>Tools\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="PerspectiveCamera.cpp">
+      <Filter>Tools\Cameras</Filter>
+    </ClCompile>
+    <ClCompile Include="R_Scene.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="M_SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -172,6 +199,30 @@
     <ClInclude Include="ThirdParty\ImGui\imstb_truetype.h">
       <Filter>ThirdParty\ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="R_Texture.h" />
+    <ClInclude Include="R_Texture.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="M_ResourceManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Model.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Tools\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="OrthographicCamera.h">
+      <Filter>Tools\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="PerspectiveCamera.h">
+      <Filter>Tools\Cameras</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Scene.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="M_SceneManager.h" />
   </ItemGroup>
 </Project>

@@ -4,6 +4,8 @@
 #include "Module.h"
 #include <SDL.h>
 
+class R_Scene;
+
 class M_Render3D : public Module
 {
 public:
@@ -23,6 +25,11 @@ public:
 	bool GetVSync()const { return vsync; }
 	void SetVSync(bool set);
 
+	// -------------------------
+
+	void SetActiveScene(R_Scene* sc);
+	R_Scene* GetActiveScene()const { return activeScene; }
+
 private:
 
 public:
@@ -31,6 +38,8 @@ public:
 
 private:
 	bool vsync;
+
+	R_Scene* activeScene = nullptr;
 };
 
 #endif // !__M_RENDER3D_H__

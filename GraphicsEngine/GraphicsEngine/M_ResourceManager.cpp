@@ -112,7 +112,19 @@ bool M_ResourceManager::IsDefaultResource(Resource * res)
 		res == defaultResources.quadGeo || 
 		res == defaultResources.cubeGeo || 
 		res == defaultResources.simpleSh || 
-		res == defaultResources.simpleMat);
+		res == defaultResources.simpleMat ||
+		res == defaultResources.lennaTex
+		);
+}
+
+bool M_ResourceManager::ValidateResource(Resource* res)
+{
+	for(auto it : resources)
+	{
+		if (it == res) return true;
+	}
+
+	return false;
 }
 
 void M_ResourceManager::SetDefaultResources()
@@ -128,4 +140,8 @@ void M_ResourceManager::SetDefaultResources()
 	//defaultResources.simpleMat = new R_Material("Def simple material", defaultResources.simpleSh);
 
 	// Models
+
+	// Textures
+	defaultResources.lennaTex = new R_Texture("Lenna tex");
+	defaultResources.lennaTex->LoadTexture("Data/Textures/Lenna.png");
 }

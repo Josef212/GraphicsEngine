@@ -2,8 +2,13 @@
 #define __EDITOR_H__
 
 #include "Module.h"
+#include <vector>
 
 union SDL_Event;
+
+class Panel;
+class E_GeometryPanel;
+class E_TexturePanel;
 
 class M_Editor : public Module
 {
@@ -23,9 +28,15 @@ public:
 	bool UsingMouse()const { return isUsingMouse; }
 	bool UsingKeyboard()const { return isUsingKeyboard; }
 
+public:
+	E_GeometryPanel* geoPanel = nullptr;
+	E_TexturePanel* texPanel = nullptr;
+
 private:
 	bool isUsingMouse = false, isUsingKeyboard = false;
 	bool showImGuiDemo = false;
+
+	std::vector<Panel*> panels;
 
 };
 

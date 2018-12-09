@@ -31,6 +31,8 @@ public:
 
 	bool IsDefaultResource(Resource* res);
 
+	bool ValidateResource(Resource* res);
+
 private:
 	void SetDefaultResources();
 
@@ -44,6 +46,8 @@ public:
 		R_Shader* simpleSh = nullptr;
 
 		R_Material* simpleMat = nullptr;
+
+		R_Texture* lennaTex = nullptr;
 
 	}defaultResources;
 

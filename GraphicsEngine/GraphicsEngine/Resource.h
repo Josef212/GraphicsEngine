@@ -17,17 +17,8 @@ enum ResourceType
 class Resource
 {
 public:
-	Resource(const char* _name, ResourceType type) : type(type)
-	{
-		name = _name;
-		//resourceManager->AddResource(this);
-	}
-
-	Resource(std::string _name, ResourceType type) : type(type)
-	{
-		name = _name;
-		//resourceManager->AddResource(this);
-	}
+	Resource(const char* _name, ResourceType type);
+	Resource(std::string _name, ResourceType type);
 
 	virtual ~Resource() = default;
 

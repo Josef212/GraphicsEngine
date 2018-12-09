@@ -126,6 +126,8 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Defs.cpp" />
+    <ClCompile Include="E_GeometryPanel.cpp" />
+    <ClCompile Include="E_TexturePanel.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="M_Editor.cpp" />
@@ -138,6 +140,7 @@
     <ClCompile Include="OrthographicCamera.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
     <ClCompile Include="R_Model.cpp" />
@@ -156,6 +159,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Defs.h" />
+    <ClInclude Include="E_GeometryPanel.h" />
+    <ClInclude Include="E_TexturePanel.h" />
     <ClInclude Include="GeometryDefs.h" />
     <ClInclude Include="ModelLoader.h" />
     <ClInclude Include="Module.h" />
@@ -168,6 +173,7 @@
     <ClInclude Include="M_Window.h" />
     <ClInclude Include="OpenGL.h" />
     <ClInclude Include="OrthographicCamera.h" />
+    <ClInclude Include="Panel.h" />
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="Resource.h" />

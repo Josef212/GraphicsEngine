@@ -8,6 +8,9 @@
 #include "M_Render3D.h"
 #include "ThirdParty/ImGui/imgui_impl_opengl3.h"
 
+#include "E_GeometryPanel.h"
+#include "E_TexturePanel.h"
+
 
 M_Editor::M_Editor() : Module("M_Editor", true)
 {
@@ -42,6 +45,12 @@ bool M_Editor::Start()
 {
 	LOG_START(moduleName.c_str());
 
+	geoPanel = new E_GeometryPanel();
+	texPanel = new E_TexturePanel();
+
+	panels.push_back(geoPanel);
+	panels.push_back(texPanel);
+
 	return true;
 }
 
@@ -66,10 +75,23 @@ UpdateReturn M_Editor::Update(float dt)
 			ImGui::EndMenu();
 		}
 
+		if(ImGui::BeginMenu("Windows"))
+		{
+			if (ImGui::MenuItem("Geometry", nullptr, geoPanel->Visible())) geoPanel->SwapShow();
+			if (ImGui::MenuItem("Textures", nullptr, texPanel->Visible())) texPanel->SwapShow();
+
+			ImGui::EndMenu();
+		}
+
 		ImGui::EndMainMenuBar();
 	}
 
 	if (showImGuiDemo) ImGui::ShowDemoWindow(&showImGuiDemo);
+
+	for(auto it : panels)
+	{
+		if (it->Visible()) it->Display();
+	}
 
 	return UpdateReturn::UPDT_CONTINUE;
 }

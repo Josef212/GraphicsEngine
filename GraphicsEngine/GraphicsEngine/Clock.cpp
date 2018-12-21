@@ -5,16 +5,16 @@ namespace GE
 
 	Clock::Clock()
 	{
-		msTimer		= std::make_unique<PerfTimer>();
-		msGameTimer = std::make_unique<PerfTimer>();
-		fpsTimer	= std::make_unique<PerfTimer>();
+		m_msTimer		= std::make_unique<PerfTimer>();
+		m_msGameTimer = std::make_unique<PerfTimer>();
+		m_fpsTimer	= std::make_unique<PerfTimer>();
 	}
 
 	Clock::~Clock()
 	{
-		msTimer.release();
-		msGameTimer.release();
-		fpsTimer.release();
+		m_msTimer.release();
+		m_msGameTimer.release();
+		m_fpsTimer.release();
 	}
 
 	/**
@@ -27,14 +27,14 @@ namespace GE
 	void Clock::OnPrepareUpdate(/*APP_STATE appState*/)
 	{
 		//1. Add time
-		timeSinceAppStart += realDt;
-		timeSinceLevelLoaded += realDt;
+		m_timeSinceAppStart += m_realDt;
+		m_timeSinceLevelLoaded += m_realDt;
 		//2. Calc dt
-		realDt = (float)(msTimer->ReadMs() / 1000.0f);
-		if (realDt > maximumDT) realDt = 1 / 30.0f;
-		msTimer->Start();
+		m_realDt = (float)(m_msTimer->ReadMs() / 1000.0f);
+		if (m_realDt > m_maximumDT) m_realDt = 1 / 30.0f;
+		m_msTimer->Start();
 		//3. Add a frame
-		++realFrameCount;
+		++m_realFrameCount;
 
 		//if (appState == APP_STATE::PLAY)
 		//{
@@ -55,21 +55,21 @@ namespace GE
 	*/
 	void Clock::OnFinishUpdate()
 	{
-		++fpsCounter;
+		++m_fpsCounter;
 
-		if (fpsTimer->ReadMs() > 1000.0f)
+		if (m_fpsTimer->ReadMs() > 1000.0f)
 		{
-			lastFps = fpsCounter;
-			fpsCounter = 0;
-			fpsTimer->Start();
+			m_lastFps = m_fpsCounter;
+			m_fpsCounter = 0;
+			m_fpsTimer->Start();
 		}
 
-		lastFrameMs = msTimer->ReadMs();
+		m_lastFrameMs = m_msTimer->ReadMs();
 	}
 
 	void Clock::OnSceneLoaded()
 	{
-		timeSinceLevelLoaded = 0.0;
+		m_timeSinceLevelLoaded = 0.0;
 	}
 
 	void Clock::Pause()
@@ -80,19 +80,19 @@ namespace GE
 
 	void Clock::UnPause()
 	{
-		msGameTimer->Start();
+		m_msGameTimer->Start();
 	}
 
 	void Clock::Stop()
 	{
-		msGameTimer->Stop();
-		gameFrameCount = 0;
-		gameDt = 0.0f;
+		m_msGameTimer->Stop();
+		m_gameFrameCount = 0;
+		m_gameDt = 0.0f;
 	}
 
 	void Clock::Play()
 	{
-		msGameTimer->Start();
+		m_msGameTimer->Start();
 	}
 
 	/**
@@ -100,7 +100,7 @@ namespace GE
 	*/
 	float Clock::Dt() const
 	{
-		return realDt;
+		return m_realDt;
 	}
 
 	/**
@@ -108,7 +108,7 @@ namespace GE
 	*/
 	uint Clock::RealFrameCount() const
 	{
-		return realFrameCount;
+		return m_realFrameCount;
 	}
 
 	/**
@@ -116,7 +116,7 @@ namespace GE
 	*/
 	uint Clock::FPS() const
 	{
-		return fpsCounter;
+		return m_fpsCounter;
 	}
 
 	/**
@@ -124,7 +124,7 @@ namespace GE
 	*/
 	uint Clock::LastFPS() const
 	{
-		return lastFps;
+		return m_lastFps;
 	}
 
 	/**
@@ -132,7 +132,7 @@ namespace GE
 	*/
 	float Clock::TimeSinceStart() const
 	{
-		return timeSinceAppStart;
+		return m_timeSinceAppStart;
 	}
 
 	/**
@@ -140,7 +140,7 @@ namespace GE
 	*/
 	float Clock::TimeSinceSceneLoaded() const
 	{
-		return timeSinceLevelLoaded;
+		return m_timeSinceLevelLoaded;
 	}
 
 	/**
@@ -148,7 +148,7 @@ namespace GE
 	*/
 	float Clock::GameDt() const
 	{
-		return gameDt;
+		return m_gameDt;
 	}
 
 	/**
@@ -156,7 +156,7 @@ namespace GE
 	*/
 	uint Clock::GameFrameCounter() const
 	{
-		return gameFrameCount;
+		return m_gameFrameCount;
 	}
 
 	/**
@@ -164,7 +164,7 @@ namespace GE
 	*/
 	float Clock::GameTimeSinceLevelLoaded() const
 	{
-		return gameTimeSinceLevelLoaded;
+		return m_gameTimeSinceLevelLoaded;
 	}
 
 	/**
@@ -172,7 +172,7 @@ namespace GE
 	*/
 	float Clock::GetScale() const
 	{
-		return scale;
+		return m_scale;
 	}
 
 	/**
@@ -180,7 +180,7 @@ namespace GE
 	*/
 	float Clock::LastFrameMs() const
 	{
-		return lastFrameMs;
+		return m_lastFrameMs;
 	}
 
 	/**
@@ -189,9 +189,9 @@ namespace GE
 	void Clock::SetScale(float scl)
 	{
 		if (scl >= 0.0f)
-			scale = scl;
+			m_scale = scl;
 		else
-			scale = 0.0f;
+			m_scale = 0.0f;
 	}
 
 }

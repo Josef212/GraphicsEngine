@@ -39,7 +39,7 @@ R_Model* ModelLoader::LoadModel(std::string path, R_Scene* scene)
 	std::string name = path.substr(lastSeparator, lastPoint - lastSeparator);
 
 	R_Model* model = new R_Model(name.c_str());
-	model->directory = path.substr(0, lastSeparator);
+	model->m_directory = path.substr(0, lastSeparator);
 
 	ProcessNode(aiScene->mRootNode, aiScene, model, scene);
 
@@ -67,44 +67,44 @@ void ModelLoader::ProcessMesh(aiMesh * mesh, R_Model * model, R_Scene * scene)
 	static int meshIndex = 0;
 	R_Geometry* geometry = new R_Geometry(mesh->mName.length > 0 ? mesh->mName.C_Str() : ("mesh" + std::to_string(meshIndex)).c_str());
 
-	geometry->numVertices = mesh->mNumVertices;
-	geometry->vertices = new float[geometry->numVertices * 3];
-	memcpy(geometry->vertices, mesh->mVertices, sizeof(float)*geometry->numVertices * 3);
+	geometry->m_numVertices = mesh->mNumVertices;
+	geometry->m_vertices = new float[geometry->m_numVertices * 3];
+	memcpy(geometry->m_vertices, mesh->mVertices, sizeof(float)*geometry->m_numVertices * 3);
 
 	if(mesh->HasFaces())
 	{
-		geometry->numIndices = mesh->mNumFaces * 3;
-		geometry->indices = new int[geometry->numIndices];
+		geometry->m_numIndices = mesh->mNumFaces * 3;
+		geometry->m_indices = new int[geometry->m_numIndices];
 		for (int i = 0; i < mesh->mNumFaces; ++i)
 		{
 			if (mesh->mFaces[i].mNumIndices != 3)
 				std::cout << "WARNING: geometry face with != 3 indices" << std::endl;
-			memcpy(&geometry->indices[i * 3], mesh->mFaces[i].mIndices, 3 * sizeof(int));
+			memcpy(&geometry->m_indices[i * 3], mesh->mFaces[i].mIndices, 3 * sizeof(int));
 		}
 	}
 
 	if (mesh->HasNormals())
 	{
-		geometry->normals = new float[geometry->numVertices * 3];
-		memcpy(geometry->normals, mesh->mNormals, sizeof(float) * geometry->numVertices * 3);
+		geometry->m_normals = new float[geometry->m_numVertices * 3];
+		memcpy(geometry->m_normals, mesh->mNormals, sizeof(float) * geometry->m_numVertices * 3);
 	}
 
 	if (mesh->HasTextureCoords(0))
 	{
-		geometry->texCoords = new float[geometry->numVertices * 2];
+		geometry->m_texCoords = new float[geometry->m_numVertices * 2];
 		aiVector3D* tmp = mesh->mTextureCoords[0];
-		for (unsigned int i = 0; i < geometry->numVertices * 2; i += 2)
+		for (unsigned int i = 0; i < geometry->m_numVertices * 2; i += 2)
 		{
-			geometry->texCoords[i] = tmp->x;
-			geometry->texCoords[i + 1] = tmp->y;
+			geometry->m_texCoords[i] = tmp->x;
+			geometry->m_texCoords[i + 1] = tmp->y;
 			++tmp;
 		}
 	}
 
 	if (mesh->HasVertexColors(0))
 	{
-		geometry->colors = new float[geometry->numVertices * 3];
-		memcpy(geometry->colors, mesh->mColors, sizeof(float) * geometry->numVertices * 3);
+		geometry->m_colors = new float[geometry->m_numVertices * 3];
+		memcpy(geometry->m_colors, mesh->mColors, sizeof(float) * geometry->m_numVertices * 3);
 	}
 
 	// TODO: Tangents

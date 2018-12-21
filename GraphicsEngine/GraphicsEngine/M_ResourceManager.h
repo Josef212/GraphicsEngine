@@ -53,7 +53,7 @@ public:
 	}defaultResources;
 
 private:
-	std::map<ResourceType, std::vector<Resource*>> _resources;
+	std::map<ResourceType, std::vector<Resource*>> m_resources;
 };
 
 #endif // !__M_RESOURCEMANAGER_H__

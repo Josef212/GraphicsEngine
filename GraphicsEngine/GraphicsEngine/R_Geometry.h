@@ -25,33 +25,33 @@ public:
 	void Free() override;
 	void FreeVRam();
 
-	int CountVertices()const { return numVertices; }
-	int CountIndices()const { return numIndices; }
-	GLuint EBO()const { return idContainer; }
-	GLuint IdIndices()const { return idIndices; }
-	GLuint IdVertices()const { return idVertices; }
-	GLuint IdNormals()const { return idNormals; }
-	GLuint IdUvs()const { return idTexCoords; }
-	GLuint IdColors()const { return idColors; }
+	int CountVertices()const { return m_numVertices; }
+	int CountIndices()const { return m_numIndices; }
+	GLuint EBO()const { return m_idContainer; }
+	GLuint IdIndices()const { return m_idIndices; }
+	GLuint IdVertices()const { return m_idVertices; }
+	GLuint IdNormals()const { return m_idNormals; }
+	GLuint IdUvs()const { return m_idTexCoords; }
+	GLuint IdColors()const { return m_idColors; }
 
 private:
 
-	float* vertices = nullptr;
-	int* indices = nullptr;
-	float* normals = nullptr;
-	float* texCoords = nullptr;
-	float* colors = nullptr;
+	float* m_vertices = nullptr;
+	int* m_indices = nullptr;
+	float* m_normals = nullptr;
+	float* m_texCoords = nullptr;
+	float* m_colors = nullptr;
 
-	int numVertices = 0;
-	int numIndices = 0;
+	int m_numVertices = 0;
+	int m_numIndices = 0;
 
-	GLuint idContainer = 0;
+	GLuint m_idContainer = 0;
 
-	GLuint idIndices = 0;
-	GLuint idVertices = 0;
-	GLuint idNormals = 0;
-	GLuint idTexCoords = 0;
-	GLuint idColors = 0;
+	GLuint m_idIndices = 0;
+	GLuint m_idVertices = 0;
+	GLuint m_idNormals = 0;
+	GLuint m_idTexCoords = 0;
+	GLuint m_idColors = 0;
 };
 
 #endif // !__R_GEOMETRY_H__

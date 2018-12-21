@@ -15,26 +15,26 @@
 
 M_Editor::M_Editor() : Module("M_Editor", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
-	configuration = M_INIT | M_START | M_PRE_UPDATE | M_UPDATE | M_CLEAN_UP;
+	m_configuration = M_INIT | M_START | M_PRE_UPDATE | M_UPDATE | M_CLEAN_UP;
 }
 
 
 M_Editor::~M_Editor()
 {
-	LOG_DESTRUCTION(moduleName.c_str());
+	LOG_DESTRUCTION(m_moduleName.c_str());
 }
 
 bool M_Editor::Init()
 {
-	LOG_INIT(moduleName.c_str());
+	LOG_INIT(m_moduleName.c_str());
 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 
-	ImGui_ImplSDL2_InitForOpenGL(app->window->GetWindow(), app->render->context);
+	ImGui_ImplSDL2_InitForOpenGL(app->window->GetWindow(), app->render->m_context);
 	ImGui_ImplOpenGL3_Init(GLSL_VERSION);
 
 	ImGui::StyleColorsDark();
@@ -44,15 +44,15 @@ bool M_Editor::Init()
 
 bool M_Editor::Start()
 {
-	LOG_START(moduleName.c_str());
+	LOG_START(m_moduleName.c_str());
 
-	geoPanel = new E_GeometryPanel();
-	texPanel = new E_TexturePanel();
-	scenePanel = new E_ScenePanel();
+	m_geoPanel = new E_GeometryPanel();
+	m_texPanel = new E_TexturePanel();
+	m_scenePanel = new E_ScenePanel();
 
-	panels.push_back(geoPanel);
-	panels.push_back(texPanel);
-	panels.push_back(scenePanel);
+	m_panels.push_back(m_geoPanel);
+	m_panels.push_back(m_texPanel);
+	m_panels.push_back(m_scenePanel);
 
 	return true;
 }
@@ -72,7 +72,7 @@ UpdateReturn M_Editor::Update(float dt)
 	{
 		if(ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("Demo", nullptr, showImGuiDemo)) showImGuiDemo = !showImGuiDemo;
+			if (ImGui::MenuItem("Demo", nullptr, m_showImGuiDemo)) m_showImGuiDemo = !m_showImGuiDemo;
 			if (ImGui::MenuItem("Quit")) app->Close();
 
 			ImGui::EndMenu();
@@ -80,9 +80,9 @@ UpdateReturn M_Editor::Update(float dt)
 
 		if(ImGui::BeginMenu("Windows"))
 		{
-			if (ImGui::MenuItem("Geometry", nullptr, geoPanel->Visible())) geoPanel->SwapShow();
-			if (ImGui::MenuItem("Textures", nullptr, texPanel->Visible())) texPanel->SwapShow();
-			if (ImGui::MenuItem("Scenes", nullptr, scenePanel->Visible())) scenePanel->SwapShow();
+			if (ImGui::MenuItem("Geometry", nullptr, m_geoPanel->Visible())) m_geoPanel->SwapShow();
+			if (ImGui::MenuItem("Textures", nullptr, m_texPanel->Visible())) m_texPanel->SwapShow();
+			if (ImGui::MenuItem("Scenes", nullptr, m_scenePanel->Visible())) m_scenePanel->SwapShow();
 
 			ImGui::EndMenu();
 		}
@@ -90,9 +90,9 @@ UpdateReturn M_Editor::Update(float dt)
 		ImGui::EndMainMenuBar();
 	}
 
-	if (showImGuiDemo) ImGui::ShowDemoWindow(&showImGuiDemo);
+	if (m_showImGuiDemo) ImGui::ShowDemoWindow(&m_showImGuiDemo);
 
-	for(auto it : panels)
+	for(auto it : m_panels)
 	{
 		if (it->Visible()) it->Display();
 	}
@@ -102,7 +102,7 @@ UpdateReturn M_Editor::Update(float dt)
 
 bool M_Editor::CleanUp()
 {
-	LOG_CLEANUP(moduleName.c_str());
+	LOG_CLEANUP(m_moduleName.c_str());
 
 	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplSDL2_Shutdown();

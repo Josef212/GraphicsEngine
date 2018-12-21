@@ -32,8 +32,8 @@ class Module
 {
 	friend class App;
 public:
-	Module(const char* name, bool startEnabled, uint32 config = 0) : moduleName(name), enabled(startEnabled), 
-	configuration(config)
+	Module(const char* name, bool startEnabled, uint32 config = 0) : m_moduleName(name), m_enabled(startEnabled), 
+	m_configuration(config)
 	{}
 	virtual ~Module()
 	{}
@@ -56,14 +56,14 @@ public:
 
 	// ==========================================
 
-	bool IsEnabled() const { return enabled; }
+	bool IsEnabled() const { return m_enabled; }
 
 	bool Enable()
 	{
-		if (!enabled)
+		if (!m_enabled)
 		{
-			enabled = Start();
-			return enabled;
+			m_enabled = Start();
+			return m_enabled;
 		}
 
 		return false;
@@ -71,10 +71,10 @@ public:
 
 	bool Disable()
 	{
-		if (enabled)
+		if (m_enabled)
 		{
-			enabled = !CleanUp();
-			return enabled;
+			m_enabled = !CleanUp();
+			return m_enabled;
 		}
 
 		return false;
@@ -82,7 +82,7 @@ public:
 
 	bool SetActive(const bool set)
 	{
-		if (set != enabled)
+		if (set != m_enabled)
 		{
 			return set ? Enable() : Disable();
 		}
@@ -91,13 +91,13 @@ public:
 	}
 
 public:
-	std::string moduleName;
+	std::string m_moduleName;
 
 private:
-	bool enabled;
+	bool m_enabled;
 
 protected:
-	uint32 configuration = 0;
+	uint32 m_configuration = 0;
 };
 
 #endif

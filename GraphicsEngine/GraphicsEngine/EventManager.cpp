@@ -15,7 +15,7 @@ EventManager::EventManager()
 {
 	for (auto it : GetEventTypes())
 	{
-		listeners[it] = std::vector<IEventListener*>();
+		m_listeners[it] = std::vector<IEventListener*>();
 	}
 }
 
@@ -33,7 +33,7 @@ void EventManager::AddEventListener(IEventListener * listener)
 	{
 		if ((it & types) == it)
 		{
-			listeners[it].push_back(listener);
+			m_listeners[it].push_back(listener);
 		}
 	}
 }
@@ -48,7 +48,7 @@ void EventManager::RemoveEventListener(IEventListener * listener)
 	{
 		if ((it & types) == it)
 		{
-			auto list = listeners[it];
+			auto list = m_listeners[it];
 			auto it = std::find(list.begin(), list.end(), listener);
 
 			if (it != list.end()) 
@@ -59,7 +59,7 @@ void EventManager::RemoveEventListener(IEventListener * listener)
 
 void EventManager::FireEvent(Event e)
 {
-	auto list = listeners[e.type];
+	auto list = m_listeners[e.type];
 	for (auto it : list)
 	{
 		it->OnEventRecieved(e);

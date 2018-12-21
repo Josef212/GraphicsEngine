@@ -6,23 +6,23 @@
 
 M_Window::M_Window() : Module("M_Window", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
-	width = DEFAULT_WIN_WIDTH;
-	height = DEFAULT_WIN_HEIGHT;
-	scale = 1;
+	m_width = DEFAULT_WIN_WIDTH;
+	m_height = DEFAULT_WIN_HEIGHT;
+	m_scale = 1;
 
-	configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
+	m_configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
 }
 
 M_Window::~M_Window()
 {
-	LOG(LOG_INFO, "\t%s: Destruction --------------", moduleName.c_str());
+	LOG(LOG_INFO, "\t%s: Destruction --------------", m_moduleName.c_str());
 }
 
 bool M_Window::Init()
 {
-	LOG_INIT(moduleName.c_str());
+	LOG_INIT(m_moduleName.c_str());
 
 	bool ret = false;
 
@@ -45,9 +45,9 @@ bool M_Window::Init()
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
-		window = SDL_CreateWindow("Graphics engine.", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		m_window = SDL_CreateWindow("Graphics engine.", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, flags);
 
-		if (!window)
+		if (!m_window)
 		{
 			LOG(LOG_ERROR, "Could not create window. SDL_Error: %s", SDL_GetError());
 		}
@@ -62,9 +62,9 @@ bool M_Window::Init()
 
 bool M_Window::CleanUp()
 {
-	LOG_CLEANUP(moduleName.c_str());
+	LOG_CLEANUP(m_moduleName.c_str());
 
-	if (window) SDL_DestroyWindow(window);
+	if (m_window) SDL_DestroyWindow(m_window);
 	SDL_Quit();
 
 	return true;
@@ -74,8 +74,8 @@ bool M_Window::CleanUp()
 
 void M_Window::OnResize(uint w, uint h)
 {
-	width = w;
-	height = h;
+	m_width = w;
+	m_height = h;
 }
 
 // ================================
@@ -84,8 +84,8 @@ void M_Window::SetWinWidth(int w)
 {
 	if (w > 0)
 	{
-		this->width = w;
-		SDL_SetWindowSize(window, width, height);
+		this->m_width = w;
+		SDL_SetWindowSize(m_window, m_width, m_height);
 	}
 	else
 	{
@@ -97,8 +97,8 @@ void M_Window::SetWinHeight(int h)
 {
 	if (h > 0)
 	{
-		this->height = h;
-		SDL_SetWindowSize(window, width, height);
+		this->m_height = h;
+		SDL_SetWindowSize(m_window, m_width, m_height);
 	}
 	else
 	{
@@ -110,9 +110,9 @@ void M_Window::SetWinSize(int w, int h)
 {
 	if (w > 0 && h > 0)
 	{
-		this->width = w;
-		this->height = h;
-		SDL_SetWindowSize(window, width, height);
+		this->m_width = w;
+		this->m_height = h;
+		SDL_SetWindowSize(m_window, m_width, m_height);
 	}
 	else
 	{
@@ -123,7 +123,7 @@ void M_Window::SetWinSize(int w, int h)
 void M_Window::SetWinScale(int s)
 {
 	if (s > 0)
-		this->scale = s;
+		this->m_scale = s;
 	else
 		LOG(LOG_WARN, "Can't set window scale to 0 or less.");
 }
@@ -132,16 +132,16 @@ void M_Window::SetWinScale(int s)
 
 float M_Window::GetWinBrightness() const
 {
-	return SDL_GetWindowBrightness(this->window);
+	return SDL_GetWindowBrightness(this->m_window);
 }
 
 bool M_Window::SetWinBrightness(float bright)
 {
 	bright = CLAMP01(bright);
 
-	if (window)
+	if (m_window)
 	{
-		return SDL_SetWindowBrightness(this->window, bright) == 0;
+		return SDL_SetWindowBrightness(this->m_window, bright) == 0;
 	}
 
 	return false;
@@ -186,57 +186,57 @@ int M_Window::GetWinRefresh() const
 
 const char * M_Window::GetWinTitle() const
 {
-	if (this->window) return SDL_GetWindowTitle(this->window);
+	if (this->m_window) return SDL_GetWindowTitle(this->m_window);
 
 	return nullptr;
 }
 
 void M_Window::SetWinTitle(const char * title)
 {
-	if (title && window) SDL_SetWindowTitle(this->window, title);
+	if (title && m_window) SDL_SetWindowTitle(this->m_window, title);
 }
 
 // ================================
 
 bool M_Window::IsFullscreen() const
 {
-	return this->windowConfig & WC_FULLSCREEN;
+	return this->m_windowConfig & WC_FULLSCREEN;
 }
 
 bool M_Window::IsResizable() const
 {
-	return this->windowConfig & WC_RESIZABLE;
+	return this->m_windowConfig & WC_RESIZABLE;
 }
 
 bool M_Window::IsBorderless() const
 {
-	return this->windowConfig & WC_BORDERLESS;
+	return this->m_windowConfig & WC_BORDERLESS;
 }
 
 bool M_Window::IsFullscreenDesktop() const
 {
-	return this->windowConfig & WC_FULLSCREEN_DESKTOP;
+	return this->m_windowConfig & WC_FULLSCREEN_DESKTOP;
 }
 
 void M_Window::SetFullscreen(bool set)
 {
-	if (window)
+	if (m_window)
 	{
 		if (set != IsFullscreen())
 		{
 			if (set)
 			{
-				this->windowConfig |= WC_FULLSCREEN;
-				this->windowConfig &= ~WC_FULLSCREEN_DESKTOP;
+				this->m_windowConfig |= WC_FULLSCREEN;
+				this->m_windowConfig &= ~WC_FULLSCREEN_DESKTOP;
 
-				if (SDL_SetWindowFullscreen(this->window, SDL_WINDOW_FULLSCREEN) != 0)
+				if (SDL_SetWindowFullscreen(this->m_window, SDL_WINDOW_FULLSCREEN) != 0)
 					LOG(LOG_WARN, "Could not set window to fullscreen: %s\n.", SDL_GetError());
 			}
 			else
 			{
-				this->windowConfig &= ~WC_FULLSCREEN;
+				this->m_windowConfig &= ~WC_FULLSCREEN;
 
-				if (SDL_SetWindowFullscreen(this->window, 0) != 0)
+				if (SDL_SetWindowFullscreen(this->m_window, 0) != 0)
 					LOG(LOG_WARN, "Could not set window to windowed: %s\n.", SDL_GetError());
 			}
 		}
@@ -247,11 +247,11 @@ void M_Window::SetResizable(bool set)
 {
 	if (set)
 	{
-		this->windowConfig |= WC_RESIZABLE;
+		this->m_windowConfig |= WC_RESIZABLE;
 	}
 	else
 	{
-		this->windowConfig &= ~WC_RESIZABLE;
+		this->m_windowConfig &= ~WC_RESIZABLE;
 	}
 }
 
@@ -261,14 +261,14 @@ void M_Window::SetBorderless(bool set)
 	{
 		if (set)
 		{
-			this->windowConfig |= WC_BORDERLESS;
+			this->m_windowConfig |= WC_BORDERLESS;
 		}
 		else
 		{
-			this->windowConfig &= ~WC_BORDERLESS;
+			this->m_windowConfig &= ~WC_BORDERLESS;
 		}
 
-		SDL_SetWindowBordered(window, (SDL_bool)!set);
+		SDL_SetWindowBordered(m_window, (SDL_bool)!set);
 	}
 }
 
@@ -278,17 +278,17 @@ void M_Window::SetFullscreenDesktop(bool set)
 	{
 		if (set)
 		{
-			this->windowConfig |= WC_FULLSCREEN_DESKTOP;
-			this->windowConfig &= ~WC_FULLSCREEN;
+			this->m_windowConfig |= WC_FULLSCREEN_DESKTOP;
+			this->m_windowConfig &= ~WC_FULLSCREEN;
 
-			if (SDL_SetWindowFullscreen(this->window, SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
+			if (SDL_SetWindowFullscreen(this->m_window, SDL_WINDOW_FULLSCREEN_DESKTOP) != 0)
 				LOG(LOG_WARN, "Could not set window to fullscreen desktop: %s\n.", SDL_GetError());
 		}
 		else
 		{
-			this->windowConfig &= ~WC_FULLSCREEN_DESKTOP;
+			this->m_windowConfig &= ~WC_FULLSCREEN_DESKTOP;
 
-			if (SDL_SetWindowFullscreen(this->window, 0) != 0)
+			if (SDL_SetWindowFullscreen(this->m_window, 0) != 0)
 				LOG(LOG_WARN, "Could not set window to windowed: %s\n.", SDL_GetError());
 		}
 	}
@@ -298,32 +298,32 @@ void M_Window::SetFullscreenDesktop(bool set)
 
 void M_Window::HideWindow()
 {
-	if (window)SDL_HideWindow(window);
+	if (m_window)SDL_HideWindow(m_window);
 }
 
 void M_Window::MaximizeWindow()
 {
-	if (window)SDL_MaximizeWindow(window);
+	if (m_window)SDL_MaximizeWindow(m_window);
 }
 
 void M_Window::MinimizaWindow()
 {
-	if (window)SDL_MinimizeWindow(window);
+	if (m_window)SDL_MinimizeWindow(m_window);
 }
 
 void M_Window::RestoreWindow()
 {
-	if (window)SDL_RestoreWindow(window);
+	if (m_window)SDL_RestoreWindow(m_window);
 }
 
 void M_Window::ShowWindow()
 {
-	if (window)SDL_ShowWindow(window);
+	if (m_window)SDL_ShowWindow(m_window);
 }
 
 void M_Window::RaiseWindow()
 {
-	if (window)SDL_RaiseWindow(window);
+	if (m_window)SDL_RaiseWindow(m_window);
 }
 
 // ================================

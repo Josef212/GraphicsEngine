@@ -59,11 +59,11 @@ private:
 	void CheckCompileErrors(int sh, const char* type);
 
 public:
-	unsigned int ID;
-	std::string vertPath, fragPath, geoPath;
+	unsigned int m_ID;
+	std::string m_vertPath, m_fragPath, m_geoPath;
 
 private:
-	Shader_Status status = SH_PENDING;
+	Shader_Status m_status = SH_PENDING;
 };
 
 #endif // !__SHADER_H__

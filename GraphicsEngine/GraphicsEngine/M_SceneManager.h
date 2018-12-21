@@ -26,13 +26,13 @@ public:
 	void SelectActiveScene(int index);
 	void SelectActiveScene(const char* name);
 	void SelectActiveScene(R_Scene* sc);
-	R_Scene* GetActiveScene()const { return activeScene; }
+	R_Scene* GetActiveScene()const { return m_activeScene; }
 
 	void OnResize(uint w, uint h) override;
 
 private:
-	std::vector<R_Scene*> scenes;
-	R_Scene* activeScene = nullptr;
+	std::vector<R_Scene*> m_scenes;
+	R_Scene* m_activeScene = nullptr;
 };
 
 #endif // !__M_SCENEMANAGER_H__

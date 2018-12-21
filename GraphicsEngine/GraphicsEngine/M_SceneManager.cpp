@@ -8,21 +8,21 @@
 
 M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
-	configuration = M_START | M_UPDATE | M_CLEAN_UP; 
+	m_configuration = M_START | M_UPDATE | M_CLEAN_UP; 
 	// TODO: Probably update not needed although it mught update the active scene
 }
 
 
 M_SceneManager::~M_SceneManager()
 {
-	LOG_DESTRUCTION(moduleName.c_str());
+	LOG_DESTRUCTION(m_moduleName.c_str());
 }
 
 bool M_SceneManager::Start()
 {
-	LOG_START(moduleName.c_str());
+	LOG_START(m_moduleName.c_str());
 
 	return true;
 }
@@ -34,7 +34,7 @@ UpdateReturn M_SceneManager::Update(float dt)
 
 bool M_SceneManager::CleanUp()
 {
-	LOG_CLEANUP(moduleName.c_str());
+	LOG_CLEANUP(m_moduleName.c_str());
 
 	return true;
 }
@@ -43,7 +43,7 @@ void M_SceneManager::AddScene(R_Scene * sc, bool activate)
 {
 	if (!sc) return;
 
-	scenes.push_back(sc);
+	m_scenes.push_back(sc);
 
 	if(activate)
 	{
@@ -55,12 +55,12 @@ void M_SceneManager::RemoveScene(R_Scene * sc)
 {
 	if (sc)
 	{
-		for (auto it = scenes.begin(); it != scenes.end();)
+		for (auto it = m_scenes.begin(); it != m_scenes.end();)
 		{
 			if ((*it) == sc)
 			{
 				app->resourceManager->RemoveResource((*it));
-				it = scenes.erase(it);
+				it = m_scenes.erase(it);
 			}
 		}
 	}
@@ -70,12 +70,12 @@ void M_SceneManager::RemoveScene(const char * name)
 {
 	if (name)
 	{
-		for (auto it = scenes.begin(); it != scenes.end();)
+		for (auto it = m_scenes.begin(); it != m_scenes.end();)
 		{
 			if ((*it)->GetName() == name)
 			{
 				app->resourceManager->RemoveResource((*it));
-				it = scenes.erase(it);
+				it = m_scenes.erase(it);
 			}
 		}
 	}
@@ -89,11 +89,11 @@ void M_SceneManager::CreateScene(const char * name, bool activate)
 
 void M_SceneManager::SelectActiveScene(int index)
 {
-	if (index >= 0 && index < scenes.size())
+	if (index >= 0 && index < m_scenes.size())
 	{
-		if (activeScene) activeScene->Free();
-		activeScene = scenes[index];
-		activeScene->Load();
+		if (m_activeScene) m_activeScene->Free();
+		m_activeScene = m_scenes[index];
+		m_activeScene->Load();
 	}
 }
 
@@ -101,13 +101,13 @@ void M_SceneManager::SelectActiveScene(const char * name)
 {
 	if (name)
 	{
-		for (auto it : scenes)
+		for (auto it : m_scenes)
 		{
 			if (it->GetName() == name)
 			{
-				if (activeScene) activeScene->Free();
-				activeScene = it;
-				activeScene->Load();
+				if (m_activeScene) m_activeScene->Free();
+				m_activeScene = it;
+				m_activeScene->Load();
 			}
 		}
 	}
@@ -115,12 +115,12 @@ void M_SceneManager::SelectActiveScene(const char * name)
 
 void M_SceneManager::SelectActiveScene(R_Scene * sc)
 {
-	auto it = std::find(scenes.begin(), scenes.end(), sc);
-	if (it != scenes.end())
+	auto it = std::find(m_scenes.begin(), m_scenes.end(), sc);
+	if (it != m_scenes.end())
 	{
-		if (activeScene) activeScene->Free();
-		activeScene = sc;
-		activeScene->Load();
+		if (m_activeScene) m_activeScene->Free();
+		m_activeScene = sc;
+		m_activeScene->Load();
 	}
 	else
 	{
@@ -130,15 +130,15 @@ void M_SceneManager::SelectActiveScene(R_Scene * sc)
 		}
 		else
 		{
-			if (activeScene) activeScene->Free();
-			activeScene = nullptr;
+			if (m_activeScene) m_activeScene->Free();
+			m_activeScene = nullptr;
 		}
 	}
 }
 
 void M_SceneManager::OnResize(uint w, uint h)
 {
-	for (auto it : scenes)
+	for (auto it : m_scenes)
 	{
 		it->OnResize(w, h);
 	}

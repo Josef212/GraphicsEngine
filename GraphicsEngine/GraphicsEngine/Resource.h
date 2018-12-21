@@ -28,17 +28,17 @@ public:
 	virtual void Load() {}
 	virtual void Free() {}
 
-	ResourceType GetType() const { return type; }
-	std::string GetName() const { return name; }
-	const char* GetNameCStr() const { return name.c_str(); }
+	ResourceType GetType() const { return m_type; }
+	std::string GetName() const { return m_name; }
+	const char* GetNameCStr() const { return m_name.c_str(); }
 
 private:
 
 public:
 
 private:
-	std::string name = "Non named resource";
-	ResourceType type = RES_NONE;
+	std::string m_name = "Non named resource";
+	ResourceType m_type = RES_NONE;
 };
 
 #endif // !__RESOURCE_H__

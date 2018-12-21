@@ -21,7 +21,7 @@ void E_GeometryPanel::OnInit()
 
 void E_GeometryPanel::Display()
 {
-	ImGui::Begin(name.c_str(), &show);
+	ImGui::Begin(m_name.c_str(), &m_show);
 	{
 		std::vector<Resource*> geos;
 		app->resourceManager->GatherResourcesOfType(RES_GEOMETRY, geos);
@@ -37,7 +37,7 @@ void E_GeometryPanel::Display()
 			{
 				if(ImGui::TreeNodeEx(geo->GetNameCStr(), flags))
 				{
-					if (ImGui::IsItemClicked()) selectedGeo = static_cast<R_Geometry*>(geos[i]);
+					if (ImGui::IsItemClicked()) m_selectedGeo = static_cast<R_Geometry*>(geos[i]);
 
 					GeometryInfo(geo);
 
@@ -89,11 +89,11 @@ void E_GeometryPanel::GeometryInfo(R_Geometry * geo)
 
 void E_GeometryPanel::GeometryRender()
 {
-	if(!selectedGeo) return;
+	if(!m_selectedGeo) return;
 
 	ImGui::BeginChild("Geo", ImVec2(200, 200), true);
 	{
-		ImGui::Text(selectedGeo->GetNameCStr());
+		ImGui::Text(m_selectedGeo->GetNameCStr());
 		//TODO
 		// Bind frame buffer
 

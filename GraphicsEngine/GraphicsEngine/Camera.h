@@ -36,17 +36,17 @@ class Camera
 {
 public:
 	// Camera Attributes
-	glm::vec3 Position;
-	glm::vec3 Front;
-	glm::vec3 Up;
-	glm::vec3 Right;
-	glm::vec3 WorldUp;
+	glm::vec3 m_Position;
+	glm::vec3 m_Front;
+	glm::vec3 m_Up;
+	glm::vec3 m_Right;
+	glm::vec3 m_WorldUp;
 	// Eular Angles
-	float Yaw;
-	float Pitch;
+	float m_Yaw;
+	float m_Pitch;
 	// Camera options
-	float MovementSpeed;
-	float MouseSensitivity;
+	float m_MovementSpeed;
+	float m_MouseSensitivity;
 	
 	// Constructor with vectors
 	Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH);
@@ -91,20 +91,20 @@ protected:
 	virtual void CalcProjection() = 0;
 	virtual void OnViewportResize() = 0;
 
-	glm::mat4 view = glm::mat4(1.0f);
-	glm::mat4 projection = glm::mat4(1.0f);
+	glm::mat4 m_view = glm::mat4(1.0f);
+	glm::mat4 m_projection = glm::mat4(1.0f);
 
-	int width = DEFAULT_WIN_WIDTH, height = DEFAULT_WIN_HEIGHT;
-	float zNear = 1.0f, zFar = 100.0f;
+	int m_width = DEFAULT_WIN_WIDTH, m_height = DEFAULT_WIN_HEIGHT;
+	float m_zNear = 1.0f, m_zFar = 100.0f;
 
-	float Zoom;
-	float Size = 10.0f;
+	float m_Zoom;
+	float m_Size = 10.0f;
 
-	CameraType cameraType = CAM_NONE;
+	CameraType m_cameraType = CAM_NONE;
 
 private:
 	// Calculates the front vector from the Camera's (updated) Eular Angles
-	void updateCameraVectors(bool forceCalcProj);
+	void UpdateCameraVectors(bool forceCalcProj);
 };
 
 

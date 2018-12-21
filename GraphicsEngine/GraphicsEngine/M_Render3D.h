@@ -24,26 +24,26 @@ public:
 
 	// ==============
 
-	bool GetVSync()const { return vsync; }
+	bool GetVSync()const { return m_vsync; }
 	void SetVSync(bool set);
 
 	// -------------------------
 
-	R_Renderer* GetActiveRenderer() { return activeRenderer; }
-	void SetActiveRenderer(R_Renderer* renderer) { activeRenderer = renderer; }
+	R_Renderer* GetActiveRenderer() { return m_activeRenderer; }
+	void SetActiveRenderer(R_Renderer* renderer) { m_activeRenderer = renderer; }
 	
 
 private:
 
 public:
-	bool showGrid = true;
-	SDL_GLContext context;
+	bool m_showGrid = true;
+	SDL_GLContext m_context;
 
 private:
-	bool vsync;
+	bool m_vsync;
 
-	R_Scene* activeScene			= nullptr;
-	R_Renderer* activeRenderer		= nullptr;
+	R_Scene* m_activeScene			= nullptr;
+	R_Renderer* m_activeRenderer		= nullptr;
 };
 
 #endif // !__M_RENDER3D_H__

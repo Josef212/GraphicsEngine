@@ -15,7 +15,7 @@ E_TexturePanel::~E_TexturePanel()
 
 void E_TexturePanel::Display()
 {
-	ImGui::Begin(name.c_str(), &show);
+	ImGui::Begin(m_name.c_str(), &m_show);
 	{
 		TexturePanelHeader();
 

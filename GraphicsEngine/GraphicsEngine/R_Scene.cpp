@@ -18,7 +18,7 @@
 R_Scene::R_Scene(const char* name) : Resource(name, RES_SCENE)
 {
 	for (int i = 0; i < MAX_CAMERAS; ++i)
-		cameras[i] = nullptr;
+		m_cameras[i] = nullptr;
 }
 
 
@@ -30,7 +30,7 @@ void R_Scene::Load()
 {
 	OnLoad();
 
-	if (!defMaterial) defMaterial = app->resourceManager->defaultResources.simpleMat;
+	if (!m_defMaterial) m_defMaterial = app->resourceManager->defaultResources.simpleMat;
 }
 
 void R_Scene::Free()
@@ -38,21 +38,21 @@ void R_Scene::Free()
 	OnFree();
 
 	//app->resourceManager->RemoveAllResources();
-	models.clear();
-	defMaterial = nullptr;
+	m_models.clear();
+	m_defMaterial = nullptr;
 }
 
 void R_Scene::AddModel(R_Model* model)
 {
-	if (model) models.push_back(model);
+	if (model) m_models.push_back(model);
 }
 
 void R_Scene::RemoveModel(R_Model* model)
 {
 	if(model)
 	{
-		auto it = std::find(models.begin(), models.end(), model);
-		if(it != models.end()) models.erase(it);
+		auto it = std::find(m_models.begin(), m_models.end(), model);
+		if(it != m_models.end()) m_models.erase(it);
 	}
 }
 
@@ -60,11 +60,11 @@ void R_Scene::RemoveModel(const char* name)
 {
 	if (name)
 	{
-		for (auto it = models.begin(); it != models.end();)
+		for (auto it = m_models.begin(); it != m_models.end();)
 		{
 			if ((*it)->GetName() == name)
 			{
-				it = models.erase(it);
+				it = m_models.erase(it);
 			}
 			else
 			{
@@ -78,10 +78,10 @@ void R_Scene::AddCamera(Camera* cam, int index, bool setAsActive)
 {
 	if (index >= 0 && index < MAX_CAMERAS)
 	{
-		cameras[index] = cam;
+		m_cameras[index] = cam;
 		if (setAsActive)
 		{
-			activeCamera = cam;
+			m_activeCamera = cam;
 			OnActiveCameraChanged();
 		}
 	}
@@ -91,7 +91,7 @@ void R_Scene::RemoveCamera(int index)
 {
 	if (index >= 0 && index < MAX_CAMERAS)
 	{
-		cameras[index] = nullptr;
+		m_cameras[index] = nullptr;
 	}
 }
 
@@ -99,9 +99,9 @@ void R_Scene::SetActiveCamera(int index)
 {
 	if (index >= 0 && index < MAX_CAMERAS)
 	{
-		if (cameras[index])
+		if (m_cameras[index])
 		{
-			activeCamera = cameras[index];
+			m_activeCamera = m_cameras[index];
 			OnActiveCameraChanged();
 		}
 	}
@@ -109,26 +109,26 @@ void R_Scene::SetActiveCamera(int index)
 
 Camera* R_Scene::GetActiveCamera() const
 {
-	return activeCamera;
+	return m_activeCamera;
 }
 
 void R_Scene::OnResize(int w, int h)
 {
-	viewportWidth = w; viewportHeight = h;
+	m_viewportWidth = w; m_viewportHeight = h;
 
 	for (int i = 0; i < MAX_CAMERAS; ++i)
-		if (cameras[i]) cameras[i]->ResizeViewport(w, h);
+		if (m_cameras[i]) m_cameras[i]->ResizeViewport(w, h);
 }
 
 R_Material* R_Scene::GetDefaultMaterial() const
 {
-	return defMaterial;
+	return m_defMaterial;
 }
 
 // TODO: This should be done in renderer. Scene should be only a scene info container
 void R_Scene::RenderScene()
 {
-	glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+	glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	if (GetActiveCamera()) OnRenderScene();
@@ -136,17 +136,17 @@ void R_Scene::RenderScene()
 
 void R_Scene::ProcessScroll(double yoffset)
 {
-	if (activeCamera) activeCamera->ProcessMouseScroll(yoffset);
+	if (m_activeCamera) m_activeCamera->ProcessMouseScroll(yoffset);
 }
 
 void R_Scene::ProcessMouseMovement(double xoffset, double yoffset)
 {
-	if (activeCamera) activeCamera->ProcessMouseMovement(xoffset, yoffset);
+	if (m_activeCamera) m_activeCamera->ProcessMouseMovement(xoffset, yoffset);
 }
 
 void R_Scene::ProcessInput(CameraMovement movement, float dt)
 {
-	if (activeCamera) activeCamera->ProcessKeyboard(movement, dt);
+	if (m_activeCamera) m_activeCamera->ProcessKeyboard(movement, dt);
 }
 
 void R_Scene::LoadModel(const char* path)

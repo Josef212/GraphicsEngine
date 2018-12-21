@@ -18,7 +18,7 @@ R_Texture::~R_Texture()
 
 void R_Texture::Load()
 {
-	if(!path.empty())
+	if(!m_path.empty())
 	{
 		Free();
 		LoadTexture(Path());
@@ -27,25 +27,25 @@ void R_Texture::Load()
 
 void R_Texture::Free()
 {
-	if (Loaded()) glDeleteTextures(1, &textureID);
+	if (Loaded()) glDeleteTextures(1, &m_textureID);
 }
 
 // TODO: Change loading to FS
 void R_Texture::LoadTexture(const char * path)
 {
-	this->path = path;
+	this->m_path = path;
 
 	if (Loaded()) Free();
 
-	std::cout << "Loading texture: " << this->path << std::endl;
+	std::cout << "Loading texture: " << this->m_path << std::endl;
 
-	glGenTextures(1, &textureID);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glGenTextures(1, &m_textureID);
+	glBindTexture(GL_TEXTURE_2D, m_textureID);
 
-	unsigned char *data = SOIL_load_image(this->path.c_str(), &width, &height, &nrChannels, SOIL_LOAD_RGBA);
+	unsigned char *data = SOIL_load_image(this->m_path.c_str(), &m_width, &m_height, &m_nrChannels, SOIL_LOAD_RGBA);
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_width, m_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -56,7 +56,7 @@ void R_Texture::LoadTexture(const char * path)
 	else
 	{
 		std::cout << "Failed to load texture" << std::endl;
-		textureID = 0;
+		m_textureID = 0;
 	}
 
 	SOIL_free_image_data(data);

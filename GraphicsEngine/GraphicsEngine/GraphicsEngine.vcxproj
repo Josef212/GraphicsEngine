@@ -143,6 +143,7 @@
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="R_ForwardRenderer.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
     <ClCompile Include="R_Model.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="PerfTimer.h" />
     <ClInclude Include="PerspectiveCamera.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="R_ForwardRenderer.h" />
     <ClInclude Include="R_Geometry.h" />
     <ClInclude Include="R_Material.h" />
     <ClInclude Include="R_Model.h" />

@@ -8,7 +8,7 @@ R_Material::R_Material(const char* name) : Resource(name, RES_MATERIAL)
 
 }
 
-R_Material::R_Material(const char* name, R_Shader* sh) : Resource(name, RES_MATERIAL), shader(sh)
+R_Material::R_Material(const char* name, R_Shader* sh) : Resource(name, RES_MATERIAL), m_shader(sh)
 {
 	
 }
@@ -29,7 +29,7 @@ void R_Material::Free()
 
 void R_Material::InitRender() const
 {
-	if (shader) shader->Use();
+	if (m_shader) m_shader->Use();
 }
 
 void R_Material::EndRender() const

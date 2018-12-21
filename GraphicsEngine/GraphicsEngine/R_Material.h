@@ -22,13 +22,13 @@ public:
 	virtual void OnLoad() {}
 	virtual void OnFree() {}
 
-	void SetShader(R_Shader* sh) { shader = sh; }
-	R_Shader* GetShader()const { return shader; }
+	void SetShader(R_Shader* sh) { m_shader = sh; }
+	R_Shader* GetShader()const { return m_shader; }
 
-	bool ValidMaterial() const { return shader; }
+	bool ValidMaterial() const { return m_shader; }
 
 protected:
-	R_Shader * shader = nullptr;
+	R_Shader * m_shader = nullptr;
 };
 
 #endif // !__R_MATERIAL_H__

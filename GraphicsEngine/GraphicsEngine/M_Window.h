@@ -28,14 +28,14 @@ public:
 
 	// ================================
 
-	SDL_Window* GetWindow()const { return window; }
+	SDL_Window* GetWindow()const { return m_window; }
 
 	// ================================
 
-	int GetWinWidth()const { return width; }
-	int GetWinHeight()const { return height; }
-	void GetWinSize(int& width, int& height)const { width = this->width, height = this->height; }
-	uint GetWinScale()const { return scale; }
+	int GetWinWidth()const { return m_width; }
+	int GetWinHeight()const { return m_height; }
+	void GetWinSize(int& width, int& height)const { width = this->m_width, height = this->m_height; }
+	uint GetWinScale()const { return m_scale; }
 
 	void SetWinWidth(int w);
 	void SetWinHeight(int h);
@@ -83,10 +83,10 @@ public:
 	// ================================
 
 private:
-	uint width, height, scale;
-	SDL_Window* window = nullptr;
+	uint m_width, m_height, m_scale;
+	SDL_Window* m_window = nullptr;
 
-	WORD windowConfig = 0;
+	WORD m_windowConfig = 0;
 };
 
 #endif // !__M_WINDOW_H__

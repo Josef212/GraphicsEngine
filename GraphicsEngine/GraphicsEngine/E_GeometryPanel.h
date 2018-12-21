@@ -19,7 +19,7 @@ private:
 	void GeometryRender();
 
 private:
-	R_Geometry* selectedGeo = nullptr;
+	R_Geometry* m_selectedGeo = nullptr;
 	// TODO: A framebuffer to preview the geometry
 };
 

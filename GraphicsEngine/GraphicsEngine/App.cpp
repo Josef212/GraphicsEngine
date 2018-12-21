@@ -31,20 +31,20 @@ App::App()
 	render = new M_Render3D();
 
 
-	modules.push_back(fs);
-	modules.push_back(window);
-	modules.push_back(input);
-	modules.push_back(editor);
-	modules.push_back(resourceManager);
-	modules.push_back(sceneManager);
+	m_modules.push_back(fs);
+	m_modules.push_back(window);
+	m_modules.push_back(input);
+	m_modules.push_back(editor);
+	m_modules.push_back(resourceManager);
+	m_modules.push_back(sceneManager);
 
-	modules.push_back(render);
+	m_modules.push_back(render);
 }
 
 
 App::~App()
 {
-	for(auto it = modules.rbegin(); it != modules.rend(); ++it)
+	for(auto it = m_modules.rbegin(); it != m_modules.rend(); ++it)
 	{
 		RELEASE((*it));
 	}
@@ -59,10 +59,10 @@ bool App::Init()
 
 	LOG(LOG_INFO, "Initing modules.");
 
-	auto it = modules.begin();
-	while(it != modules.end() && ret)
+	auto it = m_modules.begin();
+	while(it != m_modules.end() && ret)
 	{
-		if ((*it)->configuration & M_INIT) ret = (*it)->Init();
+		if ((*it)->m_configuration & M_INIT) ret = (*it)->Init();
 		++it;
 	}
 
@@ -70,10 +70,10 @@ bool App::Init()
 
 	LOG(LOG_INFO, "Starting modules.");
 
-	it = modules.begin();
-	while (it != modules.end() && ret)
+	it = m_modules.begin();
+	while (it != m_modules.end() && ret)
 	{
-		if ((*it)->configuration & M_START) ret = (*it)->Start();
+		if ((*it)->m_configuration & M_START) ret = (*it)->Start();
 		++it;
 	}
 
@@ -86,28 +86,28 @@ UpdateReturn App::Update()
 
 	PrepareUpdate();
 
-	auto it = modules.begin();
-	while (it != modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
+	auto it = m_modules.begin();
+	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->configuration & M_PRE_UPDATE && (*it)->IsEnabled()) ret = (*it)->PreUpdate(clock->Dt());
+		if ((*it)->m_configuration & M_PRE_UPDATE && (*it)->IsEnabled()) ret = (*it)->PreUpdate(clock->Dt());
 		++it;
 	}
 
 	if (ret == UpdateReturn::UPDT_ERROR) LOG(LOG_ERROR, "Exiting with error on preupdate.");
 
-	it = modules.begin();
-	while (it != modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
+	it = m_modules.begin();
+	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->configuration & M_UPDATE && (*it)->IsEnabled()) ret = (*it)->Update(clock->Dt());
+		if ((*it)->m_configuration & M_UPDATE && (*it)->IsEnabled()) ret = (*it)->Update(clock->Dt());
 		++it;
 	}
 
 	if (ret == UpdateReturn::UPDT_ERROR) LOG(LOG_ERROR, "Exiting with error on update.");
 
-	it = modules.begin();
-	while (it != modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
+	it = m_modules.begin();
+	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->configuration & M_POST_UPDATE && (*it)->IsEnabled()) ret = (*it)->PostUpdate(clock->Dt());
+		if ((*it)->m_configuration & M_POST_UPDATE && (*it)->IsEnabled()) ret = (*it)->PostUpdate(clock->Dt());
 		++it;
 	}
 
@@ -115,7 +115,7 @@ UpdateReturn App::Update()
 
 	FinishUpdate();
 
-	if(shouldClose)
+	if(m_shouldClose)
 	{
 		// TODO: Save process
 
@@ -129,9 +129,9 @@ bool App::CleanUp()
 {
 	bool ret = true;
 
-	for (auto it = modules.rbegin(); it != modules.rend() && ret; ++it)
+	for (auto it = m_modules.rbegin(); it != m_modules.rend() && ret; ++it)
 	{
-		if((*it)->configuration & M_CLEAN_UP) ret = (*it)->CleanUp();
+		if((*it)->m_configuration & M_CLEAN_UP) ret = (*it)->CleanUp();
 	}
 
 	return ret;
@@ -139,9 +139,9 @@ bool App::CleanUp()
 
 void App::OnResize(uint w, uint h)
 {
-	for (auto it = modules.begin(); it != modules.end(); ++it)
+	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
 	{
-		if ((*it)->IsEnabled() && (*it)->configuration & M_RESIZE_EVENT)
+		if ((*it)->IsEnabled() && (*it)->m_configuration & M_RESIZE_EVENT)
 		{
 			(*it)->OnResize(w, h);
 		}
@@ -150,9 +150,9 @@ void App::OnResize(uint w, uint h)
 
 void App::DrawDebug()
 {
-	for (auto it = modules.begin(); it != modules.end(); ++it)
+	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
 	{
-		if ((*it)->IsEnabled() && (*it)->configuration & M_DRAW_DEBUG)
+		if ((*it)->IsEnabled() && (*it)->m_configuration & M_DRAW_DEBUG)
 		{
 			(*it)->DrawDebug();
 		}
@@ -161,7 +161,7 @@ void App::DrawDebug()
 
 uint App::GetMaxFPS() const
 {
-	if (cappedMs > 0) return (uint)((1.0f / (float)cappedMs) * 1000.0f);
+	if (m_cappedMs > 0) return (uint)((1.0f / (float)m_cappedMs) * 1000.0f);
 	
 	return 0;
 }
@@ -169,9 +169,9 @@ uint App::GetMaxFPS() const
 void App::SetMaxFPS(uint _fps)
 {
 	if (_fps > 0)
-		cappedMs = 1000 / _fps;
+		m_cappedMs = 1000 / _fps;
 	else
-		cappedMs = 0;
+		m_cappedMs = 0;
 }
 
 void App::PrepareUpdate()
@@ -183,5 +183,5 @@ void App::FinishUpdate()
 {
 	clock->OnFinishUpdate();
 
-	if (cappedMs > 0 && clock->LastFrameMs() < cappedMs) SDL_Delay(cappedMs - clock->LastFrameMs());
+	if (m_cappedMs > 0 && clock->LastFrameMs() < m_cappedMs) SDL_Delay(m_cappedMs - clock->LastFrameMs());
 }

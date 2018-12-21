@@ -50,15 +50,15 @@ private:
 	void CalcModel();
 
 public:
-	glm::mat4 modelMat;
-	std::string directory = "";
+	glm::mat4 m_modelMat;
+	std::string m_directory = "";
 
 private:
-	glm::vec3 translation = glm::vec3(0.f);
-	glm::vec3 eulerRot = glm::vec3(0.f);
-	glm::vec3 scale = glm::vec3(1.f);
+	glm::vec3 m_translation = glm::vec3(0.f);
+	glm::vec3 m_eulerRot = glm::vec3(0.f);
+	glm::vec3 m_scale = glm::vec3(1.f);
 
-	std::vector<std::pair<R_Geometry*, R_Material*>> meshes;
+	std::vector<std::pair<R_Geometry*, R_Material*>> m_meshes;
 };
 
 #endif // !__R_MODEL_H__

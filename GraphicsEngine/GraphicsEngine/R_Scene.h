@@ -41,8 +41,8 @@ public:
 
 	void OnResize(int w, int h);
 
-	int Width()const { return viewportWidth; }
-	int Height()const { return viewportHeight; }
+	int Width()const { return m_viewportWidth; }
+	int Height()const { return m_viewportHeight; }
 
 	R_Material* GetDefaultMaterial()const;
 
@@ -58,18 +58,18 @@ public:
 private:
 
 public:
-	glm::vec4 backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.f);
+	glm::vec4 m_backgroundColor = glm::vec4(0.1f, 0.1f, 0.1f, 1.f);
 
 protected:
-	R_Material* defMaterial = nullptr;
-	std::vector<R_Model*> models;
+	R_Material* m_defMaterial = nullptr;
+	std::vector<R_Model*> m_models;
 	// TODO: Add lights
 
 private:
-	Camera* cameras[MAX_CAMERAS];
-	Camera* activeCamera = nullptr;
+	Camera* m_cameras[MAX_CAMERAS];
+	Camera* m_activeCamera = nullptr;
 
-	int viewportWidth, viewportHeight;
+	int m_viewportWidth, m_viewportHeight;
 };
 
 #endif // !__R_SCENE_H__

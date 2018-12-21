@@ -6,7 +6,7 @@
 
 M_FileSystem::M_FileSystem() : Module("M_FileSystem", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
 	char* basePath = SDL_GetBasePath();
 	LOG(CONSOLE_TEXT_BLUE, "FS bsae path: [%s].", basePath);
@@ -17,20 +17,20 @@ M_FileSystem::M_FileSystem() : Module("M_FileSystem", true)
 
 	SDL_free(basePath);
 
-	configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG;
+	m_configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG;
 }
 
 
 M_FileSystem::~M_FileSystem()
 {
-	LOG_DESTRUCTION(moduleName.c_str());
+	LOG_DESTRUCTION(m_moduleName.c_str());
 
 	PHYSFS_deinit();
 }
 
 bool M_FileSystem::Init()
 {
-	LOG_INIT(moduleName.c_str());
+	LOG_INIT(m_moduleName.c_str());
 
 	bool ret = true;
 
@@ -54,7 +54,7 @@ bool M_FileSystem::Init()
 
 bool M_FileSystem::CleanUp()
 {
-	LOG_CLEANUP(moduleName.c_str());
+	LOG_CLEANUP(m_moduleName.c_str());
 
 	return true;
 }

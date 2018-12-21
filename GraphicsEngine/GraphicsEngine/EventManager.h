@@ -20,7 +20,7 @@ public:
 	void FireEvent(Event e);
 
 private:
-	std::map<EventType, std::vector<IEventListener*>> listeners;
+	std::map<EventType, std::vector<IEventListener*>> m_listeners;
 };
 
 #endif // !__EVENTMANAGER_H__

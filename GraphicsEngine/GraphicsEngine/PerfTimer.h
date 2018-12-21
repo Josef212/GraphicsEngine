@@ -19,10 +19,10 @@ namespace GE
 		unsigned long long ReadTicks()const;
 
 	private:
-		bool running;
-		uint64 startedAt;
-		uint64 stopedAt;
-		uint64 frequency = 0;
+		bool m_running;
+		uint64 m_startedAt;
+		uint64 m_stopedAt;
+		uint64 m_frequency = 0;
 	};
 }
 

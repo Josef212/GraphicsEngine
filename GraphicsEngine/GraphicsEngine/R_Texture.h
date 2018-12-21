@@ -14,20 +14,20 @@ public:
 
 	void LoadTexture(const char* path);
 
-	bool Loaded()const { return textureID != 0; }
-	unsigned int TextureID()const { return textureID; }
+	bool Loaded()const { return m_textureID != 0; }
+	unsigned int TextureID()const { return m_textureID; }
 
-	int Width()const { return width; }
-	int Height()const { return height; }
-	int NumChannels()const { return nrChannels; }
-	const char* Path()const { return path.c_str(); }
+	int Width()const { return m_width; }
+	int Height()const { return m_height; }
+	int NumChannels()const { return m_nrChannels; }
+	const char* Path()const { return m_path.c_str(); }
 
 
 private:
-	unsigned int textureID = 0;
-	int width = 0, height = 0, nrChannels = 0;
+	unsigned int m_textureID = 0;
+	int m_width = 0, m_height = 0, m_nrChannels = 0;
 
-	std::string path = "";
+	std::string m_path = "";
 };
 
 #endif // !__R_TEXTURE_H__

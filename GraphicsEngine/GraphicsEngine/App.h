@@ -33,7 +33,7 @@ public:
 
 	// ===================================
 
-	void Close() { shouldClose = true; }
+	void Close() { m_shouldClose = true; }
 
 	uint GetMaxFPS()const;
 	void SetMaxFPS(uint _fps);
@@ -53,16 +53,16 @@ public:
 
 	M_Render3D* render					= nullptr;
 
-	bool drawDebug = false;
+	bool m_drawDebug = false;
 
 	GE::Clock* clock					= nullptr;
 	EventManager* eventManager			= nullptr;
 
 private:
-	std::vector<Module*> modules;
+	std::vector<Module*> m_modules;
 
-	bool shouldClose = false;
-	uint32 cappedMs = 0;
+	bool m_shouldClose = false;
+	uint32 m_cappedMs = 0;
 };
 
 extern App* app;

@@ -12,22 +12,22 @@
 
 M_ResourceManager::M_ResourceManager() : Module("M_ResourceManager", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
 	for (int i = 0; i < ResourceType::RES_MAX; ++i)
 	{
-		_resources[(ResourceType)i] = std::vector<Resource*>();
+		m_resources[(ResourceType)i] = std::vector<Resource*>();
 	}
 
-	configuration = M_START;
+	m_configuration = M_START;
 }
 
 
 M_ResourceManager::~M_ResourceManager()
 {
-	LOG_DESTRUCTION(moduleName.c_str());
+	LOG_DESTRUCTION(m_moduleName.c_str());
 
-	for(auto it : _resources)
+	for(auto it : m_resources)
 	{
 		for (auto res : it.second)
 		{
@@ -39,7 +39,7 @@ M_ResourceManager::~M_ResourceManager()
 
 bool M_ResourceManager::Start()
 {
-	LOG_START(moduleName.c_str());
+	LOG_START(m_moduleName.c_str());
 
 	SetDefaultResources();
 
@@ -50,8 +50,8 @@ void M_ResourceManager::AddResource(Resource * res)
 {
 	if (!res) return;
 
-	auto it = _resources.find(res->GetType());
-	if (it != _resources.end())
+	auto it = m_resources.find(res->GetType());
+	if (it != m_resources.end())
 	{
 		(*it).second.push_back(res);
 	}
@@ -61,8 +61,8 @@ void M_ResourceManager::RemoveResource(Resource * res, bool forceDefaults)
 {
 	if (!res) return;
 
-	auto list = _resources.find(res->GetType());
-	if (list != _resources.end())
+	auto list = m_resources.find(res->GetType());
+	if (list != m_resources.end())
 	{
 		auto it = std::find((*list).second.begin(), (*list).second.end(), res);
 		if (it != (*list).second.end())
@@ -105,7 +105,7 @@ void M_ResourceManager::RemoveResources(std::vector<Resource*>& res, bool forceD
 
 void M_ResourceManager::RemoveAllResources(bool forceDefaults)
 {
-	for (auto list : _resources)
+	for (auto list : m_resources)
 	{
 		for (auto it : list.second)
 		{
@@ -122,8 +122,8 @@ unsigned int M_ResourceManager::GatherResourcesOfType(ResourceType type, std::ve
 {
 	vec.clear();
 
-	auto list = _resources.find(type);
-	if (list != _resources.end())
+	auto list = m_resources.find(type);
+	if (list != m_resources.end())
 	{
 		for (auto it : (*list).second)
 		{
@@ -150,8 +150,8 @@ bool M_ResourceManager::ValidateResource(Resource* res)
 {
 	if (!res) return false;
 
-	auto list = _resources.find(res->GetType());
-	if (list != _resources.end())
+	auto list = m_resources.find(res->GetType());
+	if (list != m_resources.end())
 	{
 		auto it = std::find((*list).second.begin(), (*list).second.end(), res);
 		if (it != (*list).second.end()) return true;

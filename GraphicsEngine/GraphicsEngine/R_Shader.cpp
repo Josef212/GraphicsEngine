@@ -8,16 +8,16 @@
 
 R_Shader::R_Shader(const char* name) : Resource(name, RES_SHADER)
 {
-	vertPath = "";
-	fragPath = "";
-	geoPath = "";
+	m_vertPath = "";
+	m_fragPath = "";
+	m_geoPath = "";
 }
 
 R_Shader::R_Shader(const char* name, const char* vertexPath, const char* fragmentPath, const char* geometryPath) : Resource(name, RES_SHADER)
 {
-	vertPath = vertexPath;
-	fragPath = fragmentPath;
-	geoPath = geometryPath ? geometryPath : "";
+	m_vertPath = vertexPath;
+	m_fragPath = fragmentPath;
+	m_geoPath = geometryPath ? geometryPath : "";
 
 	LoadShader();
 }
@@ -28,143 +28,143 @@ R_Shader::~R_Shader()
 
 void R_Shader::LoadShader(const char * vertexPath, const char * fragmentPath, const char * geometryPath)
 {
-	vertPath = vertexPath;
-	fragPath = fragmentPath;
-	geoPath = geometryPath;
+	m_vertPath = vertexPath;
+	m_fragPath = fragmentPath;
+	m_geoPath = geometryPath;
 
 	LoadShader();
 }
 
 void R_Shader::LoadShader()
 {
-	std::string vertexCode = LoadCode(vertPath.c_str());
-	std::string fragmentCode = LoadCode(fragPath.c_str());
+	std::string vertexCode = LoadCode(m_vertPath.c_str());
+	std::string fragmentCode = LoadCode(m_fragPath.c_str());
 	std::string geometryCode;
-	if (!geoPath.empty()) geometryCode = LoadCode(geoPath.c_str());
+	if (!m_geoPath.empty()) geometryCode = LoadCode(m_geoPath.c_str());
 
 	unsigned int vertex, fragment, geometry;
 
 	vertex = CreateShader(vertexCode.c_str(), GL_VERTEX_SHADER);
 	fragment = CreateShader(fragmentCode.c_str(), GL_FRAGMENT_SHADER);
-	if (!geoPath.empty()) geometry = CreateShader(geometryCode.c_str(), GL_GEOMETRY_SHADER);
+	if (!m_geoPath.empty()) geometry = CreateShader(geometryCode.c_str(), GL_GEOMETRY_SHADER);
 
-	ID = glCreateProgram();
-	glAttachShader(ID, vertex);
-	glAttachShader(ID, fragment);
-	if (!geoPath.empty()) glAttachShader(ID, geometry);
+	m_ID = glCreateProgram();
+	glAttachShader(m_ID, vertex);
+	glAttachShader(m_ID, fragment);
+	if (!m_geoPath.empty()) glAttachShader(m_ID, geometry);
 
-	glLinkProgram(ID);
-	CheckCompileErrors(ID, "PROGRAM");
+	glLinkProgram(m_ID);
+	CheckCompileErrors(m_ID, "PROGRAM");
 
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
-	if (!geoPath.empty()) glDeleteShader(geometry);
+	if (!m_geoPath.empty()) glDeleteShader(geometry);
 }
 
 void R_Shader::ReloadShader()
 {
-	glDeleteProgram(ID);
+	glDeleteProgram(m_ID);
 	LoadShader();
 }
 
 void R_Shader::Load()
 {
-	if (!vertPath.empty() && !fragPath.empty()) LoadShader();
+	if (!m_vertPath.empty() && !m_fragPath.empty()) LoadShader();
 }
 
 void R_Shader::Free()
 {
-	glDeleteProgram(ID);
-	vertPath = fragPath = geoPath = "";
-	status = SH_PENDING;
+	glDeleteProgram(m_ID);
+	m_vertPath = m_fragPath = m_geoPath = "";
+	m_status = SH_PENDING;
 }
 
 void R_Shader::Use()const
 {
-	glUseProgram(ID);
+	glUseProgram(m_ID);
 }
 
 // -----
 
 void R_Shader::SetBool(const char* name, bool value) const
 {
-	glUniform1i(glGetUniformLocation(ID, name), (int)value);
+	glUniform1i(glGetUniformLocation(m_ID, name), (int)value);
 }
 void R_Shader::SetInt(const char* name, int value) const
 {
-	glUniform1i(glGetUniformLocation(ID, name), value);
+	glUniform1i(glGetUniformLocation(m_ID, name), value);
 }
 void R_Shader::SetFloat(const char* name, float value) const
 {
-	glUniform1f(glGetUniformLocation(ID, name), value);
+	glUniform1f(glGetUniformLocation(m_ID, name), value);
 }
 void R_Shader::SetVec2(const char* name, const glm::vec2& value) const
 {
-	glUniform2fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform2fv(glGetUniformLocation(m_ID, name), 1, &value[0]);
 }
 void R_Shader::SetVec2(const char* name, const float* value) const
 {
-	glUniform2fv(glGetUniformLocation(ID, name), 1, value);
+	glUniform2fv(glGetUniformLocation(m_ID, name), 1, value);
 }
 void R_Shader::SetVec2(const char* name, float x, float y) const
 {
-	glUniform2f(glGetUniformLocation(ID, name), x, y);
+	glUniform2f(glGetUniformLocation(m_ID, name), x, y);
 }
 void R_Shader::SetVec3(const char* name, const glm::vec3& value) const
 {
-	glUniform3fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform3fv(glGetUniformLocation(m_ID, name), 1, &value[0]);
 }
 void R_Shader::SetVec3(const char* name, const float* value) const
 {
-	glUniform3fv(glGetUniformLocation(ID, name), 1, value);
+	glUniform3fv(glGetUniformLocation(m_ID, name), 1, value);
 }
 void R_Shader::SetVec3(const char* name, float x, float y, float z) const
 {
-	glUniform3f(glGetUniformLocation(ID, name), x, y, z);
+	glUniform3f(glGetUniformLocation(m_ID, name), x, y, z);
 }
 void R_Shader::SetVec4(const char* name, const glm::vec4& value) const
 {
-	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform4fv(glGetUniformLocation(m_ID, name), 1, &value[0]);
 }
 void R_Shader::SetVec4(const char* name, const float* value) const
 {
-	glUniform4fv(glGetUniformLocation(ID, name), 1, value);
+	glUniform4fv(glGetUniformLocation(m_ID, name), 1, value);
 }
 void R_Shader::SetVec4(const char* name, float x, float y, float z, float w) const
 {
-	glUniform4f(glGetUniformLocation(ID, name), x, y, z, w);
+	glUniform4f(glGetUniformLocation(m_ID, name), x, y, z, w);
 }
 void R_Shader::SetMat2(const char* name, const glm::mat2& value) const
 {
-	glUniformMatrix2fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix2fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, &value[0][0]);
 }
 void R_Shader::SetMat2(const char* name, const float* value) const
 {
-	glUniformMatrix2fv(glGetUniformLocation(ID, name), 1, GL_FALSE, value);
+	glUniformMatrix2fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, value);
 }
 void R_Shader::SetMat3(const char* name, const glm::mat3& value) const
 {
-	glUniformMatrix3fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix3fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, &value[0][0]);
 }
 void R_Shader::SetMat3(const char* name, const float* value) const
 {
-	glUniformMatrix3fv(glGetUniformLocation(ID, name), 1, GL_FALSE, value);
+	glUniformMatrix3fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, value);
 }
 void R_Shader::SetMat4(const char* name, const glm::mat4& value) const
 {
-	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &value[0][0]);
+	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, &value[0][0]);
 }
 void R_Shader::SetMat4(const char* name, const float* value) const
 {
-	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, value);
+	glUniformMatrix4fv(glGetUniformLocation(m_ID, name), 1, GL_FALSE, value);
 }
 
 void R_Shader::LogCode()
 {
-	std::string vertexCode = LoadCode(vertPath.c_str());
-	std::string fragmentCode = LoadCode(fragPath.c_str());
+	std::string vertexCode = LoadCode(m_vertPath.c_str());
+	std::string fragmentCode = LoadCode(m_fragPath.c_str());
 	std::string geometryCode;
-	if (!geoPath.empty()) geometryCode = LoadCode(geoPath.c_str());
+	if (!m_geoPath.empty()) geometryCode = LoadCode(m_geoPath.c_str());
 
 	std::cout << "==========================" << std::endl;
 
@@ -183,7 +183,7 @@ void R_Shader::LogCode()
 
 Shader_Status R_Shader::GetStatus() const
 {
-	return status;
+	return m_status;
 }
 
 const char* R_Shader::GetStatusStr() const
@@ -192,7 +192,7 @@ const char* R_Shader::GetStatusStr() const
 		"COMPILED", "ERROR", "PENDING"
 		};
 
-	return statusStr[status];
+	return statusStr[m_status];
 }
 
 // ---------------------------------------------------------------------
@@ -251,11 +251,11 @@ void R_Shader::CheckCompileErrors(int sh, const char* type)
 		{
 			glGetProgramInfoLog(sh, 1024, NULL, infoLog);
 			std::cout << GetName() << "->" << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
-			status = SH_ERROR;
+			m_status = SH_ERROR;
 		}
 		else
 		{
-			status = SH_COMPILED;
+			m_status = SH_COMPILED;
 			std::cout << GetName() << " just compiled." << std::endl;
 		}
 	}

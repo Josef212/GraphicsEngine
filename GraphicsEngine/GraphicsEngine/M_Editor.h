@@ -26,19 +26,19 @@ public:
 	void Render();
 	void PassInput(SDL_Event* ev);
 
-	bool UsingMouse()const { return isUsingMouse; }
-	bool UsingKeyboard()const { return isUsingKeyboard; }
+	bool UsingMouse()const { return m_isUsingMouse; }
+	bool UsingKeyboard()const { return m_isUsingKeyboard; }
 
 public:
-	E_GeometryPanel* geoPanel = nullptr;
-	E_TexturePanel* texPanel = nullptr;
-	E_ScenePanel* scenePanel = nullptr;
+	E_GeometryPanel* m_geoPanel = nullptr;
+	E_TexturePanel* m_texPanel = nullptr;
+	E_ScenePanel* m_scenePanel = nullptr;
 
 private:
-	bool isUsingMouse = false, isUsingKeyboard = false;
-	bool showImGuiDemo = false;
+	bool m_isUsingMouse = false, m_isUsingKeyboard = false;
+	bool m_showImGuiDemo = false;
 
-	std::vector<Panel*> panels;
+	std::vector<Panel*> m_panels;
 
 };
 

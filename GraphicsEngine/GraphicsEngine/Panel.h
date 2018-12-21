@@ -8,23 +8,23 @@
 class Panel
 {
 public:
-	Panel(const char* name) { this->name = name; }
+	Panel(const char* name) { this->m_name = name; }
 	virtual ~Panel() = default;
 
 	virtual void OnInit() {}
 	virtual void Display() = 0;
 
-	void Enable() { show = true; OnInit(); }
-	void Disable() { show = false; }
-	void SwapShow() { show ? Disable() : Enable(); }
+	void Enable() { m_show = true; OnInit(); }
+	void Disable() { m_show = false; }
+	void SwapShow() { m_show ? Disable() : Enable(); }
 
-	bool Visible()const { return show; }
+	bool Visible()const { return m_show; }
 	
 public:
-	std::string name = "No name";
+	std::string m_name = "No name";
 
 protected:
-	bool show = false;
+	bool m_show = false;
 
 };
 

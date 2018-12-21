@@ -4,7 +4,7 @@
 
 OrthographicCamera::OrthographicCamera()
 {
-	cameraType = CAM_ORTHOGRAPHIC;
+	m_cameraType = CAM_ORTHOGRAPHIC;
 	CalcProjection();
 }
 
@@ -16,7 +16,7 @@ OrthographicCamera::~OrthographicCamera()
 
 void OrthographicCamera::CalcProjection()
 {
-	projection = glm::ortho(-Size, Size, -Size, Size, 1.0f, 100.0f);
+	m_projection = glm::ortho(-m_Size, m_Size, -m_Size, m_Size, 1.0f, 100.0f);
 }
 
 void OrthographicCamera::OnViewportResize()

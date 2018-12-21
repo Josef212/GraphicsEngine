@@ -16,7 +16,7 @@ E_ScenePanel::~E_ScenePanel()
 
 void E_ScenePanel::Display()
 {
-	ImGui::Begin(name.c_str(), &show);
+	ImGui::Begin(m_name.c_str(), &m_show);
 	{
 		// Create scene
 

@@ -16,26 +16,26 @@
 
 M_Render3D::M_Render3D() : Module("M_Module3D", true)
 {
-	LOG_CREATION(moduleName.c_str());
+	LOG_CREATION(m_moduleName.c_str());
 
-	vsync = false;
+	m_vsync = false;
 
-	configuration = M_INIT | M_START | M_PRE_UPDATE | M_POST_UPDATE | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
+	m_configuration = M_INIT | M_START | M_PRE_UPDATE | M_POST_UPDATE | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
 }
 
 
 M_Render3D::~M_Render3D()
 {
-	LOG_DESTRUCTION(moduleName.c_str());
+	LOG_DESTRUCTION(m_moduleName.c_str());
 }
 
 bool M_Render3D::Init()
 {
 	bool ret = true;
 
-	context = SDL_GL_CreateContext(app->window->GetWindow());
+	m_context = SDL_GL_CreateContext(app->window->GetWindow());
 
-	if(!context)
+	if(!m_context)
 	{
 		LOG(LOG_ERROR, "OpenGL could not create context. SDL_Error: %s", SDL_GetError());
 		ret = false;
@@ -68,7 +68,7 @@ bool M_Render3D::Init()
 		LOG(LOG_INFO, "OpenGL version supported %s", glGetString(GL_VERSION));
 		LOG(LOG_INFO, "GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
-		SetVSync(vsync);
+		SetVSync(m_vsync);
 
 		glClearDepth(1.f);
 		glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -87,7 +87,7 @@ bool M_Render3D::Init()
 
 bool M_Render3D::Start()
 {
-	activeRenderer = new R_ForwardRenderer("Forward renderer");
+	m_activeRenderer = new R_ForwardRenderer("Forward renderer");
 
 	return true;
 }
@@ -108,16 +108,16 @@ UpdateReturn M_Render3D::Update(float dt)
 UpdateReturn M_Render3D::PostUpdate(float dt)
 {
 	// TODO: Can improve this a lot but ok for now
-	activeScene = app->sceneManager->GetActiveScene();
+	m_activeScene = app->sceneManager->GetActiveScene();
 
-	if (activeScene && activeRenderer)
+	if (m_activeScene && m_activeRenderer)
 	{
-		activeRenderer->RenderScene(activeScene);
+		m_activeRenderer->RenderScene(m_activeScene);
 	}
 
 	// TODO: Grid
 
-	if (app->drawDebug) app->DrawDebug();
+	if (app->m_drawDebug) app->DrawDebug();
 
 	app->editor->Render();
 
@@ -128,9 +128,9 @@ UpdateReturn M_Render3D::PostUpdate(float dt)
 
 bool M_Render3D::CleanUp()
 {
-	LOG_CLEANUP(moduleName.c_str());
+	LOG_CLEANUP(m_moduleName.c_str());
 
-	SDL_GL_DeleteContext(context);
+	SDL_GL_DeleteContext(m_context);
 
 	return true;
 }
@@ -142,10 +142,10 @@ void M_Render3D::OnResize(uint w, uint h)
 
 void M_Render3D::SetVSync(bool set)
 {
-	if (set != vsync)
+	if (set != m_vsync)
 	{
-		vsync = set;
-		if (SDL_GL_SetSwapInterval(vsync ? 1 : 0) < 0)
+		m_vsync = set;
+		if (SDL_GL_SetSwapInterval(m_vsync ? 1 : 0) < 0)
 			LOG(LOG_WARN, "Unable to set VSync. SDL_Error: %s", SDL_GetError());
 	}
 }

@@ -45,28 +45,28 @@ namespace GE
 
 	private:
 		//Real -------------------------
-		std::unique_ptr<PerfTimer> msTimer = nullptr;
-		std::unique_ptr<PerfTimer> fpsTimer = nullptr;
-		float realDt = 0.f;
-		uint realFrameCount = 0;
-		uint fpsCounter = 0;
-		uint lastFps = 0;
+		std::unique_ptr<PerfTimer> m_msTimer = nullptr;
+		std::unique_ptr<PerfTimer> m_fpsTimer = nullptr;
+		float m_realDt = 0.f;
+		uint m_realFrameCount = 0;
+		uint m_fpsCounter = 0;
+		uint m_lastFps = 0;
 
-		float timeSinceAppStart = 0.f; //Time in seconds since start up
-		float timeSinceLevelLoaded = 0.f;
+		float m_timeSinceAppStart = 0.f; //Time in seconds since start up
+		float m_timeSinceLevelLoaded = 0.f;
 
 		//Game -------------------------
-		std::unique_ptr<PerfTimer> msGameTimer = nullptr;
-		float gameDt = 0.f;
-		uint gameFrameCount = 0;
-		float gameTimeSinceLevelLoaded = 0.f;
+		std::unique_ptr<PerfTimer> m_msGameTimer = nullptr;
+		float m_gameDt = 0.f;
+		uint m_gameFrameCount = 0;
+		float m_gameTimeSinceLevelLoaded = 0.f;
 
 		//-----------------------------------
 
-		float scale = 1.0f;
+		float m_scale = 1.0f;
 
-		float lastFrameMs = 0;
-		float maximumDT = 1.0f;
+		float m_lastFrameMs = 0;
+		float m_maximumDT = 1.0f;
 	};
 
 }

@@ -137,6 +137,7 @@
     <ClCompile Include="M_Input.cpp" />
     <ClCompile Include="M_Render3D.cpp" />
     <ClCompile Include="M_ResourceManager.cpp" />
+    <ClCompile Include="SceneLoader.cpp" />
     <ClCompile Include="M_SceneManager.cpp" />
     <ClCompile Include="M_Window.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Render3D.h" />
     <ClInclude Include="M_ResourceManager.h" />
+    <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="M_SceneManager.h" />
     <ClInclude Include="M_Window.h" />
     <ClInclude Include="OpenGL.h" />

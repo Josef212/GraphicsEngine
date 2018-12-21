@@ -18,17 +18,17 @@ App::App()
 {
 	LOG(LOG_INFO, "Creating modules.");
 
-	clock = new GE::Clock();
-	eventManager = new EventManager();
+	clock				= new GE::Clock();
+	eventManager		= new EventManager();
 
-	fs = new M_FileSystem();
-	window = new M_Window();
-	input = new M_Input();
-	editor = new M_Editor();
-	resourceManager = new M_ResourceManager();
-	sceneManager = new M_SceneManager();
+	fs					= new M_FileSystem();
+	window				= new M_Window();
+	input				= new M_Input();
+	editor				= new M_Editor();
+	resourceManager		= new M_ResourceManager();
+	sceneManager		= new M_SceneManager();
 
-	render = new M_Render3D();
+	render				= new M_Render3D();
 
 
 	m_modules.push_back(fs);
@@ -62,7 +62,8 @@ bool App::Init()
 	auto it = m_modules.begin();
 	while(it != m_modules.end() && ret)
 	{
-		if ((*it)->m_configuration & M_INIT) ret = (*it)->Init();
+		if ((*it)->m_configuration & M_INIT) 
+			ret = (*it)->Init();
 		++it;
 	}
 
@@ -73,7 +74,8 @@ bool App::Init()
 	it = m_modules.begin();
 	while (it != m_modules.end() && ret)
 	{
-		if ((*it)->m_configuration & M_START) ret = (*it)->Start();
+		if ((*it)->m_configuration & M_START) 
+			ret = (*it)->Start();
 		++it;
 	}
 
@@ -89,7 +91,8 @@ UpdateReturn App::Update()
 	auto it = m_modules.begin();
 	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->m_configuration & M_PRE_UPDATE && (*it)->IsEnabled()) ret = (*it)->PreUpdate(clock->Dt());
+		if ((*it)->m_configuration & M_PRE_UPDATE && (*it)->IsEnabled()) 
+			ret = (*it)->PreUpdate(clock->Dt());
 		++it;
 	}
 
@@ -98,7 +101,8 @@ UpdateReturn App::Update()
 	it = m_modules.begin();
 	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->m_configuration & M_UPDATE && (*it)->IsEnabled()) ret = (*it)->Update(clock->Dt());
+		if ((*it)->m_configuration & M_UPDATE && (*it)->IsEnabled())
+			ret = (*it)->Update(clock->Dt());
 		++it;
 	}
 
@@ -107,7 +111,8 @@ UpdateReturn App::Update()
 	it = m_modules.begin();
 	while (it != m_modules.end() && ret == UpdateReturn::UPDT_CONTINUE)
 	{
-		if ((*it)->m_configuration & M_POST_UPDATE && (*it)->IsEnabled()) ret = (*it)->PostUpdate(clock->Dt());
+		if ((*it)->m_configuration & M_POST_UPDATE && (*it)->IsEnabled()) 
+			ret = (*it)->PostUpdate(clock->Dt());
 		++it;
 	}
 
@@ -131,7 +136,8 @@ bool App::CleanUp()
 
 	for (auto it = m_modules.rbegin(); it != m_modules.rend() && ret; ++it)
 	{
-		if((*it)->m_configuration & M_CLEAN_UP) ret = (*it)->CleanUp();
+		if((*it)->m_configuration & M_CLEAN_UP) 
+			ret = (*it)->CleanUp();
 	}
 
 	return ret;

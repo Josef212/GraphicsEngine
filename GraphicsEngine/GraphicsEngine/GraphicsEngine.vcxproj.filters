@@ -75,9 +75,6 @@
     <ClCompile Include="R_Material.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="M_Editor.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="ThirdParty\ImGui\imgui.cpp">
       <Filter>ThirdParty\ImGui</Filter>
     </ClCompile>
@@ -132,9 +129,6 @@
     <ClCompile Include="E_ScenePanel.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
-    <ClCompile Include="M_ResourceManager.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
     <ClCompile Include="EventManager.cpp">
       <Filter>Tools\Events</Filter>
     </ClCompile>
@@ -143,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="R_ForwardRenderer.cpp">
       <Filter>Resources\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="M_ResourceManager.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="M_Editor.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp">
+      <Filter>Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -190,9 +193,6 @@
     </ClInclude>
     <ClInclude Include="R_Material.h">
       <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="M_Editor.h">
-      <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="ThirdParty\ImGui\imconfig.h">
       <Filter>ThirdParty\ImGui</Filter>
@@ -254,9 +254,6 @@
     <ClInclude Include="E_ScenePanel.h">
       <Filter>Editor</Filter>
     </ClInclude>
-    <ClInclude Include="M_ResourceManager.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
     <ClInclude Include="EventManager.h">
       <Filter>Tools\Events</Filter>
     </ClInclude>
@@ -271,6 +268,15 @@
     </ClInclude>
     <ClInclude Include="R_ForwardRenderer.h">
       <Filter>Resources\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="M_ResourceManager.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="M_Editor.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneLoader.h">
+      <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

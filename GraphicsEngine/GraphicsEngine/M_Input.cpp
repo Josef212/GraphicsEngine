@@ -28,6 +28,8 @@ M_Input::~M_Input()
 
 bool M_Input::Init()
 {
+	LOG_INIT(m_moduleName.c_str());
+
 	bool ret = true;
 
 	SDL_Init(0);

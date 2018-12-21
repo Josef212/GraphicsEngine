@@ -12,6 +12,7 @@ enum ResourceType
 	RES_MODEL,
 	RES_TEXTURE,
 	RES_SCENE,
+	RES_RENDERER,
 
 	RES_MAX
 };

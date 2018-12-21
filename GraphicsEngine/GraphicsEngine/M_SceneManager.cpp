@@ -81,10 +81,10 @@ void M_SceneManager::RemoveScene(const char * name)
 	}
 }
 
-void M_SceneManager::CreateScene(const char * name)
+void M_SceneManager::CreateScene(const char * name, bool activate)
 {
 	R_Scene* sc = new R_Scene(name);
-	AddScene(sc);
+	AddScene(sc, activate);
 }
 
 void M_SceneManager::SelectActiveScene(int index)

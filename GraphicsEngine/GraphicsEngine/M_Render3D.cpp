@@ -6,7 +6,12 @@
 
 #include "OpenGL.h"
 
+#include "M_ResourceManager.h"
+#include "M_SceneManager.h"
 #include "R_Scene.h"
+#include "R_Renderer.h"
+
+#include "R_ForwardRenderer.h" // TMP
 
 
 M_Render3D::M_Render3D() : Module("M_Module3D", true)
@@ -80,6 +85,13 @@ bool M_Render3D::Init()
 	return ret;
 }
 
+bool M_Render3D::Start()
+{
+	activeRenderer = new R_ForwardRenderer("Forward renderer");
+
+	return true;
+}
+
 UpdateReturn M_Render3D::PreUpdate(float dt)
 {
 	glClearColor(0.3f, 0.3f, 0.3f, 1.f);
@@ -95,8 +107,13 @@ UpdateReturn M_Render3D::Update(float dt)
 
 UpdateReturn M_Render3D::PostUpdate(float dt)
 {
-	// TODO: Render scene
-	//if (activeScene) activeRenderer->RenderScene(activeScene);
+	// TODO: Can improve this a lot but ok for now
+	activeScene = app->sceneManager->GetActiveScene();
+
+	if (activeScene && activeRenderer)
+	{
+		activeRenderer->RenderScene(activeScene);
+	}
 
 	// TODO: Grid
 
@@ -131,11 +148,4 @@ void M_Render3D::SetVSync(bool set)
 		if (SDL_GL_SetSwapInterval(vsync ? 1 : 0) < 0)
 			LOG(LOG_WARN, "Unable to set VSync. SDL_Error: %s", SDL_GetError());
 	}
-}
-
-void M_Render3D::SetActiveScene(R_Scene* sc)
-{
-	if (activeScene) activeScene->Free();
-	activeScene = sc;
-	if (activeScene) activeScene->Load();
 }

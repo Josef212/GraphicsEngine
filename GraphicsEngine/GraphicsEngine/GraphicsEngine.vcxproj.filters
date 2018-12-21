@@ -132,6 +132,9 @@
     <ClCompile Include="EventManager.cpp">
       <Filter>Tools\Events</Filter>
     </ClCompile>
+    <ClCompile Include="R_Renderer.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Tools\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Renderer.h">
+      <Filter>Resources</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

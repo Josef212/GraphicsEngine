@@ -146,6 +146,7 @@
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
     <ClCompile Include="R_Model.cpp" />
+    <ClCompile Include="R_Renderer.cpp" />
     <ClCompile Include="R_Scene.cpp" />
     <ClCompile Include="R_Shader.cpp" />
     <ClCompile Include="R_Texture.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="R_Geometry.h" />
     <ClInclude Include="R_Material.h" />
     <ClInclude Include="R_Model.h" />
+    <ClInclude Include="R_Renderer.h" />
     <ClInclude Include="R_Scene.h" />
     <ClInclude Include="R_Shader.h" />
     <ClInclude Include="R_Texture.h" />

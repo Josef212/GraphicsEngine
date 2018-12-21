@@ -1,5 +1,8 @@
 #include "M_ResourceManager.h"
 
+#include "App.h"
+#include "EventManager.h"
+
 #include "R_Geometry.h"
 #include "R_Shader.h"
 #include "R_Material.h"
@@ -11,6 +14,11 @@ M_ResourceManager::M_ResourceManager() : Module("M_ResourceManager", true)
 {
 	LOG_CREATION(moduleName.c_str());
 
+	for (int i = 0; i < ResourceType::RES_MAX; ++i)
+	{
+		_resources[(ResourceType)i] = std::vector<Resource*>();
+	}
+
 	configuration = M_START;
 }
 
@@ -19,10 +27,13 @@ M_ResourceManager::~M_ResourceManager()
 {
 	LOG_DESTRUCTION(moduleName.c_str());
 
-	for(auto it : resources)
+	for(auto it : _resources)
 	{
-		it->Free();
-		RELEASE(it);
+		for (auto res : it.second)
+		{
+			res->Free();
+			RELEASE(res);
+		}
 	}
 }
 
@@ -37,19 +48,37 @@ bool M_ResourceManager::Start()
 
 void M_ResourceManager::AddResource(Resource * res)
 {
-	resources.push_back(res);
+	if (!res) return;
+
+	auto it = _resources.find(res->GetType());
+	if (it != _resources.end())
+	{
+		(*it).second.push_back(res);
+	}
 }
 
 void M_ResourceManager::RemoveResource(Resource * res, bool forceDefaults)
 {
-	auto it = std::find(resources.begin(), resources.end(), res);
-	if (it != resources.end())
+	if (!res) return;
+
+	auto list = _resources.find(res->GetType());
+	if (list != _resources.end())
 	{
-		if (!IsDefaultResource(res) || forceDefaults)
+		auto it = std::find((*list).second.begin(), (*list).second.end(), res);
+		if (it != (*list).second.end())
 		{
-			res->Free();
-			RELEASE(res);
-			resources.erase(it);
+			if (!IsDefaultResource(res) || forceDefaults)
+			{
+				Event e;
+				e.type = EventType::EVENT_RESOURCE_REMOVED;
+				e.data._int = res->GetType();
+
+				res->Free();
+				RELEASE(res);
+				(*list).second.erase(it);
+
+				app->eventManager->FireEvent(e);
+			}
 		}
 	}
 }
@@ -76,18 +105,15 @@ void M_ResourceManager::RemoveResources(std::vector<Resource*>& res, bool forceD
 
 void M_ResourceManager::RemoveAllResources(bool forceDefaults)
 {
-	for (auto it = resources.begin(); it != resources.end();)
+	for (auto list : _resources)
 	{
-		bool def = IsDefaultResource((*it));
-		if ((def && forceDefaults) || !def)
+		for (auto it : list.second)
 		{
-			(*it)->Free();
-			RELEASE((*it));
-			it = resources.erase(it);
-		}
-		else
-		{
-			++it;
+			bool def = IsDefaultResource(it);
+			if ((def && forceDefaults) || !def)
+			{
+				RemoveResource(it, forceDefaults);
+			}
 		}
 	}
 }
@@ -96,10 +122,13 @@ unsigned int M_ResourceManager::GatherResourcesOfType(ResourceType type, std::ve
 {
 	vec.clear();
 
-	for (auto it : resources)
+	auto list = _resources.find(type);
+	if (list != _resources.end())
 	{
-		if (it->GetType() == type)
+		for (auto it : (*list).second)
+		{
 			vec.push_back(it);
+		}
 	}
 
 	return vec.size();
@@ -119,9 +148,13 @@ bool M_ResourceManager::IsDefaultResource(Resource * res)
 
 bool M_ResourceManager::ValidateResource(Resource* res)
 {
-	for(auto it : resources)
+	if (!res) return false;
+
+	auto list = _resources.find(res->GetType());
+	if (list != _resources.end())
 	{
-		if (it == res) return true;
+		auto it = std::find((*list).second.begin(), (*list).second.end(), res);
+		if (it != (*list).second.end()) return true;
 	}
 
 	return false;

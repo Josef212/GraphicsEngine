@@ -5,13 +5,15 @@
 
 enum ResourceType
 {
-	RES_NONE = 0,
+	RES_NONE = -1,  // IMPORTANT: If change begin number take into account implications on the manager
 	RES_GEOMETRY,
 	RES_SHADER,
 	RES_MATERIAL,
 	RES_MODEL,
 	RES_TEXTURE,
-	RES_SCENE
+	RES_SCENE,
+
+	RES_MAX
 };
 
 class Resource

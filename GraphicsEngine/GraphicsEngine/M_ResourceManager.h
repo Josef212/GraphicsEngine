@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <vector>
+#include <map>
 #include "Resource.h"
 
 class Resource;
@@ -52,7 +53,7 @@ public:
 	}defaultResources;
 
 private:
-	std::vector<Resource*> resources;
+	std::map<ResourceType, std::vector<Resource*>> _resources;
 };
 
 #endif // !__M_RESOURCEMANAGER_H__

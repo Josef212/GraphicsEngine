@@ -16,6 +16,7 @@ public:
 	UpdateReturn Update(float dt) override;
 	bool CleanUp() override;
 
+	// TODO: Does really make sense to add and remove scenes here and store a list of them?? Since is a resource it's already on resource manager
 	void AddScene(R_Scene* sc, bool activate = false);
 	void RemoveScene(R_Scene* sc);
 	void RemoveScene(const char* name);

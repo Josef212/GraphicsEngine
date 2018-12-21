@@ -1,5 +1,7 @@
 #include "App.h"
 
+#include "EventManager.h"
+
 #include "M_FileSystem.h"
 #include "M_Window.h"
 #include "M_Input.h"
@@ -17,6 +19,7 @@ App::App()
 	LOG(LOG_INFO, "Creating modules.");
 
 	clock = new GE::Clock();
+	eventManager = new EventManager();
 
 	fs = new M_FileSystem();
 	window = new M_Window();
@@ -46,6 +49,7 @@ App::~App()
 		RELEASE((*it));
 	}
 
+	RELEASE(eventManager);
 	RELEASE(clock);
 }
 

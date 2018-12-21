@@ -7,6 +7,7 @@
 
 #include <vector>
 
+class EventManager;
 
 class M_FileSystem;
 class M_Window;
@@ -54,7 +55,8 @@ public:
 
 	bool drawDebug = false;
 
-	GE::Clock* clock = nullptr;
+	GE::Clock* clock					= nullptr;
+	EventManager* eventManager			= nullptr;
 
 private:
 	std::vector<Module*> modules;

@@ -9,6 +9,9 @@
 M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
 {
 	LOG_CREATION(moduleName.c_str());
+
+	configuration = M_START | M_UPDATE | M_CLEAN_UP; 
+	// TODO: Probably update not needed although it mught update the active scene
 }
 
 

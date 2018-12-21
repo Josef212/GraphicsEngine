@@ -10,6 +10,7 @@
 
 #include "E_GeometryPanel.h"
 #include "E_TexturePanel.h"
+#include "E_ScenePanel.h"
 
 
 M_Editor::M_Editor() : Module("M_Editor", true)
@@ -47,9 +48,11 @@ bool M_Editor::Start()
 
 	geoPanel = new E_GeometryPanel();
 	texPanel = new E_TexturePanel();
+	scenePanel = new E_ScenePanel();
 
 	panels.push_back(geoPanel);
 	panels.push_back(texPanel);
+	panels.push_back(scenePanel);
 
 	return true;
 }
@@ -79,6 +82,7 @@ UpdateReturn M_Editor::Update(float dt)
 		{
 			if (ImGui::MenuItem("Geometry", nullptr, geoPanel->Visible())) geoPanel->SwapShow();
 			if (ImGui::MenuItem("Textures", nullptr, texPanel->Visible())) texPanel->SwapShow();
+			if (ImGui::MenuItem("Scenes", nullptr, scenePanel->Visible())) scenePanel->SwapShow();
 
 			ImGui::EndMenu();
 		}

@@ -9,6 +9,7 @@ union SDL_Event;
 class Panel;
 class E_GeometryPanel;
 class E_TexturePanel;
+class E_ScenePanel;
 
 class M_Editor : public Module
 {
@@ -31,6 +32,7 @@ public:
 public:
 	E_GeometryPanel* geoPanel = nullptr;
 	E_TexturePanel* texPanel = nullptr;
+	E_ScenePanel* scenePanel = nullptr;
 
 private:
 	bool isUsingMouse = false, isUsingKeyboard = false;

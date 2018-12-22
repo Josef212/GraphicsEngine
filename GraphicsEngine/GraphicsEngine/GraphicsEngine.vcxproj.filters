@@ -153,7 +153,12 @@
     <ClCompile Include="BasicResourcesSceneLoader.cpp">
       <Filter>Tools\Loaders\ScenesLoaders</Filter>
     </ClCompile>
-    <ClCompile Include="SceneLoader.cpp" />
+    <ClCompile Include="R_Mat_SimpleTexture.cpp">
+      <Filter>Resources\Materials</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp">
+      <Filter>Tools\Loaders\ScenesLoaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -287,6 +292,9 @@
     </ClInclude>
     <ClInclude Include="BasicResourcesSceneLoader.h">
       <Filter>Tools\Loaders\ScenesLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="R_Mat_SimpleTexture.h">
+      <Filter>Resources\Materials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

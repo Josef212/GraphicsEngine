@@ -3,10 +3,12 @@
 #include "R_Scene.h"
 #include "ModelLoader.h"
 
-void SceneLoader::LoadModel(const char * path, R_Scene * scene)
+R_Model* SceneLoader::LoadModel(const char * path, R_Scene * scene)
 {
 	if (path)
 	{
-		ModelLoader::LoadModel(path, scene);
+		return ModelLoader::LoadModel(path, scene);
 	}
+
+	return nullptr;
 }

@@ -73,13 +73,11 @@ bool M_Render3D::Init()
 		glClearDepth(1.f);
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 
-		glEnable(GL_DEPTH_TEST | GL_CULL_FACE);
-		glCullFace(GL_BACK);
+		glEnable(GL_DEPTH_TEST);// | GL_CULL_FACE); //TODO: Must check how cull face
+		//glCullFace(GL_FRONT_AND_BACK);
 		glDepthFunc(GL_LESS);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-		OnResize(app->window->GetWinWidth(), app->window->GetWinHeight());
 	}
 
 	return ret;
@@ -88,6 +86,8 @@ bool M_Render3D::Init()
 bool M_Render3D::Start()
 {
 	m_activeRenderer = new R_ForwardRenderer("Forward renderer");
+
+	app->OnResize(app->window->GetWinWidth(), app->window->GetWinHeight()); // TODO: Events
 
 	return true;
 }

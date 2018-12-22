@@ -10,9 +10,15 @@ uniform mat4 view;
 uniform mat4 model;
 
 out vec3 vertColor;
+out vec2 uv;
+out vec3 normal;
 
 void main()
 {
 	vertColor = aColor;
+	uv.x = aTexCoord.x;
+	uv.y = aTexCoord.y * -1.0;
+	normal = aNormal;
+
 	gl_Position = projection * view * model * vec4(aPos, 1.0);
 }

@@ -6,9 +6,10 @@
 #include "R_Scene.h"
 #include "R_Geometry.h"
 #include "R_Shader.h"
-#include "R_Material.h"
 #include "R_Model.h"
 #include "R_Texture.h"
+#include "R_Material.h"
+#include "R_Mat_SimpleTexture.h"
 
 #include "Camera.h"
 #include "PerspectiveCamera.h"
@@ -26,13 +27,20 @@ void BasicResourcesSceneLoader::LoadScene(R_Scene * scene)
 {
 	if (!scene) return;
 
-	R_Shader* basicShader = new R_Shader("Basic shader", "./Data/Shaders/basic.vert", "./Data/Shaders/basic.frag");
-	R_Material* basicMaterial = new R_Material("Basic material", basicShader);
 	R_Geometry* quad = app->resourceManager->defaultResources.quadGeo;
-	R_Model* model = new R_Model("Basic quad", quad, basicMaterial);
-
+	R_Shader* textureShader = new R_Shader("Basic shader", 
+		"./Data/Shaders/basic.vert", "./Data/Shaders/texture.frag");
+	R_Mat_SimpleTexture* material = new R_Mat_SimpleTexture("Simple texture mat");
+	material->SetShader(textureShader);
+	material->texture = app->resourceManager->defaultResources.lennaTex;
+	R_Model* model = new R_Model("Basic quad", quad, material);
+	
 	PerspectiveCamera* camera = new PerspectiveCamera(glm::vec3(0.f, 0.f, 5.f));
 
 	scene->AddModel(model);
 	scene->AddCamera(camera, 0, true);
+
+	auto m = LoadModel("./Data/Models/boat.fbx", scene);
+	m->SetMaterial(material);
+	m->SetScale(glm::vec3(0.05f));
 }

@@ -147,6 +147,7 @@
     <ClCompile Include="R_ForwardRenderer.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
+    <ClCompile Include="R_Mat_SimpleTexture.cpp" />
     <ClCompile Include="R_Model.cpp" />
     <ClCompile Include="R_Renderer.cpp" />
     <ClCompile Include="R_Scene.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Render3D.h" />
     <ClInclude Include="M_ResourceManager.h" />
+    <ClInclude Include="R_Mat_SimpleTexture.h" />
     <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="M_SceneManager.h" />
     <ClInclude Include="M_Window.h" />

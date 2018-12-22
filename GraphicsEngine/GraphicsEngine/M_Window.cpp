@@ -53,6 +53,7 @@ bool M_Window::Init()
 		}
 		else
 		{
+			SDL_GetWindowSize(m_window, (int*)&m_width, (int*)&m_height);
 			ret = true;
 		}
 	}

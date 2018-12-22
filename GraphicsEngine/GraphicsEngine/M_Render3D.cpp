@@ -6,6 +6,7 @@
 
 #include "OpenGL.h"
 
+#include "EventManager.h"
 #include "M_ResourceManager.h"
 #include "M_SceneManager.h"
 #include "R_Scene.h"
@@ -14,13 +15,13 @@
 #include "R_ForwardRenderer.h" // TMP
 
 
-M_Render3D::M_Render3D() : Module("M_Module3D", true)
+M_Render3D::M_Render3D() : Module("M_Module3D", true), IEventListener()
 {
 	LOG_CREATION(m_moduleName.c_str());
 
 	m_vsync = false;
 
-	m_configuration = M_INIT | M_START | M_PRE_UPDATE | M_POST_UPDATE | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
+	m_configuration = M_INIT | M_START | M_PRE_UPDATE | M_POST_UPDATE | M_CLEAN_UP | M_SAVE_CONFIG;
 }
 
 
@@ -32,6 +33,8 @@ M_Render3D::~M_Render3D()
 bool M_Render3D::Init()
 {
 	bool ret = true;
+
+	app->eventManager->AddEventListener(this);
 
 	m_context = SDL_GL_CreateContext(app->window->GetWindow());
 
@@ -87,7 +90,11 @@ bool M_Render3D::Start()
 {
 	m_activeRenderer = new R_ForwardRenderer("Forward renderer");
 
-	app->OnResize(app->window->GetWinWidth(), app->window->GetWinHeight()); // TODO: Events
+	Event ev;
+	ev.type = EventType::EVENT_WINDOW_RESIZE;
+	ev.data._v2.x = app->window->GetWinWidth();
+	ev.data._v2.y = app->window->GetWinHeight();
+	app->eventManager->FireEvent(ev);
 
 	return true;
 }
@@ -130,14 +137,23 @@ bool M_Render3D::CleanUp()
 {
 	LOG_CLEANUP(m_moduleName.c_str());
 
+	app->eventManager->RemoveEventListener(this);
 	SDL_GL_DeleteContext(m_context);
 
 	return true;
 }
 
-void M_Render3D::OnResize(uint w, uint h)
+EventType M_Render3D::GetSupportedEvents()
 {
-	glViewport(0, 0, w, h);
+	return EventType::EVENT_WINDOW_RESIZE;
+}
+
+void M_Render3D::OnEventRecieved(Event e)
+{
+	if (e.type == EventType::EVENT_WINDOW_RESIZE)
+	{
+		glViewport(0, 0, e.data._v2.x, e.data._v2.y);
+	}
 }
 
 void M_Render3D::SetVSync(bool set)

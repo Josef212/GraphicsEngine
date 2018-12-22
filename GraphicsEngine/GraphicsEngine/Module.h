@@ -14,8 +14,7 @@ typedef enum
 	M_POST_UPDATE = 1 << 4,
 	M_CLEAN_UP = 1 << 5,
 	M_SAVE_CONFIG = 1 << 6,
-	M_RESIZE_EVENT = 1 << 7,
-	M_DRAW_DEBUG = 1 << 8
+	M_DRAW_DEBUG = 1 << 7
 
 } ModuleConfig;
 
@@ -24,7 +23,6 @@ typedef enum
 	M_PRE_UPDATE | M_UPDATE | M_POST_UPDATE |\
 	M_CLEAN_UP |\
 	M_SAVE_CONFIG |\
-	M_RESIZE_EVENT |\
 	M_DRAW_DEBUG
 
 
@@ -51,8 +49,6 @@ public:
 	virtual bool Load() { return true; }
 
 	virtual void DrawDebug() {}
-
-	virtual void OnResize(uint w, uint h) {}
 
 	// ==========================================
 

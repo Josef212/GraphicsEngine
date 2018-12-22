@@ -2,6 +2,7 @@
 #define __M_WINDOW_H__
 
 #include "Module.h"
+#include "IEventListener.h"
 
 struct SDL_Window;
 
@@ -15,7 +16,7 @@ typedef enum
 
 } WindowConfig;
 
-class M_Window : public Module
+class M_Window : public Module, IEventListener
 {
 public:
 	M_Window();
@@ -24,7 +25,8 @@ public:
 	bool Init() override;
 	bool CleanUp() override;
 
-	void OnResize(uint w, uint h) override;
+	EventType GetSupportedEvents()override;
+	void OnEventRecieved(Event e)override;
 
 	// ================================
 

@@ -6,7 +6,7 @@
 // TODO: Keep adding event types to the vector
 std::vector<EventType> GetEventTypes()
 {
-	return { EVENT_RESOURCE_REMOVED };
+	return { EVENT_RESOURCE_REMOVED, EVENT_WINDOW_RESIZE };
 }
 
 

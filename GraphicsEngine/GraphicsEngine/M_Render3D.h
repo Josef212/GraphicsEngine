@@ -2,12 +2,13 @@
 #define __M_RENDER3D_H__
 
 #include "Module.h"
+#include "IEventListener.h"
 #include <SDL.h>
 
 class R_Scene;
 class R_Renderer;
 
-class M_Render3D : public Module
+class M_Render3D : public Module, IEventListener
 {
 public:
 	M_Render3D();
@@ -20,7 +21,8 @@ public:
 	UpdateReturn PostUpdate(float dt) override;
 	bool CleanUp() override;
 
-	void OnResize(uint w, uint h) override;
+	EventType GetSupportedEvents()override;
+	void OnEventRecieved(Event e)override;
 
 	// ==============
 

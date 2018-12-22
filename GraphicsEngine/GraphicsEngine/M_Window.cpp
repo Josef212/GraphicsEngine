@@ -1,5 +1,7 @@
 #include "m_Window.h"
 
+#include "EventManager.h"
+
 #include <SDL.h>
 #include "App.h"
 
@@ -12,7 +14,7 @@ M_Window::M_Window() : Module("M_Window", true)
 	m_height = DEFAULT_WIN_HEIGHT;
 	m_scale = 1;
 
-	m_configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG | M_RESIZE_EVENT;
+	m_configuration = M_INIT | M_CLEAN_UP | M_SAVE_CONFIG;
 }
 
 M_Window::~M_Window()
@@ -23,6 +25,8 @@ M_Window::~M_Window()
 bool M_Window::Init()
 {
 	LOG_INIT(m_moduleName.c_str());
+
+	app->eventManager->AddEventListener(this);
 
 	bool ret = false;
 
@@ -65,6 +69,8 @@ bool M_Window::CleanUp()
 {
 	LOG_CLEANUP(m_moduleName.c_str());
 
+	app->eventManager->RemoveEventListener(this);
+
 	if (m_window) SDL_DestroyWindow(m_window);
 	SDL_Quit();
 
@@ -73,10 +79,19 @@ bool M_Window::CleanUp()
 
 // ================================
 
-void M_Window::OnResize(uint w, uint h)
+EventType M_Window::GetSupportedEvents()
 {
-	m_width = w;
-	m_height = h;
+	return EventType::EVENT_WINDOW_RESIZE;
+}
+
+void M_Window::OnEventRecieved(Event e)
+{
+	if (e.type == EventType::EVENT_WINDOW_RESIZE)
+	{
+		m_width = e.data._v2.x;
+		m_height = e.data._v2.y;
+
+	}
 }
 
 // ================================

@@ -143,17 +143,6 @@ bool App::CleanUp()
 	return ret;
 }
 
-void App::OnResize(uint w, uint h)
-{
-	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)
-	{
-		if ((*it)->IsEnabled() && (*it)->m_configuration & M_RESIZE_EVENT)
-		{
-			(*it)->OnResize(w, h);
-		}
-	}
-}
-
 void App::DrawDebug()
 {
 	for (auto it = m_modules.begin(); it != m_modules.end(); ++it)

@@ -1,5 +1,7 @@
 #include "M_SceneManager.h"
 
+#include "EventManager.h"
+
 #include "Defs.h"
 #include "R_Scene.h"
 #include "App.h"
@@ -19,7 +21,7 @@ M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
 {
 	LOG_CREATION(m_moduleName.c_str());
 
-	m_configuration = M_START | M_UPDATE | M_CLEAN_UP | M_RESIZE_EVENT; 
+	m_configuration = M_START | M_UPDATE | M_CLEAN_UP; 
 	// TODO: Probably update not needed although it mught update the active scene
 }
 
@@ -32,6 +34,8 @@ M_SceneManager::~M_SceneManager()
 bool M_SceneManager::Start()
 {
 	LOG_START(m_moduleName.c_str());
+
+	app->eventManager->AddEventListener(this);
 
 	// TMP
 	auto sc = CreateScene("Simple scene", true);
@@ -100,6 +104,8 @@ UpdateReturn M_SceneManager::Update(float dt)
 bool M_SceneManager::CleanUp()
 {
 	LOG_CLEANUP(m_moduleName.c_str());
+
+	app->eventManager->RemoveEventListener(this);
 
 	return true;
 }
@@ -203,10 +209,18 @@ void M_SceneManager::SelectActiveScene(R_Scene * sc)
 	}
 }
 
-void M_SceneManager::OnResize(uint w, uint h)
+EventType M_SceneManager::GetSupportedEvents()
 {
-	for (auto it : m_scenes)
+	return EventType::EVENT_WINDOW_RESIZE;
+}
+
+void M_SceneManager::OnEventRecieved(Event e)
+{
+	if (e.type == EventType::EVENT_WINDOW_RESIZE)
 	{
-		it->OnResize(w, h);
+		for (auto it : m_scenes)
+		{
+			it->OnResize(e.data._v2.x, e.data._v2.y);
+		}
 	}
 }

@@ -28,7 +28,6 @@ public:
 	UpdateReturn Update();
 	bool CleanUp();
 
-	void OnResize(uint w, uint h);
 	void DrawDebug();
 
 	// ===================================

@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "EventManager.h"
+
 #include "App.h"
 #include "M_Window.h"
 #include "M_Editor.h"
@@ -121,8 +123,11 @@ UpdateReturn M_Input::PreUpdate(float dt)
 			{
 			case SDL_WINDOWEVENT_RESIZED:
 			case SDL_WINDOWEVENT_SIZE_CHANGED:
-				//TODO:Send event 
-				app->OnResize(e.window.data1, e.window.data2);
+				Event ev;
+				ev.type = EventType::EVENT_WINDOW_RESIZE;
+				ev.data._v2.x = e.window.data1;
+				ev.data._v2.y = e.window.data2;
+				app->eventManager->FireEvent(ev);
 
 				break;
 			}

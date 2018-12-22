@@ -2,11 +2,12 @@
 #define __M_SCENEMANAGER_H__
 
 #include "Module.h"
+#include "IEventListener.h"
 #include <vector>
 
 class R_Scene;
 
-class M_SceneManager : public Module
+class M_SceneManager : public Module, IEventListener
 {
 public:
 	M_SceneManager();
@@ -28,7 +29,9 @@ public:
 	void SelectActiveScene(R_Scene* sc);
 	R_Scene* GetActiveScene()const { return m_activeScene; }
 
-	void OnResize(uint w, uint h) override;
+	EventType GetSupportedEvents()override;
+	void OnEventRecieved(Event e)override;
+
 
 private:
 	std::vector<R_Scene*> m_scenes;

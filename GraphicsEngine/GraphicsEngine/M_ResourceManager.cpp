@@ -1,5 +1,7 @@
 #include "M_ResourceManager.h"
 
+#include "GeometryDefs.h"
+
 #include "App.h"
 #include "EventManager.h"
 
@@ -7,7 +9,6 @@
 #include "R_Shader.h"
 #include "R_Material.h"
 #include "R_Texture.h"
-#include "GeometryDefs.h"
 
 
 M_ResourceManager::M_ResourceManager() : Module("M_ResourceManager", true)

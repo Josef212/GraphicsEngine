@@ -26,6 +26,7 @@ R_Scene::~R_Scene()
 {
 }
 
+// TODO: Do really need this having scene loaders??
 void R_Scene::Load()
 {
 	OnLoad();
@@ -147,13 +148,4 @@ void R_Scene::ProcessMouseMovement(double xoffset, double yoffset)
 void R_Scene::ProcessInput(CameraMovement movement, float dt)
 {
 	if (m_activeCamera) m_activeCamera->ProcessKeyboard(movement, dt);
-}
-
-void R_Scene::LoadModel(const char* path)
-{
-	// TODO: A default implementation to load 3D models so this calss has functionality by itself
-	if(path)
-	{
-		ModelLoader::LoadModel(path, this);
-	}
 }

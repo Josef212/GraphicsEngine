@@ -53,7 +53,7 @@ public:
 	void ProcessMouseMovement(double xoffset, double yoffset);
 	void ProcessInput(CameraMovement movement, float dt);
 
-	virtual void LoadModel(const char* path);
+	std::vector<R_Model*>* GetModels() { return &m_models; }
 
 private:
 

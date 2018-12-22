@@ -4,6 +4,7 @@
 #include "Resource.h"
 
 class R_Shader;
+class R_Scene;
 
 class R_Material : public Resource
 {
@@ -18,7 +19,7 @@ public:
 	void InitRender()const;
 	void EndRender()const;
 
-	virtual void SendInfo(/*Scene* scene*/)const {}
+	virtual void SendInfo(R_Scene* scene)const {}
 	virtual void OnLoad() {}
 	virtual void OnFree() {}
 

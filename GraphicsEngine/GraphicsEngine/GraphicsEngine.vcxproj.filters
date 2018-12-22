@@ -37,6 +37,12 @@
     <Filter Include="Resources\Materials">
       <UniqueIdentifier>{84ea92ac-c25e-4816-b883-58809f46ce0c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\Loaders">
+      <UniqueIdentifier>{a102ce73-4e65-4014-940f-a8461a04e8e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tools\Loaders\ScenesLoaders">
+      <UniqueIdentifier>{07207529-4614-4c3d-9e25-b152f7d5404f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -114,9 +120,6 @@
     <ClCompile Include="M_SceneManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModelLoader.cpp">
-      <Filter>Tools</Filter>
-    </ClCompile>
     <ClCompile Include="E_GeometryPanel.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
@@ -144,9 +147,13 @@
     <ClCompile Include="M_Editor.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="SceneLoader.cpp">
-      <Filter>Tools</Filter>
+    <ClCompile Include="ModelLoader.cpp">
+      <Filter>Tools\Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="BasicResourcesSceneLoader.cpp">
+      <Filter>Tools\Loaders\ScenesLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -239,9 +246,6 @@
     <ClInclude Include="M_SceneManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModelLoader.h">
-      <Filter>Tools</Filter>
-    </ClInclude>
     <ClInclude Include="Panel.h">
       <Filter>Editor</Filter>
     </ClInclude>
@@ -276,7 +280,13 @@
       <Filter>Modules</Filter>
     </ClInclude>
     <ClInclude Include="SceneLoader.h">
-      <Filter>Tools</Filter>
+      <Filter>Tools\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelLoader.h">
+      <Filter>Tools\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicResourcesSceneLoader.h">
+      <Filter>Tools\Loaders\ScenesLoaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

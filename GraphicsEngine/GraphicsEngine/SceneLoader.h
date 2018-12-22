@@ -3,13 +3,16 @@
 
 class R_Scene;
 
-static class SceneLoader
+class SceneLoader
 {
 public:
-	SceneLoader();
-	virtual ~SceneLoader();
+	SceneLoader() {}
+	virtual ~SceneLoader() = default;
 
 	static void LoadScene(R_Scene* scene) {}
+
+protected:
+	static void LoadModel(const char* path, R_Scene* scene);
 };
 
 #endif // !__SCENELOADER_H__

@@ -16,6 +16,7 @@
 
 class R_Geometry;
 class R_Material;
+class R_Scene;
 
 class R_Model : public Resource
 {
@@ -35,7 +36,7 @@ public:
 	R_Geometry* GetGeometry(int index)const;
 	R_Material* GetMaterial(int index)const;
 
-	void Render(int renderConfig = PASS_PROJ_VIEW_MODEL);
+	void Render(R_Scene* scene, int renderConfig = PASS_PROJ_VIEW_MODEL);
 
 	glm::vec3 GetTranslation()const;
 	void SetTranslation(glm::vec3 pos);

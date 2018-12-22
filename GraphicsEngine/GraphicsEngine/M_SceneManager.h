@@ -21,7 +21,7 @@ public:
 	void RemoveScene(R_Scene* sc);
 	void RemoveScene(const char* name);
 
-	void CreateScene(const char* name, bool activate = false);
+	R_Scene* CreateScene(const char* name, bool activate = false);
 
 	void SelectActiveScene(int index);
 	void SelectActiveScene(const char* name);

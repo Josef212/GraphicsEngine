@@ -5,6 +5,9 @@
 #include "App.h"
 #include "M_ResourceManager.h"
 
+// TMP
+#include "BasicResourcesSceneLoader.h"
+
 
 M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
 {
@@ -23,6 +26,10 @@ M_SceneManager::~M_SceneManager()
 bool M_SceneManager::Start()
 {
 	LOG_START(m_moduleName.c_str());
+
+	// TMP
+	auto sc = CreateScene("Simple scene", true);
+	BasicResourcesSceneLoader::LoadScene(sc);
 
 	return true;
 }
@@ -81,10 +88,12 @@ void M_SceneManager::RemoveScene(const char * name)
 	}
 }
 
-void M_SceneManager::CreateScene(const char * name, bool activate)
+R_Scene* M_SceneManager::CreateScene(const char * name, bool activate)
 {
 	R_Scene* sc = new R_Scene(name);
 	AddScene(sc, activate);
+
+	return sc;
 }
 
 void M_SceneManager::SelectActiveScene(int index)

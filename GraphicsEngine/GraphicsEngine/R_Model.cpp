@@ -4,6 +4,9 @@
 #include "R_Shader.h"
 #include "R_Geometry.h"
 #include "R_Material.h"
+#include "R_Scene.h"
+#include "Camera.h"
+
 #include <GL/glew.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "App.h"
@@ -92,7 +95,7 @@ R_Material * R_Model::GetMaterial(int index) const
 	return nullptr;
 }
 
-void R_Model::Render(int renderConfig)
+void R_Model::Render(R_Scene* scene, int renderConfig)
 {
 	for (auto it : m_meshes)
 	{
@@ -101,15 +104,15 @@ void R_Model::Render(int renderConfig)
 
 		if (geometry)
 		{
-			if (!material) material = app->resourceManager->defaultResources.simpleMat; //scene->GetDefaultMaterial();
+			if (!material) material = scene->GetDefaultMaterial();
 
 			material->InitRender();
 
 			material->GetShader()->SetMat4("model", renderConfig & PASS_MODEL ? m_modelMat : glm::mat4(1.f));
-			//material->GetShader()->SetMat4("view", renderConfig & PASS_VIEW ? scene->GetActiveCamera()->GetViewMatrix() : glm::mat4(1.f));
-			//material->GetShader()->SetMat4("projection", renderConfig & PASS_PROJ ? scene->GetActiveCamera()->GetProjectionMatrix() : glm::mat4(1.f));
+			material->GetShader()->SetMat4("view", renderConfig & PASS_VIEW ? scene->GetActiveCamera()->GetViewMatrix() : glm::mat4(1.f));
+			material->GetShader()->SetMat4("projection", renderConfig & PASS_PROJ ? scene->GetActiveCamera()->GetProjectionMatrix() : glm::mat4(1.f));
 
-			material->SendInfo(/*scene*/);
+			material->SendInfo(scene);
 
 			glBindVertexArray(geometry->EBO());
 

@@ -1,16 +1,12 @@
 #include "SceneLoader.h"
 
+#include "R_Scene.h"
+#include "ModelLoader.h"
 
-SceneLoader::SceneLoader()
+void SceneLoader::LoadModel(const char * path, R_Scene * scene)
 {
-}
-
-SceneLoader::~SceneLoader()
-{
-	
-}
-
-void SceneLoader::LoadScene(SceneType type)
-{
-	
+	if (path)
+	{
+		ModelLoader::LoadModel(path, scene);
+	}
 }

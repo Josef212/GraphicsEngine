@@ -4,6 +4,12 @@
 #include "R_Scene.h"
 #include "App.h"
 #include "M_ResourceManager.h"
+#include "M_Input.h"
+#include "M_Editor.h"
+#include "Camera.h"
+
+#include <SDL_scancode.h>
+#include <SDL_mouse.h>
 
 // TMP
 #include "BasicResourcesSceneLoader.h"
@@ -36,6 +42,58 @@ bool M_SceneManager::Start()
 
 UpdateReturn M_SceneManager::Update(float dt)
 {
+	if (!m_activeScene) return UpdateReturn::UPDT_CONTINUE;
+
+	if (!app->editor->UsingKeyboard())
+	{
+		M_Input* input = app->input;
+	
+		float _dt = input->GetKey(SDL_SCANCODE_LSHIFT) ? dt * 2.f : dt;
+	
+		if (input->GetKey(SDL_SCANCODE_W)) //w
+			m_activeScene->ProcessInput(CameraMovement::FORWARD, _dt);
+		if (input->GetKey(SDL_SCANCODE_S)) //s
+			m_activeScene->ProcessInput(CameraMovement::BACKWARD, _dt);
+		if (input->GetKey(SDL_SCANCODE_A)) //a
+			m_activeScene->ProcessInput(CameraMovement::LEFT, _dt);
+		if (input->GetKey(SDL_SCANCODE_D)) //d
+			m_activeScene->ProcessInput(CameraMovement::RIGHT, _dt);
+		if (input->GetKey(SDL_SCANCODE_Q)) //q
+			m_activeScene->ProcessInput(CameraMovement::UP, _dt);
+		if (input->GetKey(SDL_SCANCODE_E)) //e
+			m_activeScene->ProcessInput(CameraMovement::DOWN, _dt);
+	}
+	
+	if (!app->editor->UsingMouse())
+	{
+		if (app->input->GetMouseButton(SDL_BUTTON_LEFT))
+		{
+			int x = app->input->GetMouseX();
+			int y = app->input->GetMouseY();
+
+			if (lastX == INT_MAX || lastY == INT_MAX)
+			{
+				lastX = x;
+				lastY = y;
+			}
+
+			float dx = x - lastX;
+			float dy = lastY - y;
+
+			lastX = x;
+			lastY = y;
+			
+			m_activeScene->ProcessMouseMovement(dx, dy);
+		}
+		
+		m_activeScene->ProcessScroll(app->input->GetMouseWheel());
+	}
+
+	if (app->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP)
+	{
+		lastX = INT_MAX;
+	}
+
 	return UPDT_CONTINUE;
 }
 

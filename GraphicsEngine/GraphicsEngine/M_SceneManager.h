@@ -33,6 +33,8 @@ public:
 private:
 	std::vector<R_Scene*> m_scenes;
 	R_Scene* m_activeScene = nullptr;
+
+	int lastX = INT_MAX, lastY = INT_MAX;
 };
 
 #endif // !__M_SCENEMANAGER_H__

@@ -171,7 +171,7 @@ void M_ResourceManager::SetDefaultResources()
 	defaultResources.simpleSh = new R_Shader("Def simple shader", "./Data/Shaders/simple.vert", "./Data/Shaders/simple.frag");
 
 	// Materials
-	//defaultResources.simpleMat = new R_Material("Def simple material", defaultResources.simpleSh);
+	defaultResources.simpleMat = new R_Material("Def simple material", defaultResources.simpleSh);
 
 	// Models
 

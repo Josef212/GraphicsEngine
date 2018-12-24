@@ -131,6 +131,7 @@
     <ClCompile Include="E_GeometryPanel.cpp" />
     <ClCompile Include="E_ScenePanel.cpp" />
     <ClCompile Include="E_TexturePanel.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelLoader.cpp" />
     <ClCompile Include="M_Editor.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="E_GeometryPanel.h" />
     <ClInclude Include="E_ScenePanel.h" />
     <ClInclude Include="E_TexturePanel.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GeometryDefs.h" />
     <ClInclude Include="IEventListener.h" />
     <ClInclude Include="ModelLoader.h" />

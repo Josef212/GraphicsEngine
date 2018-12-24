@@ -12,6 +12,8 @@
 #include "R_Material.h"
 #include "R_Model.h"
 
+#include "Light.h"
+
 #include "App.h"
 #include "M_ResourceManager.h"
 
@@ -41,6 +43,13 @@ void R_Scene::Free()
 	//app->resourceManager->RemoveAllResources();
 	m_models.clear();
 	m_defMaterial = nullptr;
+
+	for(auto it : m_lights)
+	{
+		RELEASE(it);
+	}
+
+	m_lights.clear();
 }
 
 void R_Scene::AddModel(R_Model* model)
@@ -113,6 +122,21 @@ Camera* R_Scene::GetActiveCamera() const
 	return m_activeCamera;
 }
 
+void R_Scene::ProcessScroll(double yoffset) const
+{
+	if (m_activeCamera) m_activeCamera->ProcessMouseScroll(yoffset);
+}
+
+void R_Scene::ProcessMouseMovement(double xoffset, double yoffset) const
+{
+	if (m_activeCamera) m_activeCamera->ProcessMouseMovement(xoffset, yoffset);
+}
+
+void R_Scene::ProcessInput(CameraMovement movement, float dt) const
+{
+	if (m_activeCamera) m_activeCamera->ProcessKeyboard(movement, dt);
+}
+
 void R_Scene::OnResize(int w, int h)
 {
 	m_viewportWidth = w; m_viewportHeight = h;
@@ -126,26 +150,28 @@ R_Material* R_Scene::GetDefaultMaterial() const
 	return m_defMaterial;
 }
 
-// TODO: This should be done in renderer. Scene should be only a scene info container
-void R_Scene::RenderScene()
+void R_Scene::AddLight(Light* light)
 {
-	glClearColor(m_backgroundColor.r, m_backgroundColor.g, m_backgroundColor.b, m_backgroundColor.a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	if (GetActiveCamera()) OnRenderScene();
+	if (light) m_lights.push_back(light);
 }
 
-void R_Scene::ProcessScroll(double yoffset)
+void R_Scene::RemoveLight(Light * light)
 {
-	if (m_activeCamera) m_activeCamera->ProcessMouseScroll(yoffset);
+	if(light)
+	{
+		auto it = std::find(m_lights.begin(), m_lights.end(), light);
+		if(it != m_lights.end())
+		{
+			RELEASE((*it));
+			m_lights.erase(it);
+		}
+	}
 }
 
-void R_Scene::ProcessMouseMovement(double xoffset, double yoffset)
+void R_Scene::RemoveLight(int index)
 {
-	if (m_activeCamera) m_activeCamera->ProcessMouseMovement(xoffset, yoffset);
-}
-
-void R_Scene::ProcessInput(CameraMovement movement, float dt)
-{
-	if (m_activeCamera) m_activeCamera->ProcessKeyboard(movement, dt);
+	if(index >= 0 && index < m_lights.size())
+	{
+		RemoveLight(m_lights[index]);
+	}
 }

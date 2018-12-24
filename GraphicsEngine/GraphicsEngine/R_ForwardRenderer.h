@@ -3,8 +3,7 @@
 
 #include "R_Renderer.h"
 
-class R_ForwardRenderer :
-	public R_Renderer
+class R_ForwardRenderer : public R_Renderer
 {
 public:
 	R_ForwardRenderer(const char* name);

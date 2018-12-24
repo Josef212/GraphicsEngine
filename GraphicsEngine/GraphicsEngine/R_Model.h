@@ -8,18 +8,13 @@
 
 #include <glm/glm.hpp>
 
-#define NO_RENDER_CONFIG 0
-#define PASS_MODEL 1
-#define PASS_VIEW 2
-#define PASS_PROJ 4
-#define PASS_PROJ_VIEW_MODEL  PASS_MODEL | PASS_VIEW | PASS_PROJ
-
 class R_Geometry;
 class R_Material;
 class R_Scene;
 
 class R_Model : public Resource
 {
+	friend class R_Renderer;
 public:
 	R_Model(const char* name);
 	R_Model(const char* name, R_Geometry* geo, R_Material* mat);
@@ -35,8 +30,6 @@ public:
 	std::pair<R_Geometry*, R_Material*> GetMesh(int index)const;
 	R_Geometry* GetGeometry(int index)const;
 	R_Material* GetMaterial(int index)const;
-
-	void Render(R_Scene* scene, int renderConfig = PASS_PROJ_VIEW_MODEL);
 
 	glm::vec3 GetTranslation()const;
 	void SetTranslation(glm::vec3 pos);

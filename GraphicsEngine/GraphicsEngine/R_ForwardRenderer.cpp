@@ -1,5 +1,10 @@
 #include "R_ForwardRenderer.h"
 
+//TMP
+#include "App.h"
+#include "M_ResourceManager.h"
+// ===========
+
 #include "R_Scene.h"
 #include "R_Geometry.h"
 #include "R_Shader.h"
@@ -14,6 +19,7 @@
 
 R_ForwardRenderer::R_ForwardRenderer(const char * name) : R_Renderer(name)
 {
+
 }
 
 R_ForwardRenderer::~R_ForwardRenderer()
@@ -22,12 +28,19 @@ R_ForwardRenderer::~R_ForwardRenderer()
 
 void R_ForwardRenderer::RenderScene(R_Scene * scene)
 {
-	glClearColor(scene->m_backgroundColor.r, scene->m_backgroundColor.g, scene->m_backgroundColor.b, scene->m_backgroundColor.a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	assert(scene != nullptr);
 
-	auto models = scene->GetModels();
-	for (auto it : *models)
-	{
-		it->Render(scene);
-	}
+	ClearPass(scene);
+
+	if (!scene->GetActiveCamera()) return;
+
+	//RenderModels(scene);
+
+	R_Model* model = (*scene->GetModels())[0];
+	R_Material* mat = model->GetMaterial(0);
+	R_Geometry* geo = model->GetGeometry(0);
+
+	R_Material* defMat = app->resourceManager->defaultResources.simpleMat;
+
+	RenderMesh(geo, mat, model, scene);
 }

@@ -95,39 +95,6 @@ R_Material * R_Model::GetMaterial(int index) const
 	return nullptr;
 }
 
-void R_Model::Render(R_Scene* scene, int renderConfig)
-{
-	for (auto it : m_meshes)
-	{
-		R_Geometry* geometry = it.first;
-		R_Material* material = it.second;
-
-		if (geometry)
-		{
-			if (!material) material = scene->GetDefaultMaterial();
-
-			material->InitRender();
-
-			material->GetShader()->SetMat4("model", renderConfig & PASS_MODEL ? m_modelMat : glm::mat4(1.f));
-			material->GetShader()->SetMat4("view", renderConfig & PASS_VIEW ? scene->GetActiveCamera()->GetViewMatrix() : glm::mat4(1.f));
-			material->GetShader()->SetMat4("projection", renderConfig & PASS_PROJ ? scene->GetActiveCamera()->GetProjectionMatrix() : glm::mat4(1.f));
-
-			material->SendInfo(scene);
-
-			glBindVertexArray(geometry->EBO());
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, geometry->IdIndices());
-
-			glDrawElements(GL_TRIANGLES, geometry->CountIndices(), GL_UNSIGNED_INT, NULL);
-
-			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-			glBindVertexArray(0);
-
-			material->EndRender();
-		}
-	}
-}
-
 glm::vec3 R_Model::GetTranslation() const
 {
 	return m_translation;

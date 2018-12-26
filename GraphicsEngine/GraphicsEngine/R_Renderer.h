@@ -31,6 +31,8 @@ protected:
 	void RenderMesh(R_Geometry* geometry, R_Material* material, R_Model* model, R_Scene* scene, int renderConfig = PASS_PROJ_VIEW_MODEL);
 	void RenderGeometry(R_Geometry* geometry);
 
+	void DebugRenderLights(R_Scene* scene);
+
 };
 
 #endif // !__R_RENDERER_H__

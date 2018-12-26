@@ -45,8 +45,10 @@ public:
 		R_Geometry* cubeGeo = nullptr;
 
 		R_Shader* simpleSh = nullptr;
+		R_Shader* debugLightsSh = nullptr;
 
 		R_Material* simpleMat = nullptr;
+		R_Material* debugLightsMat = nullptr;
 
 		R_Texture* lennaTex = nullptr;
 

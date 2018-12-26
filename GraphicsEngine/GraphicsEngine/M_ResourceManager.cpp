@@ -143,7 +143,9 @@ bool M_ResourceManager::IsDefaultResource(Resource * res)
 		res == defaultResources.cubeGeo || 
 		res == defaultResources.simpleSh || 
 		res == defaultResources.simpleMat ||
-		res == defaultResources.lennaTex
+		res == defaultResources.lennaTex ||
+		res == defaultResources.debugLightsSh ||
+		res == defaultResources.debugLightsMat
 		);
 }
 
@@ -169,9 +171,11 @@ void M_ResourceManager::SetDefaultResources()
 	
 	// Shaders
 	defaultResources.simpleSh = new R_Shader("Def simple shader", "./Data/Shaders/simple.vert", "./Data/Shaders/simple.frag");
+	defaultResources.debugLightsSh = new R_Shader("Def debug lights shader", "./Data/Shaders/debug_light.vert", "./Data/Shaders/debug_light.frag");
 
 	// Materials
 	defaultResources.simpleMat = new R_Material("Def simple material", defaultResources.simpleSh);
+	defaultResources.debugLightsMat = new R_Material("Def debug lights material", defaultResources.debugLightsSh);
 
 	// Models
 

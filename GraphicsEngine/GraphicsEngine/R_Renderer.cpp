@@ -1,14 +1,21 @@
 #include "R_Renderer.h"
 
+#include "App.h"
+#include "M_ResourceManager.h"
+
 #include "R_Scene.h"
 #include "R_Model.h"
 #include "R_Geometry.h"
 #include "R_Material.h"
 #include "R_Shader.h"
 
+#include "Light.h"
 #include "Camera.h"
 
 #include "OpenGL.h"
+#include <glm/gtc/matrix_transform.hpp>
+
+#define LIGHTS_DEBUG_SCALE 0.2f
 
 R_Renderer::R_Renderer(const char* name) : Resource(name, RES_RENDERER)
 {
@@ -82,4 +89,29 @@ void R_Renderer::RenderGeometry(R_Geometry* geometry)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, geometry->IdIndices());
 
 	glDrawElements(GL_TRIANGLES, geometry->CountIndices(), GL_UNSIGNED_INT, NULL);
+}
+
+void R_Renderer::DebugRenderLights(R_Scene* scene)
+{
+	R_Geometry* cube = app->resourceManager->defaultResources.cubeGeo;
+	R_Material* material = app->resourceManager->defaultResources.debugLightsMat;
+	Camera* camera = scene->GetActiveCamera();
+
+	material->InitRender();
+	R_Shader* shader = material->GetShader();
+
+	shader->SetMat4("projection", camera->GetProjectionMatrix());
+	shader->SetMat4("view", camera->GetViewMatrix());
+
+	const glm::mat4 model = glm::scale(glm::mat4(1.0f), glm::vec3(LIGHTS_DEBUG_SCALE));
+
+	for(auto it : *scene->GetLights())
+	{
+		shader->SetMat4("model", glm::translate(model, it->m_position));
+		shader->SetVec3("lightColor", it->m_color);
+
+		RenderGeometry(cube);
+	}
+
+	material->EndRender();
 }

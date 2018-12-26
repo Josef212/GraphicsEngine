@@ -43,4 +43,6 @@ void R_ForwardRenderer::RenderScene(R_Scene * scene)
 	R_Material* defMat = app->resourceManager->defaultResources.simpleMat;
 
 	RenderMesh(geo, mat, model, scene);
+
+	DebugRenderLights(scene);
 }

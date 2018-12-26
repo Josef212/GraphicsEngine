@@ -162,6 +162,9 @@
     <ClCompile Include="FrameBuffer.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -300,6 +303,9 @@
       <Filter>Resources\Materials</Filter>
     </ClInclude>
     <ClInclude Include="FrameBuffer.h">
+      <Filter>Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
       <Filter>Tools</Filter>
     </ClInclude>
   </ItemGroup>

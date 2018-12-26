@@ -12,6 +12,7 @@ class Panel;
 class E_GeometryPanel;
 class E_TexturePanel;
 class E_ScenePanel;
+class E_InspectorPanel;
 
 class M_Editor : public Module
 {
@@ -36,9 +37,10 @@ private:
 	void Directories(const char* dir, const char* filterExt);
 
 public:
-	E_GeometryPanel* m_geoPanel = nullptr;
-	E_TexturePanel* m_texPanel = nullptr;
-	E_ScenePanel* m_scenePanel = nullptr;
+	E_GeometryPanel* m_geoPanel				= nullptr;
+	E_TexturePanel* m_texPanel				= nullptr;
+	E_ScenePanel* m_scenePanel				= nullptr;
+	E_InspectorPanel* m_inspector			= nullptr;
 
 private:
 	bool m_isUsingMouse = false, m_isUsingKeyboard = false;

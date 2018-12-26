@@ -5,9 +5,9 @@
 
 enum LightType
 {
-	L_POINT,
-	L_DIRECTIONAL,
-	L_SPOTLIGHT
+	L_POINT = 0,
+	L_DIRECTIONAL = 1,
+	L_SPOTLIGHT = 2
 };
 
 class Light

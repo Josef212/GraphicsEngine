@@ -11,6 +11,7 @@
 #include "E_GeometryPanel.h"
 #include "E_TexturePanel.h"
 #include "E_ScenePanel.h"
+#include "E_InspectorPanel.h"
 
 #include "M_FileSystem.h"
 #include <algorithm>
@@ -52,10 +53,12 @@ bool M_Editor::Start()
 	m_geoPanel = new E_GeometryPanel();
 	m_texPanel = new E_TexturePanel();
 	m_scenePanel = new E_ScenePanel();
+	m_inspector = new E_InspectorPanel();
 
 	m_panels.push_back(m_geoPanel);
 	m_panels.push_back(m_texPanel);
 	m_panels.push_back(m_scenePanel);
+	m_panels.push_back(m_inspector);
 
 	return true;
 }
@@ -88,6 +91,7 @@ UpdateReturn M_Editor::Update(float dt)
 
 		if(ImGui::BeginMenu("Windows"))
 		{
+			if (ImGui::MenuItem("Inspector", nullptr, m_inspector->Visible())) m_inspector->SwapShow();
 			if (ImGui::MenuItem("Geometry", nullptr, m_geoPanel->Visible())) m_geoPanel->SwapShow();
 			if (ImGui::MenuItem("Textures", nullptr, m_texPanel->Visible())) m_texPanel->SwapShow();
 			if (ImGui::MenuItem("Scenes", nullptr, m_scenePanel->Visible())) m_scenePanel->SwapShow();

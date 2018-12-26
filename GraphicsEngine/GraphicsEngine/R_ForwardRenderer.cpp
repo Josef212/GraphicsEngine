@@ -13,7 +13,6 @@
 #include "R_Texture.h"
 
 #include "Camera.h"
-#include "PerspectiveCamera.h"
 
 #include "OpenGL.h"
 
@@ -34,15 +33,7 @@ void R_ForwardRenderer::RenderScene(R_Scene * scene)
 
 	if (!scene->GetActiveCamera()) return;
 
-	//RenderModels(scene);
-
-	R_Model* model = (*scene->GetModels())[0];
-	R_Material* mat = model->GetMaterial(0);
-	R_Geometry* geo = model->GetGeometry(0);
-
-	R_Material* defMat = app->resourceManager->defaultResources.simpleMat;
-
-	RenderMesh(geo, mat, model, scene);
+	RenderModels(scene);
 
 	DebugRenderLights(scene);
 }

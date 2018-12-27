@@ -12,10 +12,11 @@ public:
 	virtual ~Panel() = default;
 
 	virtual void OnInit() {}
+	virtual void OnDisable() {}
 	virtual void Display() = 0;
 
 	void Enable() { m_show = true; OnInit(); }
-	void Disable() { m_show = false; }
+	void Disable() { m_show = false; OnDisable(); }
 	void SwapShow() { m_show ? Disable() : Enable(); }
 
 	bool Visible()const { return m_show; }

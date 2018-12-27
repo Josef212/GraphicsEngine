@@ -27,6 +27,7 @@ public:
 	void SetMaterial(R_Material* mat, int index);
 	void SetMaterial(R_Material* mat);
 
+	int GetMeshCount()const { return m_meshes.size(); }
 	std::pair<R_Geometry*, R_Material*> GetMesh(int index)const;
 	R_Geometry* GetGeometry(int index)const;
 	R_Material* GetMaterial(int index)const;

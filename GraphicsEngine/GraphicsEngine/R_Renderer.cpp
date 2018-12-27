@@ -29,7 +29,7 @@ R_Renderer::~R_Renderer()
 void R_Renderer::ClearPass(R_Scene* scene)
 {
 	glClearColor(scene->m_backgroundColor.r, scene->m_backgroundColor.g, scene->m_backgroundColor.b, scene->m_backgroundColor.a);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
 void R_Renderer::ClearGeometryBuffer()

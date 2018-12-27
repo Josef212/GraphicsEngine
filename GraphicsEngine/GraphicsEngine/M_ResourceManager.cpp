@@ -149,18 +149,18 @@ bool M_ResourceManager::IsDefaultResource(Resource * res)
 		);
 }
 
-bool M_ResourceManager::ValidateResource(Resource* res)
+Resource* M_ResourceManager::ValidateResource(Resource* res)
 {
-	if (!res) return false;
+	if (!res) return nullptr;
 
 	auto list = m_resources.find(res->GetType());
 	if (list != m_resources.end())
 	{
 		auto it = std::find((*list).second.begin(), (*list).second.end(), res);
-		if (it != (*list).second.end()) return true;
+		if (it != (*list).second.end()) return res;
 	}
 
-	return false;
+	return nullptr;
 }
 
 void M_ResourceManager::SetDefaultResources()

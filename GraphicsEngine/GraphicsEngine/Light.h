@@ -16,8 +16,8 @@ public:
 	Light();
 	virtual ~Light();
 
-	glm::vec3 m_position;
-	glm::vec3 m_color;
+	glm::vec3 m_position = glm::vec3(0.f);
+	glm::vec3 m_color = glm::vec3(1.f);
 
 	LightType m_type = LightType::L_POINT;
 };

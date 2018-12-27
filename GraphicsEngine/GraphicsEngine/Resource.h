@@ -31,6 +31,7 @@ public:
 	ResourceType GetType() const { return m_type; }
 	std::string GetName() const { return m_name; }
 	const char* GetNameCStr() const { return m_name.c_str(); }
+	void SetName(const char* name) { if (name) m_name = name; }
 
 private:
 

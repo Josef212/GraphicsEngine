@@ -35,7 +35,7 @@ void R_Model::Free()
 
 void R_Model::AddMesh(R_Geometry * geo, R_Material * mat)
 {
-	m_meshes.emplace_back(geo, mat);
+	m_meshes.push_back(std::pair<R_Geometry*, R_Material*>(geo, mat));
 }
 
 void R_Model::SetGeometry(R_Geometry * geo, int index)

@@ -23,8 +23,8 @@ void CreateDefaultDepthTexture(TextureConfig& config)
 void CreateDefaultStencilTexture(TextureConfig& config)
 {
 	config.attachment = TextureAttachment::TA_STENCIL;
-	config.format = GL_RGB;
-	config.type = GL_UNSIGNED_BYTE;
+	config.format = GL_STENCIL_COMPONENTS;
+	config.type = GL_FLOAT;
 	config.minFilter = config.magFilter = GL_LINEAR;
 	config.wrapS = config.wrapT = GL_CLAMP_TO_BORDER;
 }

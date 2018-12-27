@@ -165,7 +165,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Tools</Filter>
     </ClCompile>
-    <ClCompile Include="E_InspectorPanel.cpp" />
+    <ClCompile Include="E_InspectorPanel.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -309,6 +311,8 @@
     <ClInclude Include="Light.h">
       <Filter>Tools</Filter>
     </ClInclude>
-    <ClInclude Include="E_InspectorPanel.h" />
+    <ClInclude Include="E_InspectorPanel.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

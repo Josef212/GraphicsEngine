@@ -32,7 +32,7 @@ public:
 
 	bool IsDefaultResource(Resource* res);
 
-	bool ValidateResource(Resource* res);
+	Resource* ValidateResource(Resource* res);
 
 private:
 	void SetDefaultResources();

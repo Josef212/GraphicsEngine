@@ -4,6 +4,8 @@
 #include <string>
 
 #include "ThirdParty/ImGui/imgui.h"
+#include "Resource.h"
+#include <vector>
 
 class Panel
 {
@@ -20,7 +22,10 @@ public:
 	void SwapShow() { m_show ? Disable() : Enable(); }
 
 	bool Visible()const { return m_show; }
-	
+
+protected:
+	Resource* ResourcePopup(ResourceType type);
+
 public:
 	std::string m_name = "No name";
 

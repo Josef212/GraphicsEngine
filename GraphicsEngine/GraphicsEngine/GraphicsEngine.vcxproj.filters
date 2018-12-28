@@ -168,6 +168,9 @@
     <ClCompile Include="E_InspectorPanel.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">

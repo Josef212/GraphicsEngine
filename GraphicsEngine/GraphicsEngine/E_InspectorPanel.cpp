@@ -35,7 +35,7 @@ void E_InspectorPanel::OnDisable()
 
 void E_InspectorPanel::Display()
 {
-	int width = 500;
+	const int childWidth = 500;
 
 	ImGui::Begin("E_Inspector", &m_show);
 
@@ -50,7 +50,7 @@ void E_InspectorPanel::Display()
 
 		int modelsCount = scene->GetModelsCount();
 		const int modelsHeight = 115 * modelsCount + 50;
-		ImGui::BeginChild("Models", ImVec2(width, modelsHeight), true);
+		ImGui::BeginChild("Models", ImVec2(childWidth, modelsHeight), true);
 		{
 			ImGui::Text("Models: "); ImGui::SameLine();
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d", scene->GetModelsCount());
@@ -82,7 +82,7 @@ void E_InspectorPanel::Display()
 
 		int lightsCount = scene->GetLightsCount();
 		const int lightsHeight = 75 * lightsCount + 40;
-		ImGui::BeginChild("Lights", ImVec2(width, lightsHeight), true);
+		ImGui::BeginChild("Lights", ImVec2(childWidth, lightsHeight), true);
 		{
 			ImGui::Text("Lights: "); ImGui::SameLine();
 			ImGui::TextColored(ImVec4(1, 1, 0, 1), "%d", scene->GetLightsCount());
@@ -155,7 +155,7 @@ void E_InspectorPanel::LightDisplay(Light* light, int count)
 		light->m_position = position;
 	if (ImGui::ColorEdit3(("Light color: " + std::to_string(count)).c_str(), &color.x)) light->m_color = color;
 
-	const char* types[] = { "POINT", "DIRECTIONAL", "SPOTLIGHT" };
+	static const char* types[] = { "POINT", "DIRECTIONAL", "SPOTLIGHT" };
 	if (ImGui::Combo(("Light type: " + std::to_string(count)).c_str(), (int*)&type, types, 3)) light->m_type = type;
 }
 
@@ -194,16 +194,8 @@ void E_InspectorPanel::EditModel()
 
 			if(ImGui::BeginPopup(text.c_str()))
 			{
-				std::vector<Resource*> geos;
-				app->resourceManager->GatherResourcesOfType(ResourceType::RES_GEOMETRY, geos);
-
-				for(auto it : geos)
-				{
-					if(ImGui::Selectable(it->GetNameCStr()))
-					{
-						m_editingModel->SetGeometry(static_cast<R_Geometry*>(it), i);
-					}
-				}
+				auto res = ResourcePopup(RES_GEOMETRY);
+				if(res) m_editingModel->SetGeometry(static_cast<R_Geometry*>(res), i);
 
 				ImGui::EndPopup();
 			}
@@ -218,9 +210,6 @@ void E_InspectorPanel::EditModel()
 
 	ImGui::BeginChild("Materials", ImVec2(400, 400), true);
 	{
-		std::vector<Resource*> mats;
-		app->resourceManager->GatherResourcesOfType(ResourceType::RES_MATERIAL, mats);
-
 		ImGui::TextColored(ImVec4(0, 1, 0, 1), "Materials -------------------");
 
 		for(int i = 0; i < meshCount; ++i)
@@ -235,13 +224,8 @@ void E_InspectorPanel::EditModel()
 
 			if (ImGui::BeginPopup(text.c_str()))
 			{
-				for (auto it : mats)
-				{
-					if (ImGui::Selectable(it->GetNameCStr()))
-					{
-						m_editingModel->SetMaterial(static_cast<R_Material*>(it), i);
-					}
-				}
+				auto res = ResourcePopup(RES_MATERIAL);
+				if (res) m_editingModel->SetMaterial(static_cast<R_Material*>(res), i);
 
 				ImGui::EndPopup();
 			}
@@ -256,13 +240,8 @@ void E_InspectorPanel::EditModel()
 
 		if(ImGui::BeginPopup("ChangeAllMaterials"))
 		{
-			for (auto it : mats)
-			{
-				if (ImGui::Selectable(it->GetNameCStr()))
-				{
-					m_editingModel->SetMaterial(static_cast<R_Material*>(it));
-				}
-			}
+			auto res = ResourcePopup(RES_MATERIAL);
+			if (res) m_editingModel->SetMaterial(static_cast<R_Material*>(res));
 
 			ImGui::EndPopup();
 		}

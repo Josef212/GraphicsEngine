@@ -144,6 +144,7 @@
     <ClCompile Include="M_SceneManager.cpp" />
     <ClCompile Include="M_Window.cpp" />
     <ClCompile Include="OrthographicCamera.cpp" />
+    <ClCompile Include="Panel.cpp" />
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Resource.cpp" />

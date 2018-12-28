@@ -17,8 +17,8 @@ public:
 	void OnDisable() override;
 	void Display() override;
 
-	EventType GetSupportedEvents();
-	void OnEventRecieved(Event e);
+	EventType GetSupportedEvents() override;
+	void OnEventRecieved(Event e) override;
 private:
 	void ModelDisplay(R_Model* model);
 	void LightDisplay(Light* light, int count);

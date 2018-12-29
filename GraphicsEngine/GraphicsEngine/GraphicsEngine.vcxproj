@@ -126,6 +126,7 @@
     <ClCompile Include="BasicResourcesSceneLoader.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Clock.cpp" />
+    <ClCompile Include="DeferredSceneLoader.cpp" />
     <ClCompile Include="Defs.cpp" />
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="E_GeometryPanel.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="R_DeferredRenderer.cpp" />
     <ClCompile Include="R_ForwardRenderer.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
     <ClCompile Include="R_Material.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="BasicResourcesSceneLoader.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Clock.h" />
+    <ClInclude Include="DeferredSceneLoader.h" />
     <ClInclude Include="Defs.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventManager.h" />
@@ -188,6 +191,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Render3D.h" />
     <ClInclude Include="M_ResourceManager.h" />
+    <ClInclude Include="R_DeferredRenderer.h" />
     <ClInclude Include="R_Mat_SimpleTexture.h" />
     <ClInclude Include="SceneLoader.h" />
     <ClInclude Include="M_SceneManager.h" />

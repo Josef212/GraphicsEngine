@@ -9,16 +9,18 @@ typedef int GLint;
 
 #define MAX_FB_TEXTURES 10
 
-enum TextureAttachment
+enum Attachment
 {
-	TA_COLOR,
-	TA_DEPTH,
-	TA_STENCIL
+	A_COLOR,
+	A_DEPTH,
+	A_STENCIL,
+	A_DEPTH_STENCIL
 };
 
 struct TextureConfig
 {
 	GLuint texture = 0;
+	GLuint internalFormat = 0;
 	GLint format = 0;
 	GLint type = 0;
 
@@ -27,12 +29,13 @@ struct TextureConfig
 	GLint wrapS = 0;
 	GLint wrapT = 0;
 
-	TextureAttachment attachment;
+	Attachment attachment;
 };
 
 void CreateDefaultColorTexture(TextureConfig& config);
 void CreateDefaultDepthTexture(TextureConfig& config);
 void CreateDefaultStencilTexture(TextureConfig& config);
+void CreateDefaultDepthStencilTexture(TextureConfig& config);
 
 class FrameBuffer
 {
@@ -53,6 +56,7 @@ public:
 	int Width()const { return m_width; }
 	int Height()const { return m_height; }
 
+	void CreateRenderBufferObject(int type, Attachment attachment);
 	void CreateTexture(TextureConfig config);
 
 	inline GLuint GetTexture(int index) const

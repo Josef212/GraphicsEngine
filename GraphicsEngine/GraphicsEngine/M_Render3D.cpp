@@ -13,6 +13,7 @@
 #include "R_Renderer.h"
 
 #include "R_ForwardRenderer.h" // TMP
+#include "R_DeferredRenderer.h"
 
 
 M_Render3D::M_Render3D() : Module("M_Module3D", true), IEventListener()
@@ -89,6 +90,7 @@ bool M_Render3D::Init()
 bool M_Render3D::Start()
 {
 	m_activeRenderer = new R_ForwardRenderer("Forward renderer");
+	//m_activeRenderer = new R_DeferredRenderer("R_DeferredRenderer");
 
 	Event ev;
 	ev.type = EventType::EVENT_WINDOW_RESIZE;

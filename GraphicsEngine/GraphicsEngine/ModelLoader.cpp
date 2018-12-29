@@ -34,7 +34,7 @@ R_Model* ModelLoader::LoadModel(std::string path, R_Scene* scene)
 
 	LOG(LOG_INFO, "Loading model: %s", path.c_str());
 
-	int lastSeparator = path.find_last_of('/');
+	int lastSeparator = path.find_last_of('/') + 1;
 	int lastPoint = path.find_last_of('.');
 	std::string name = path.substr(lastSeparator, lastPoint - lastSeparator);
 

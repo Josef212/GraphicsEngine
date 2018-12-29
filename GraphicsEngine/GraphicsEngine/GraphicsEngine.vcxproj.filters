@@ -171,6 +171,12 @@
     <ClCompile Include="Panel.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
+    <ClCompile Include="R_DeferredRenderer.cpp">
+      <Filter>Resources\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="DeferredSceneLoader.cpp">
+      <Filter>Tools\Loaders\ScenesLoaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -316,6 +322,12 @@
     </ClInclude>
     <ClInclude Include="E_InspectorPanel.h">
       <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="R_DeferredRenderer.h">
+      <Filter>Resources\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="DeferredSceneLoader.h">
+      <Filter>Tools\Loaders\ScenesLoaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

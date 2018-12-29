@@ -5,6 +5,7 @@
 #include "M_ResourceManager.h"
 #include "FrameBuffer.h"
 #include "ThirdParty/ImGui/imgui.h"
+#include "M_Window.h"
 // ===========
 
 #include "R_Scene.h"
@@ -20,18 +21,22 @@
 
 R_ForwardRenderer::R_ForwardRenderer(const char * name) : R_Renderer(name)
 {
-	frameBuffer = new FrameBuffer();
-	frameBuffer->Create();
+	frameBuffer = new FrameBuffer(app->window->GetWinWidth(), app->window->GetWinHeight());
+	//frameBuffer->Create();
 	frameBuffer->Bind();
 
-	TextureConfig t0, t1, t2;
+	TextureConfig t0, t1, t2, t3;
 	CreateDefaultColorTexture(t0);
 	CreateDefaultDepthTexture(t1);
 	CreateDefaultStencilTexture(t2);
+	CreateDefaultDepthStencilTexture(t3);
 
 	frameBuffer->CreateTexture(t0);
-	frameBuffer->CreateTexture(t1);
+	//frameBuffer->CreateTexture(t1);
 	//frameBuffer->CreateTexture(t2);
+	frameBuffer->CreateTexture(t3);
+
+	//frameBuffer->CreateRenderBufferObject(GL_DEPTH24_STENCIL8, Attachment::A_DEPTH_STENCIL);
 	
 	frameBuffer->UnBind();
 }
@@ -44,7 +49,7 @@ void R_ForwardRenderer::RenderScene(R_Scene * scene)
 {
 	assert(scene != nullptr);
 
-	frameBuffer->Bind();
+	//frameBuffer->Bind();
 
 	ClearPass(scene);
 
@@ -53,7 +58,7 @@ void R_ForwardRenderer::RenderScene(R_Scene * scene)
 	RenderModels(scene);
 	DebugRenderLights(scene);
 
-	frameBuffer->UnBind();
+	//frameBuffer->UnBind();
 
 	ImGui::Begin("Framebuffers", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 

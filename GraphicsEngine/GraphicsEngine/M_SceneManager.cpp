@@ -15,6 +15,7 @@
 
 // TMP
 #include "BasicResourcesSceneLoader.h"
+#include "DeferredSceneLoader.h"
 
 
 M_SceneManager::M_SceneManager() : Module("M_SceneManager", true)
@@ -39,7 +40,8 @@ bool M_SceneManager::Start()
 
 	// TMP
 	auto sc = CreateScene("Simple scene", true);
-	BasicResourcesSceneLoader::LoadScene(sc);
+	//BasicResourcesSceneLoader::LoadScene(sc);
+	DeferredSceneLoader::LoadScene(sc);
 
 	return true;
 }

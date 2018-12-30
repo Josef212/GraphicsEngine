@@ -12,6 +12,8 @@
 #include "M_ResourceManager.h"
 #include "R_Texture.h"
 
+class R_Shader;
+
 class Panel
 {
 public:
@@ -58,6 +60,9 @@ public:
 
 		return ret;
 	}
+
+	static void ShaderInfo(R_Shader* shader);
+	static R_Shader* ChangeShaderMenu(bool sameLine = true);
 
 public:
 	std::string m_name = "No name";

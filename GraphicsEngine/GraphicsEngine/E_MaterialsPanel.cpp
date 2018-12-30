@@ -17,7 +17,6 @@ E_MaterialsPanel::E_MaterialsPanel() : Panel("E_MaterialsPanel"), IEventListener
 {
 }
 
-
 E_MaterialsPanel::~E_MaterialsPanel()
 {
 }
@@ -30,7 +29,7 @@ EventType E_MaterialsPanel::GetSupportedEvents()
 void E_MaterialsPanel::OnEventRecieved(Event e)
 {
 	if (e.type == EventType::EVENT_RESOURCE_REMOVED)
-		m_editingMaterial = static_cast<R_Material*>(app->resourceManager->ValidateResource(m_editingMaterial));
+		m_editingMaterial = dynamic_cast<R_Material*>(app->resourceManager->ValidateResource(m_editingMaterial));
 }
 
 void E_MaterialsPanel::OnInit()
@@ -54,7 +53,7 @@ void E_MaterialsPanel::Display()
 		for(auto it : materials)
 		{
 			if (ImGui::Selectable(it->GetNameCStr()))
-				m_editingMaterial = static_cast<R_Material*>(it);
+				m_editingMaterial = dynamic_cast<R_Material*>(it);
 		}
 
 		ImGui::Separator();
@@ -85,35 +84,8 @@ void E_MaterialsPanel::EditMaterial()
 	ImGui::Text("Material name: "); ImGui::SameLine();
 	ImGui::InputText("", name, 150);
 
-	R_Shader* shader = m_editingMaterial->GetShader();
-	ImGui::Text("Attached shader: "); ImGui::SameLine();
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), shader ? shader->GetNameCStr() : "NONE");
-	
-	ImGui::Text("\tShader status: "); ImGui::SameLine();
-	ImVec4 statusCol(1, 0, 0, 1);
-	if(shader)
-	{
-		switch (shader->GetStatus())
-		{
-		case Shader_Status::SH_COMPILED:
-			statusCol = { 0, 1, 0, 1 };
-			break;
-
-		case Shader_Status::SH_PENDING:
-			statusCol = { 1, 1, 0, 1 };
-			break;
-		}
-	}
-	
-	ImGui::TextColored(statusCol, shader ? shader->GetStatusStr() : "NO SHADER");
-
-	ImGui::SameLine(0, 75.f);
-	if(ImGui::Button("Change shader"))
-	{
-		ImGui::OpenPopup("Change shader");
-	}
-
-	auto sh = ResourcePopup<R_Shader*>(RES_SHADER, "Change shader");
+	Panel::ShaderInfo(m_editingMaterial->GetShader());
+	auto sh = Panel::ChangeShaderMenu();
 	if (sh) m_editingMaterial->SetShader(sh);
 
 	ImGui::Separator();
@@ -127,11 +99,6 @@ void E_MaterialsPanel::CreateMaterial()
 {
 	if (ImGui::BeginPopupModal("CreateMaterial", nullptr, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoTitleBar))
 	{
-		ImGui::Text("Creating material");
-
-		ImGui::SameLine(); ImGui::TextColored(ImVec4(1, 0, 0, 1), "WIP");
-		ImGui::Separator();
-
 		// ------------------------------------------
 		static const char* types[] = { "INT", "INT_PTR", "FLOAT", "FLOAT_PTR", "BOOL", "BOOL_PTR", "TEXTURE",
 		"VEC2", "VEC3", "VEC4", "MAT3", "MAT4" };
@@ -140,41 +107,15 @@ void E_MaterialsPanel::CreateMaterial()
 		static std::vector<MatProperty*> properties;
 		static MatPropertyValueType propType = MatPropertyValueType::MAT_INT;
 
+		//-----
+
 		ImGui::InputText("Material name", name , 150);
 
-		ImGui::Text("Attached shader: "); ImGui::SameLine();
-		ImGui::TextColored(ImVec4(1, 1, 0, 1), shader ? shader->GetNameCStr() : "NONE");
-
-		ImGui::Text("\tShader status: "); ImGui::SameLine();
-		ImVec4 statusCol(1, 0, 0, 1);
-		if (shader)
-		{
-			switch (shader->GetStatus())
-			{
-			case Shader_Status::SH_COMPILED:
-				statusCol = { 0, 1, 0, 1 };
-				break;
-
-			case Shader_Status::SH_PENDING:
-				statusCol = { 1, 1, 0, 1 };
-				break;
-			}
-		}
-
-		ImGui::TextColored(statusCol, shader ? shader->GetStatusStr() : "NO SHADER");
-
-		ImGui::SameLine(0, 75.f);
-		if (ImGui::Button("Change shader"))
-		{
-			ImGui::OpenPopup("Change shader");
-		}
-
-		auto sh = ResourcePopup<R_Shader*>(RES_SHADER, "Change shader");
+		Panel::ShaderInfo(shader);
+		auto sh = Panel::ChangeShaderMenu();
 		if (sh) shader = sh;
 
-		ImGui::Combo("Property type", (int*)&propType, types, 12);
-
-		ImGui::SameLine();
+		ImGui::Combo("Property type", (int*)&propType, types, 12); ImGui::SameLine();
 		if(ImGui::Button("Add property"))
 		{
 			properties.push_back(new MatProperty("New property", propType));
@@ -183,10 +124,11 @@ void E_MaterialsPanel::CreateMaterial()
 
 		ImGui::Separator();
 		
-		//ImGui::BeginChild("PropertiesChild", ImVec2(800, (30 * properties.size()) + 1), true);
-
 		// ===
 
+		static std::vector<MatProperty*> removeVector;
+
+		// Current properties 
 		int i = 0;
 		for(auto p : properties)
 		{
@@ -262,13 +204,25 @@ void E_MaterialsPanel::CreateMaterial()
 				break;
 			}
 
+			ImGui::SameLine();
+			if (ImGui::Button(("Remove " + label).c_str())) removeVector.push_back(p);
+
 			++i;
 		}
 
-		// ===
+		// Remove deleted properties
+		for(auto p : removeVector)
+		{
+			auto it = std::find(properties.begin(), properties.end(), p);
+			if(it != properties.end())
+			{
+				RELEASE(p);
+				properties.erase(it);
+			}
+		}
 
-		//ImGui::EndChild();
-
+		removeVector.clear();
+		
 		// ------------------------------------------
 
 		ImGui::Separator();
@@ -389,6 +343,7 @@ void R_ComplexMaterial::OnEditUI()
 			{
 				ImGui::OpenPopup(text.c_str());
 			}
+			ImGui::SameLine(); ImGui::Text(prop->m_propertyName.c_str());
 
 			auto tex = Panel::ResourcePopup<R_Texture*>(RES_TEXTURE, text.c_str());
 			if (tex) prop->m_propertyValue._texture = tex;

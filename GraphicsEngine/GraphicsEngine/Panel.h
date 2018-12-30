@@ -7,6 +7,11 @@
 #include "Resource.h"
 #include <vector>
 
+
+#include "App.h"
+#include "M_ResourceManager.h"
+#include "R_Texture.h"
+
 class Panel
 {
 public:
@@ -23,8 +28,36 @@ public:
 
 	bool Visible()const { return m_show; }
 
-protected:
-	Resource* ResourcePopup(ResourceType type);
+	template<typename T>
+	static T ResourcePopup(ResourceType type, const char* popupName)
+	{
+		T ret = nullptr;
+
+		if (ImGui::BeginPopup(popupName))
+		{
+			std::vector<Resource*> res;
+			app->resourceManager->GatherResourcesOfType(type, res);
+
+			for (auto it : res)
+			{
+				if (type == RES_TEXTURE)
+				{
+					ImGui::Image((ImTextureID)static_cast<R_Texture*>(it)->TextureID(), ImVec2(16, 16));
+					ImGui::SameLine();
+				}
+
+				if (ImGui::Selectable(it->GetNameCStr()))
+				{
+					ret = static_cast<T>(it);
+					break;
+				}
+			}
+
+			ImGui::EndPopup();
+		}
+
+		return ret;
+	}
 
 public:
 	std::string m_name = "No name";

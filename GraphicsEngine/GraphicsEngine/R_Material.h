@@ -28,6 +28,8 @@ public:
 
 	bool ValidMaterial() const { return m_shader; }
 
+	virtual void OnEditUI() {}
+
 protected:
 	R_Shader * m_shader = nullptr;
 };

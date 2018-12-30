@@ -192,13 +192,8 @@ void E_InspectorPanel::EditModel()
 				ImGui::OpenPopup(text.c_str());
 			}
 
-			if(ImGui::BeginPopup(text.c_str()))
-			{
-				auto res = ResourcePopup(RES_GEOMETRY);
-				if(res) m_editingModel->SetGeometry(static_cast<R_Geometry*>(res), i);
-
-				ImGui::EndPopup();
-			}
+			auto res = ResourcePopup<R_Geometry*>(RES_GEOMETRY, text.c_str());
+			if (res) m_editingModel->SetGeometry(res, i);
 
 			if (i < meshCount - 1) ImGui::Separator();
 		}
@@ -222,13 +217,8 @@ void E_InspectorPanel::EditModel()
 				ImGui::OpenPopup(text.c_str());
 			}
 
-			if (ImGui::BeginPopup(text.c_str()))
-			{
-				auto res = ResourcePopup(RES_MATERIAL);
-				if (res) m_editingModel->SetMaterial(static_cast<R_Material*>(res), i);
-
-				ImGui::EndPopup();
-			}
+			auto res = ResourcePopup<R_Material*>(RES_MATERIAL, text.c_str());
+			if (res) m_editingModel->SetMaterial(res, i);
 
 			if (i < meshCount - 1) ImGui::Separator();
 		}
@@ -238,13 +228,8 @@ void E_InspectorPanel::EditModel()
 			ImGui::OpenPopup("ChangeAllMaterials");
 		}
 
-		if(ImGui::BeginPopup("ChangeAllMaterials"))
-		{
-			auto res = ResourcePopup(RES_MATERIAL);
-			if (res) m_editingModel->SetMaterial(static_cast<R_Material*>(res));
-
-			ImGui::EndPopup();
-		}
+		auto res = ResourcePopup<R_Material*>(RES_MATERIAL, "ChangeAllMaterials");
+		if (res) m_editingModel->SetMaterial(res);
 
 		ImGui::EndChild();
 	}

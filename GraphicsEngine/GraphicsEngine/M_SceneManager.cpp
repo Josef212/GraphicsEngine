@@ -40,8 +40,8 @@ bool M_SceneManager::Start()
 
 	// TMP
 	auto sc = CreateScene("Simple scene", true);
-	//BasicResourcesSceneLoader::LoadScene(sc);
-	DeferredSceneLoader::LoadScene(sc);
+	BasicResourcesSceneLoader::LoadScene(sc);
+	//DeferredSceneLoader::LoadScene(sc);
 
 	return true;
 }

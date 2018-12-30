@@ -13,6 +13,7 @@ class E_GeometryPanel;
 class E_TexturePanel;
 class E_ScenePanel;
 class E_InspectorPanel;
+class E_MaterialsPanel;
 
 class M_Editor : public Module
 {
@@ -41,6 +42,7 @@ public:
 	E_TexturePanel* m_texPanel				= nullptr;
 	E_ScenePanel* m_scenePanel				= nullptr;
 	E_InspectorPanel* m_inspector			= nullptr;
+	E_MaterialsPanel* m_materialsPanel		= nullptr;
 
 private:
 	bool m_isUsingMouse = false, m_isUsingKeyboard = false;

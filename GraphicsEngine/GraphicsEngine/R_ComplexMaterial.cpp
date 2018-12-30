@@ -15,6 +15,36 @@ const char* GetMatPropertyValueTypeStr(MatPropertyValueType type)
 	return rets[type];
 }
 
+MatProperty::MatProperty(const char* name, MatPropertyValueType type) : m_propertyName(name), m_propertyType(type)
+{
+	switch (type)
+	{
+	case MatPropertyValueType::MAT_INT: m_propertyValue._int = 0; break;
+
+	case MatPropertyValueType::MAT_INT_PTR: m_propertyValue._intPtr = nullptr; break;
+
+	case MatPropertyValueType::MAT_FLOAT: m_propertyValue._float = 0.f; break;
+
+	case MatPropertyValueType::MAT_FLOAT_PTR: m_propertyValue._floatPtr = nullptr; break;
+
+	case MatPropertyValueType::MAT_BOOL: m_propertyValue._bool = false; break;
+
+	case MatPropertyValueType::MAT_BOOL_PTR: m_propertyValue._boolPtr = nullptr; break;
+
+	case MatPropertyValueType::MAT_VEC2: m_propertyValue._vec2 = glm::vec2(0.f); break;
+
+	case MatPropertyValueType::MAT_VEC3: m_propertyValue._vec3 = glm::vec3(0.f); break;
+
+	case MatPropertyValueType::MAT_VEC4: m_propertyValue._vec4 = glm::vec4(0.f); break;
+
+	case MatPropertyValueType::MAT_MAT3: m_propertyValue._mat3 = glm::mat3(0.f); break;
+
+	case MatPropertyValueType::MAT_MAT4: m_propertyValue._mat4 = glm::mat4(0.f); break;
+
+	case MatPropertyValueType::MAT_TEXTURE: m_propertyValue._texture = nullptr; break;
+	}
+}
+
 MatProperty::MatProperty(const char * name, int & value) : m_propertyName(name), m_propertyType(MAT_INT)
 {
 	m_propertyValue._int = value;

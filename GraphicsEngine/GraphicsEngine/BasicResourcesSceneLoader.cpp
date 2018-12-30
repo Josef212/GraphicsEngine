@@ -10,6 +10,7 @@
 #include "R_Texture.h"
 #include "R_Material.h"
 #include "R_Mat_SimpleTexture.h"
+#include "R_ComplexMaterial.h"
 
 #include "Camera.h"
 #include "PerspectiveCamera.h"
@@ -29,6 +30,20 @@ void BasicResourcesSceneLoader::LoadScene(R_Scene * scene)
 {
 	if (!scene) return;
 
+	R_Texture* iPhoneDiffuse = new R_Texture("iPhone diffuse");
+	R_Texture* iPhoneSpecular = new R_Texture("iPhone specular");
+	iPhoneDiffuse->LoadTexture("./Data/Models/iPhone5/Iphone5_diffuse.png");
+	iPhoneSpecular->LoadTexture("./Data/Models/iPhone5/Iphone5_specular.png");
+
+	R_Shader* iPhoneSh = new R_Shader("iPhone shader", "./Data/Shaders/difspec.vert", "./Data/Shaders/difspec.frag");
+	R_ComplexMaterial* iPhoneMat = new R_ComplexMaterial("iPhone material", iPhoneSh);
+	iPhoneMat->AddProperty(new MatProperty("diffuse", iPhoneDiffuse));
+	iPhoneMat->AddProperty(new MatProperty("specular", iPhoneSpecular));
+
+	auto iPhone = LoadModel("./Data/Models/iPhone5/iPhone5.obj", scene);
+	iPhone->SetScale(glm::vec3(0.01f));
+	iPhone->SetMaterial(iPhoneMat);
+
 	R_Geometry* quad = app->resourceManager->defaultResources.quadGeo;
 	R_Shader* textureShader = new R_Shader("Basic shader", "./Data/Shaders/basic.vert", "./Data/Shaders/texture.frag");
 	R_Mat_SimpleTexture* material = new R_Mat_SimpleTexture("Simple texture mat");
@@ -37,8 +52,6 @@ void BasicResourcesSceneLoader::LoadScene(R_Scene * scene)
 	R_Model* model = new R_Model("Basic quad", quad, material);
 	
 	PerspectiveCamera* camera = new PerspectiveCamera(glm::vec3(0.f, 0.f, 5.f));
-
-	scene->AddModel(model);
 	scene->AddCamera(camera, 0, true);
 
 	auto m = LoadModel("./Data/Models/boat.fbx", scene);

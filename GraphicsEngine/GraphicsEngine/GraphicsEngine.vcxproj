@@ -131,6 +131,7 @@
     <ClCompile Include="EventManager.cpp" />
     <ClCompile Include="E_GeometryPanel.cpp" />
     <ClCompile Include="E_InspectorPanel.cpp" />
+    <ClCompile Include="E_MaterialsPanel.cpp" />
     <ClCompile Include="E_ScenePanel.cpp" />
     <ClCompile Include="E_TexturePanel.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="EventManager.h" />
     <ClInclude Include="E_GeometryPanel.h" />
     <ClInclude Include="E_InspectorPanel.h" />
+    <ClInclude Include="E_MaterialsPanel.h" />
     <ClInclude Include="E_ScenePanel.h" />
     <ClInclude Include="E_TexturePanel.h" />
     <ClInclude Include="FrameBuffer.h" />

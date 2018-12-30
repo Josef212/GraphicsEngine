@@ -29,6 +29,7 @@ const char* GetMatPropertyValueTypeStr(MatPropertyValueType type);
 class MatProperty
 {
 public:
+	MatProperty(const char* name, MatPropertyValueType type);
 	MatProperty(const char* name, int& value);
 	MatProperty(const char* name, int* value);
 	MatProperty(const char* name, float& value);
@@ -81,6 +82,7 @@ public:
 
 	void OnFree() override;
 	void SendInfo(R_Scene* scene) const override;
+	void OnEditUI() override;
 
 
 protected:

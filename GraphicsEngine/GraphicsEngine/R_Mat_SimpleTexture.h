@@ -13,6 +13,7 @@ public:
 	void OnFree() override;
 
 	void SendInfo(R_Scene* scene)const override;
+	void OnEditUI() override;
 
 public:
 	R_Texture* texture = nullptr;

@@ -45,7 +45,7 @@ void E_MaterialsPanel::OnDisable()
 
 void E_MaterialsPanel::Display()
 {
-	ImGui::Begin(m_name.c_str(), &m_show);
+	ImGui::Begin(m_name.c_str(), &m_show, ImGuiWindowFlags_AlwaysAutoResize);
 	{
 		std::vector<Resource*> materials;
 		app->resourceManager->GatherResourcesOfType(ResourceType::RES_MATERIAL, materials);

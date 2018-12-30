@@ -2,6 +2,8 @@
 #define __EDITOR_H__
 
 #include "Module.h"
+#include "FileDialogue.h"
+
 #include <vector>
 
 #define FILE_MAX_SIZE 250
@@ -34,8 +36,6 @@ public:
 	bool UsingKeyboard()const { return m_isUsingKeyboard; }
 
 private:
-	void FileExplorer(const char* dir, const char* filterExt);
-	void Directories(const char* dir, const char* filterExt);
 
 public:
 	E_GeometryPanel* m_geoPanel				= nullptr;
@@ -48,8 +48,7 @@ private:
 	bool m_isUsingMouse = false, m_isUsingKeyboard = false;
 	bool m_showImGuiDemo = false;
 
-	bool m_fileExplorerOpen = false;
-	char m_selectedFile[FILE_MAX_SIZE];
+	FileDialogue m_fileDialogue;
 
 	std::vector<Panel*> m_panels;
 

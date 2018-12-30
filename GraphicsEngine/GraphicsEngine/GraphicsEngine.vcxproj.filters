@@ -43,6 +43,9 @@
     <Filter Include="Tools\Loaders\ScenesLoaders">
       <UniqueIdentifier>{07207529-4614-4c3d-9e25-b152f7d5404f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tools\UI">
+      <UniqueIdentifier>{5fe73812-7da6-460c-be94-cb2e45dcff83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -180,7 +183,10 @@
     <ClCompile Include="R_ComplexMaterial.cpp">
       <Filter>Resources\Materials</Filter>
     </ClCompile>
-    <ClCompile Include="E_MaterialsPanel.cpp" />
+    <ClCompile Include="E_MaterialsPanel.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="FileDialogue.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -336,6 +342,9 @@
     <ClInclude Include="R_ComplexMaterial.h">
       <Filter>Resources\Materials</Filter>
     </ClInclude>
-    <ClInclude Include="E_MaterialsPanel.h" />
+    <ClInclude Include="E_MaterialsPanel.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="FileDialogue.h" />
   </ItemGroup>
 </Project>

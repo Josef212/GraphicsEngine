@@ -134,6 +134,7 @@
     <ClCompile Include="E_MaterialsPanel.cpp" />
     <ClCompile Include="E_ScenePanel.cpp" />
     <ClCompile Include="E_TexturePanel.cpp" />
+    <ClCompile Include="FileDialogue.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="E_MaterialsPanel.h" />
     <ClInclude Include="E_ScenePanel.h" />
     <ClInclude Include="E_TexturePanel.h" />
+    <ClInclude Include="FileDialogue.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GeometryDefs.h" />
     <ClInclude Include="IEventListener.h" />

@@ -149,6 +149,7 @@
     <ClCompile Include="PerfTimer.cpp" />
     <ClCompile Include="PerspectiveCamera.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="R_ComplexMaterial.cpp" />
     <ClCompile Include="R_DeferredRenderer.cpp" />
     <ClCompile Include="R_ForwardRenderer.cpp" />
     <ClCompile Include="R_Geometry.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="M_Input.h" />
     <ClInclude Include="M_Render3D.h" />
     <ClInclude Include="M_ResourceManager.h" />
+    <ClInclude Include="R_ComplexMaterial.h" />
     <ClInclude Include="R_DeferredRenderer.h" />
     <ClInclude Include="R_Mat_SimpleTexture.h" />
     <ClInclude Include="SceneLoader.h" />

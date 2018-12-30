@@ -177,6 +177,7 @@
     <ClCompile Include="DeferredSceneLoader.cpp">
       <Filter>Tools\Loaders\ScenesLoaders</Filter>
     </ClCompile>
+    <ClCompile Include="R_ComplexMaterial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -329,5 +330,6 @@
     <ClInclude Include="DeferredSceneLoader.h">
       <Filter>Tools\Loaders\ScenesLoaders</Filter>
     </ClInclude>
+    <ClInclude Include="R_ComplexMaterial.h" />
   </ItemGroup>
 </Project>
